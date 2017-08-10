@@ -20,6 +20,10 @@ func (d *Debris) IsBounded() bool {
 	return true
 }
 
+func (d *Debris) MaxSpeed() float64 {
+	return 5
+}
+
 func (d *Debris) Radius() float64 {
 	switch d.dtype {
 	case Square:

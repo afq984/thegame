@@ -12,7 +12,6 @@ const (
 	XMax = 5000
 	YMin = 0
 	YMax = 4000
-	VMax = 1e300
 )
 
 type Movable interface {
@@ -25,6 +24,7 @@ type Movable interface {
 	// implement these methods on the concrete types
 	Friction() float64
 	IsBounded() bool
+	MaxSpeed() float64
 }
 
 func ApplyFriction(m Movable) {
@@ -56,7 +56,7 @@ func BoundAndBounce(m Movable) {
 
 func TickPosition(m Movable) {
 	r, phi := cmplx.Polar(m.Velocity())
-	r = math.Min(r, VMax)
+	r = math.Min(r, m.MaxSpeed())
 	m.SetVelocity(cmplx.Rect(r, phi))
 	m.SetPosition(m.Position() + m.Velocity())
 	if m.IsBounded() {

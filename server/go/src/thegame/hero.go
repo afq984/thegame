@@ -2,6 +2,7 @@ package main
 
 import "math"
 import "math/cmplx"
+import "thegame/pb"
 
 type Bullet struct {
 	Entity
@@ -15,6 +16,10 @@ func (b *Bullet) Friction() float64 {
 
 func (b *Bullet) IsBounded() bool {
 	return false
+}
+
+func (b *Bullet) MaxSpeed() float64 {
+	return math.Inf(1)
 }
 
 func (b *Bullet) Radius() float64 {
@@ -52,6 +57,8 @@ type Hero struct {
 	abilityLevels [NAbilities]int
 	orientation   float64
 	cooldown      int
+
+	controls pb.Controls
 }
 
 func (h *Hero) Friction() float64 {
@@ -60,6 +67,10 @@ func (h *Hero) Friction() float64 {
 
 func (h *Hero) IsBounded() bool {
 	return true
+}
+
+func (h *Hero) MaxSpeed() float64 {
+	return float64(h.ability(MovementSpeed))
 }
 
 func (h *Hero) Radius() float64 {
@@ -101,5 +112,25 @@ func (h *Hero) Shoot() *Bullet {
 			visible:  true,
 		},
 		timeout: 100,
+	}
+}
+
+// Action performs the action for the current tick on the given arena
+func (h *Hero) Action(a *Arena) {
+	if h.cooldown > 0 {
+		h.cooldown--
+	} else if h.controls.Shoot {
+		bullet := h.Shoot()
+		a.bullets = append(a.bullets, bullet)
+		h.cooldown = h.ability(Reload)
+	}
+	if h.health > 0 {
+		h.health += h.ability(HealthRegen)
+		if h.health > h.ability(MaxHealth) {
+			h.health = h.ability(MaxHealth)
+		}
+	}
+	if h.controls.Accelerate {
+		h.velocity += cmplx.Rect(0.6, h.controls.AccelerationDirection)
 	}
 }
