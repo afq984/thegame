@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "pb";
+
+service TheGame {
+    rpc Game(stream Controls) returns (stream GameState) {}
+}
+
+message Controls {
+    bool accelerate = 1;
+    double acceleration_direction = 2;
+    bool shoot = 3;
+    double shoot_direction = 4;
+    Ability level_up = 5;
+}
+
+message GameState {
+    string response = 1;
+}
+
+message Ability {
+    int32 health_regen = 1;
+    int32 max_health = 2;
+    int32 body_damage = 3;
+    int32 bullet_speed = 4;
+    int32 bullet_penetration = 5;
+    int32 bullet_damage = 6;
+    int32 bullet_reload = 7;
+    int32 movement_speed = 8;
+}
