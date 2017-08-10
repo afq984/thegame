@@ -44,8 +44,12 @@ func (a *Arena) tick() {
 		TickPosition(b)
 		objects = append(objects, b)
 	}
+
 	DoCollision(objects)
 
+	for _, b := range a.bullets {
+		b.timeout--
+	}
 	filterBullets(a.bullets)
 
 	for _, h := range a.heroes {
