@@ -48,7 +48,6 @@ func experienceToLevelUp(level int) int {
 
 type Hero struct {
 	Entity
-	id int
 
 	score         int
 	experience    int
@@ -58,7 +57,13 @@ type Hero struct {
 	orientation   float64
 	cooldown      int
 
-	controls pb.Controls
+	controls *pb.Controls
+}
+
+func NewHero() *Hero {
+	return &Hero{
+		level: 1,
+	}
 }
 
 func (h *Hero) Friction() float64 {

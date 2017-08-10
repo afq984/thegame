@@ -1,21 +1,30 @@
 package main
 
 import (
+	"container/list"
+	"thegame/pb"
 	"time"
 )
 
 const tickTime = time.Millisecond * 33
 
+type HeroControls struct {
+	*Hero
+	*pb.Controls
+}
+
 type Arena struct {
-	tickCount int64
-	debris    []*Debris
-	heroes    []*Hero
-	bullets   []*Bullet
+	tickCount   int64
+	debris      []*Debris
+	heroes      *list.List
+	bullets     []*Bullet
+	controlChan chan (HeroControls)
 }
 
 func NewArena() *Arena {
 	a := &Arena{
 		tickCount: 0,
+		heroes:    list.New(),
 	}
 	for i := 0; i < 10; i++ {
 		a.debris[i].dtype = Pentagon
@@ -29,6 +38,15 @@ func NewArena() *Arena {
 	return a
 }
 
+func (a *Arena) Join() *list.Element {
+	h := NewHero()
+	return a.heroes.PushBack(h)
+}
+
+func (a *Arena) Quit(e *list.Element) {
+	a.heroes.Remove(e)
+}
+
 func (a *Arena) tick() {
 	a.tickCount++
 	var objects []Collidable
@@ -36,7 +54,8 @@ func (a *Arena) tick() {
 		TickPosition(d)
 		objects = append(objects, d)
 	}
-	for _, h := range a.heroes {
+	for e := a.heroes.Front(); e != nil; e = e.Next() {
+		h := e.Value.(*Hero)
 		TickPosition(h)
 		objects = append(objects, h)
 	}
@@ -52,7 +71,8 @@ func (a *Arena) tick() {
 	}
 	filterBullets(a.bullets)
 
-	for _, h := range a.heroes {
+	for e := a.heroes.Front(); e != nil; e = e.Next() {
+		h := e.Value.(*Hero)
 		h.Action(a)
 	}
 }
@@ -69,7 +89,12 @@ func filterBullets(a []*Bullet) {
 }
 
 func (a *Arena) Run() {
-	for _ = range time.Tick(tickTime) {
-		a.tick()
+	for {
+		select {
+		case <-time.Tick(tickTime):
+			a.tick()
+		case hc := <-a.controlChan:
+			hc.Hero.controls = hc.Controls
+		}
 	}
 }
