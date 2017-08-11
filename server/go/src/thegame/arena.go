@@ -2,6 +2,7 @@ package main
 
 import (
 	"container/list"
+	"log"
 	"thegame/pb"
 	"time"
 )
@@ -16,9 +17,12 @@ type HeroControls struct {
 type Arena struct {
 	tickCount   int64
 	debris      []*Debris
+	heroCounter int
 	heroes      *list.List
 	bullets     []*Bullet
-	controlChan chan (HeroControls)
+	controlChan chan HeroControls
+	joinChan    chan chan *list.Element
+	quitChan    chan *list.Element
 }
 
 func NewArena() *Arena {
@@ -39,12 +43,9 @@ func NewArena() *Arena {
 }
 
 func (a *Arena) Join() *list.Element {
-	h := NewHero()
-	return a.heroes.PushBack(h)
-}
-
-func (a *Arena) Quit(e *list.Element) {
-	a.heroes.Remove(e)
+	c := make(chan *list.Element)
+	a.joinChan <- c
+	return <-c
 }
 
 func (a *Arena) tick() {
@@ -95,6 +96,13 @@ func (a *Arena) Run() {
 			a.tick()
 		case hc := <-a.controlChan:
 			hc.Hero.controls = hc.Controls
+		case jc := <-a.joinChan:
+			a.heroCounter++
+			h := NewHero(a.heroCounter)
+			log.Printf("New hero #%d", a.heroCounter)
+			jc <- a.heroes.PushBack(h)
+		case l := <-a.quitChan:
+			a.heroes.Remove(l)
 		}
 	}
 }

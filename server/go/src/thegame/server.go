@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net"
-	"sync"
 
 	_ "golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -16,26 +15,13 @@ const (
 )
 
 type server struct {
-	sync.Mutex
-	clients map[int]bool
+	arena *Arena
 }
 
 func NewServer() *server {
 	return &server{
-		clients: make(map[int]bool),
+		arena: NewArena(),
 	}
-}
-
-func (s *server) registerClient(client int) {
-	defer s.Unlock()
-	s.Lock()
-	s.clients[client] = true
-}
-
-func (s *server) unregisterClient(client int) {
-	defer s.Unlock()
-	s.Lock()
-	delete(s.clients, client)
 }
 
 func (s *server) Game(stream pb.TheGame_GameServer) error {

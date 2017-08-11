@@ -56,13 +56,14 @@ type Hero struct {
 	abilityLevels [NAbilities]int
 	orientation   float64
 	cooldown      int
-	id            int // TODO
+	id            int
 	controls      *pb.Controls
 }
 
-func NewHero() *Hero {
+func NewHero(id int) *Hero {
 	return &Hero{
 		level: 1,
+		id:    id,
 	}
 }
 
