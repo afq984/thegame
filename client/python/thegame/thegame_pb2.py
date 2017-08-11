@@ -3,6 +3,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -19,9 +20,69 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x01(\x0b\x32\x08.Ability\"\x1d\n\tGameState\x12\x10\n\x08response\x18\x01 \x01(\t\"\xc0\x01\n\x07\x41\x62ility\x12\x14\n\x0chealth_regen\x18\x01 \x01(\x05\x12\x12\n\nmax_health\x18\x02 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x03 \x01(\x05\x12\x14\n\x0c\x62ullet_speed\x18\x04 \x01(\x05\x12\x1a\n\x12\x62ullet_penetration\x18\x05 \x01(\x05\x12\x15\n\rbullet_damage\x18\x06 \x01(\x05\x12\x15\n\rbullet_reload\x18\x07 \x01(\x05\x12\x16\n\x0emovement_speed\x18\x08 \x01(\x05\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"\x1d\n\tGameState\x12\x10\n\x08response\x18\x01 \x01(\t*\xac\x01\n\x07\x41\x62ility\x12\n\n\x06unused\x10\x00\x12\x10\n\x0chealth_regen\x10\x01\x12\x0e\n\nmax_health\x10\x02\x12\x0f\n\x0b\x62ody_damage\x10\x03\x12\x10\n\x0c\x62ullet_speed\x10\x04\x12\x16\n\x12\x62ullet_penetration\x10\x05\x12\x11\n\rbullet_damage\x10\x06\x12\x11\n\rbullet_reload\x10\x07\x12\x12\n\x0emovement_speed\x10\x08\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
+_ABILITY = _descriptor.EnumDescriptor(
+  name='Ability',
+  full_name='Ability',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='unused', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='health_regen', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='max_health', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='body_damage', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='bullet_speed', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='bullet_penetration', index=5, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='bullet_damage', index=6, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='bullet_reload', index=7, number=7,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='movement_speed', index=8, number=8,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=190,
+  serialized_end=362,
+)
+_sym_db.RegisterEnumDescriptor(_ABILITY)
+
+Ability = enum_type_wrapper.EnumTypeWrapper(_ABILITY)
+unused = 0
+health_regen = 1
+max_health = 2
+body_damage = 3
+bullet_speed = 4
+bullet_penetration = 5
+bullet_damage = 6
+bullet_reload = 7
+movement_speed = 8
 
 
 
@@ -62,8 +123,8 @@ _CONTROLS = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='level_up', full_name='Controls.level_up', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=5, type=14, cpp_type=8, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -114,90 +175,10 @@ _GAMESTATE = _descriptor.Descriptor(
   serialized_end=187,
 )
 
-
-_ABILITY = _descriptor.Descriptor(
-  name='Ability',
-  full_name='Ability',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='health_regen', full_name='Ability.health_regen', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='max_health', full_name='Ability.max_health', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='body_damage', full_name='Ability.body_damage', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='bullet_speed', full_name='Ability.bullet_speed', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='bullet_penetration', full_name='Ability.bullet_penetration', index=4,
-      number=5, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='bullet_damage', full_name='Ability.bullet_damage', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='bullet_reload', full_name='Ability.bullet_reload', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='movement_speed', full_name='Ability.movement_speed', index=7,
-      number=8, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=190,
-  serialized_end=382,
-)
-
-_CONTROLS.fields_by_name['level_up'].message_type = _ABILITY
+_CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
 DESCRIPTOR.message_types_by_name['Controls'] = _CONTROLS
 DESCRIPTOR.message_types_by_name['GameState'] = _GAMESTATE
-DESCRIPTOR.message_types_by_name['Ability'] = _ABILITY
+DESCRIPTOR.enum_types_by_name['Ability'] = _ABILITY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Controls = _reflection.GeneratedProtocolMessageType('Controls', (_message.Message,), dict(
@@ -213,13 +194,6 @@ GameState = _reflection.GeneratedProtocolMessageType('GameState', (_message.Mess
   # @@protoc_insertion_point(class_scope:GameState)
   ))
 _sym_db.RegisterMessage(GameState)
-
-Ability = _reflection.GeneratedProtocolMessageType('Ability', (_message.Message,), dict(
-  DESCRIPTOR = _ABILITY,
-  __module__ = 'thegame.thegame_pb2'
-  # @@protoc_insertion_point(class_scope:Ability)
-  ))
-_sym_db.RegisterMessage(Ability)
 
 
 DESCRIPTOR.has_options = True

@@ -135,6 +135,17 @@ func (h *Hero) Action(a *Arena) {
 			h.health = h.ability(MaxHealth)
 		}
 	}
+	for _, skill := range h.controls.LevelUp {
+		if h.skillPoints <= 0 {
+			break
+		}
+		if skill != 0 {
+			if h.abilityLevels[skill] < 8 {
+				h.abilityLevels[skill]++
+				h.skillPoints--
+			}
+		}
+	}
 	if h.controls.Accelerate {
 		h.velocity += cmplx.Rect(0.6, h.controls.AccelerationDirection)
 	}
