@@ -16,7 +16,7 @@ type HeroControls struct {
 
 type Arena struct {
 	tickCount   int64
-	debris      []*Debris
+	debris      [300]*Debris
 	heroCounter int
 	heroes      *list.List
 	bullets     []*Bullet
@@ -31,13 +31,13 @@ func NewArena() *Arena {
 		heroes:    list.New(),
 	}
 	for i := 0; i < 10; i++ {
-		a.debris[i].dtype = Pentagon
+		a.debris[i] = &Debris{dtype: Pentagon}
 	}
 	for i := 10; i < 60; i++ {
-		a.debris[i].dtype = Triangle
+		a.debris[i] = &Debris{dtype: Triangle}
 	}
 	for i := 60; i < 300; i++ {
-		a.debris[i].dtype = Pentagon
+		a.debris[i] = &Debris{dtype: Square}
 	}
 	return a
 }
