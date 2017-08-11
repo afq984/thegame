@@ -1,8 +1,7 @@
 package main
 
 const (
-	_ = iota
-	HealthRegen
+	HealthRegen = iota
 	MaxHealth
 	BodyDamage
 	BulletSpeed
@@ -10,7 +9,7 @@ const (
 	BulletDamage
 	Reload
 	MovementSpeed
-	NAbilities = MovementSpeed
+	NAbilities
 )
 
 var AbilityValues = [NAbilities][9]int{

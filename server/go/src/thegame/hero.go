@@ -128,6 +128,9 @@ func (h *Hero) Shoot() *Bullet {
 
 // Action performs the action for the current tick on the given arena
 func (h *Hero) Action(a *Arena) {
+	if h.controls == nil {
+		return // TODO
+	}
 	if h.cooldown > 0 {
 		h.cooldown--
 	} else if h.controls.Shoot {
