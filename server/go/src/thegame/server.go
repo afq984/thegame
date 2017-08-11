@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"sync"
@@ -40,13 +39,13 @@ func (s *server) unregisterClient(client int) {
 }
 
 func (s *server) Game(stream pb.TheGame_GameServer) error {
+	log.Println("New client connected")
 	for {
-		controls, err := stream.Recv()
+		_, err := stream.Recv()
 		if err != nil {
-			log.Println("error", err)
+			log.Println(err)
 			return err
 		}
-		fmt.Println(controls)
 		if err := stream.Send(&pb.GameState{Response: "yo"}); err != nil {
 			return err
 		}

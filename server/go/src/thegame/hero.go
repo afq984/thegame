@@ -56,8 +56,8 @@ type Hero struct {
 	abilityLevels [NAbilities]int
 	orientation   float64
 	cooldown      int
-
-	controls *pb.Controls
+	id            int // TODO
+	controls      *pb.Controls
 }
 
 func NewHero() *Hero {
