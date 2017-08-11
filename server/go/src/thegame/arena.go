@@ -15,7 +15,6 @@ type HeroControls struct {
 }
 
 type Arena struct {
-	tickCount   int64
 	debris      [300]*Debris
 	heroCounter int
 	heroes      *list.List
@@ -27,8 +26,10 @@ type Arena struct {
 
 func NewArena() *Arena {
 	a := &Arena{
-		tickCount: 0,
-		heroes:    list.New(),
+		heroes:      list.New(),
+		controlChan: make(chan HeroControls),
+		joinChan:    make(chan chan *list.Element),
+		quitChan:    make(chan *list.Element),
 	}
 	for i := 0; i < 10; i++ {
 		a.debris[i] = &Debris{dtype: Pentagon}
@@ -39,6 +40,7 @@ func NewArena() *Arena {
 	for i := 60; i < 300; i++ {
 		a.debris[i] = &Debris{dtype: Square}
 	}
+	go a.Run()
 	return a
 }
 
@@ -48,8 +50,11 @@ func (a *Arena) Join() *list.Element {
 	return <-c
 }
 
+func (a *Arena) Quit(e *list.Element) {
+	a.quitChan <- e
+}
+
 func (a *Arena) tick() {
-	a.tickCount++
 	var objects []Collidable
 	for _, d := range a.debris {
 		TickPosition(d)
@@ -90,18 +95,27 @@ func filterBullets(a []*Bullet) {
 }
 
 func (a *Arena) Run() {
+	tick := time.Tick(tickTime)
+	perfTick := time.Tick(time.Second)
+	var tickCount int64
+	var lastTick int64
 	for {
 		select {
-		case <-time.Tick(tickTime):
+		case <-tick:
+			tickCount++
 			a.tick()
+		case <-perfTick:
+			log.Println("ticks per second:", tickCount-lastTick)
+			lastTick = tickCount
 		case hc := <-a.controlChan:
 			hc.Hero.controls = hc.Controls
 		case jc := <-a.joinChan:
 			a.heroCounter++
 			h := NewHero(a.heroCounter)
-			log.Printf("New hero #%d", a.heroCounter)
+			log.Println(h, "joined the arena")
 			jc <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:
+			log.Println(l.Value.(Hero), "left the arena")
 			a.heroes.Remove(l)
 		}
 	}

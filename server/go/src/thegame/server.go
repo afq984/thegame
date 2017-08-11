@@ -26,6 +26,8 @@ func NewServer() *server {
 
 func (s *server) Game(stream pb.TheGame_GameServer) error {
 	log.Println("New client connected")
+	element := s.arena.Join()
+	defer s.arena.Quit(element)
 	for {
 		_, err := stream.Recv()
 		if err != nil {

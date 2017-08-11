@@ -3,6 +3,7 @@ package main
 import "math"
 import "math/cmplx"
 import "thegame/pb"
+import "fmt"
 
 type Bullet struct {
 	Entity
@@ -65,6 +66,10 @@ func NewHero(id int) *Hero {
 		level: 1,
 		id:    id,
 	}
+}
+
+func (h *Hero) String() string {
+	return fmt.Sprintf("Hero#%d", h.id)
 }
 
 func (h *Hero) Friction() float64 {
