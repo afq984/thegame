@@ -3,6 +3,7 @@ package main
 import (
 	"container/list"
 	"log"
+	"math/rand"
 	"thegame/pb"
 	"time"
 )
@@ -80,6 +81,16 @@ func (a *Arena) tick() {
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
 		h.Action(a)
+	}
+
+	// random respawn debris
+	for _, d := range a.debris {
+		if !d.visible {
+			if rand.Float64() < 0.008 {
+				d.visible = true
+				d.position = RandomPosition()
+			}
+		}
 	}
 }
 
