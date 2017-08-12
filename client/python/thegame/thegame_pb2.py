@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"U\n\tGameState\x12\x17\n\x06\x64\x65\x62ris\x18\x01 \x03(\x0b\x32\x07.Debris\x12\x18\n\x07\x62ullets\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\x91\x01\n\x06\x45ntity\x12 \n\x08position\x18\x01 \x01(\x0b\x32\x0e.Entity.Vector\x12 \n\x08velocity\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x03 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x04 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"=\n\x06\x44\x65\x62ris\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\"L\n\x06\x42ullet\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\r\n\x05owner\x18\x04 \x01(\x05\"\x81\x01\n\x04Hero\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x16\n\x0e\x61\x62ility_levels\x18\x05 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x06 \x03(\x05\x12\x14\n\x0cskill_points\x18\x07 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"U\n\tGameState\x12\x17\n\x06\x64\x65\x62ris\x18\x01 \x03(\x0b\x32\x07.Debris\x12\x18\n\x07\x62ullets\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\xcb\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"!\n\x06\x44\x65\x62ris\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"e\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=667,
-  serialized_end=827,
+  serialized_start=640,
+  serialized_end=800,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -218,8 +218,8 @@ _ENTITY_VECTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=361,
-  serialized_end=391,
+  serialized_start=419,
+  serialized_end=449,
 )
 
 _ENTITY = _descriptor.Descriptor(
@@ -230,29 +230,50 @@ _ENTITY = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='position', full_name='Entity.position', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='id', full_name='Entity.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='velocity', full_name='Entity.velocity', index=1,
+      name='position', full_name='Entity.position', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='health', full_name='Entity.health', index=2,
-      number=3, type=5, cpp_type=1, label=1,
+      name='radius', full_name='Entity.radius', index=2,
+      number=3, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='velocity', full_name='Entity.velocity', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='health', full_name='Entity.health', index=4,
+      number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='body_damage', full_name='Entity.body_damage', index=3,
-      number=4, type=5, cpp_type=1, label=1,
+      name='body_damage', full_name='Entity.body_damage', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='rewarding_experience', full_name='Entity.rewarding_experience', index=6,
+      number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -270,7 +291,7 @@ _ENTITY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=246,
-  serialized_end=391,
+  serialized_end=449,
 )
 
 
@@ -282,23 +303,9 @@ _DEBRIS = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Debris.id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='entity', full_name='Debris.entity', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='entity', full_name='Debris.entity', index=0,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='radius', full_name='Debris.radius', index=2,
-      number=3, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -314,8 +321,8 @@ _DEBRIS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=393,
-  serialized_end=454,
+  serialized_start=451,
+  serialized_end=484,
 )
 
 
@@ -327,28 +334,66 @@ _BULLET = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Bullet.id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='entity', full_name='Bullet.entity', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='entity', full_name='Bullet.entity', index=0,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='radius', full_name='Bullet.radius', index=2,
-      number=3, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
+      name='owner', full_name='Bullet.owner', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=486,
+  serialized_end=534,
+)
+
+
+_HERO = _descriptor.Descriptor(
+  name='Hero',
+  full_name='Hero',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='entity', full_name='Hero.entity', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='owner', full_name='Bullet.owner', index=3,
+      name='ability_levels', full_name='Hero.ability_levels', index=1,
+      number=2, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='ability_values', full_name='Hero.ability_values', index=2,
+      number=3, type=5, cpp_type=1, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='skill_points', full_name='Hero.skill_points', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -366,74 +411,8 @@ _BULLET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=456,
-  serialized_end=532,
-)
-
-
-_HERO = _descriptor.Descriptor(
-  name='Hero',
-  full_name='Hero',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='Hero.id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='entity', full_name='Hero.entity', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='radius', full_name='Hero.radius', index=2,
-      number=3, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='ability_levels', full_name='Hero.ability_levels', index=3,
-      number=5, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='ability_values', full_name='Hero.ability_values', index=4,
-      number=6, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='skill_points', full_name='Hero.skill_points', index=5,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=535,
-  serialized_end=664,
+  serialized_start=536,
+  serialized_end=637,
 )
 
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY

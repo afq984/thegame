@@ -16,10 +16,13 @@ type Debris struct {
 	dtype int
 }
 
+func (d *Debris) ID() int {
+	return 0 // TODO
+}
+
 func (d *Debris) ToProto() *pb.Debris {
 	return &pb.Debris{
-		Entity: d.Entity.ToProto(),
-		Radius: d.Radius(),
+		Entity: EntityToProto(d),
 	}
 }
 

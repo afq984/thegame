@@ -1,28 +1,10 @@
 package main
 
-import (
-	"thegame/pb"
-)
-
 type Entity struct {
 	position complex128
 	velocity complex128
 	health   int
 	visible  bool
-}
-
-func (e *Entity) ToProto() *pb.Entity {
-	return &pb.Entity{
-		Position: &pb.Entity_Vector{
-			X: real(e.position),
-			Y: imag(e.position),
-		},
-		Velocity: &pb.Entity_Vector{
-			X: real(e.velocity),
-			Y: imag(e.velocity),
-		},
-		Health: int32(e.health),
-	}
 }
 
 func (e *Entity) Position() complex128 {

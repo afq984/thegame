@@ -32,10 +32,13 @@ message GameState {
 }
 
 message Entity {
-    Vector position = 1;
-    Vector velocity = 2;
-    int32 health = 3;
-    int32 body_damage = 4;
+    int32 id = 1;
+    Vector position = 2;
+    double radius = 3;
+    Vector velocity = 4;
+    int32 health = 5;
+    int32 body_damage = 6;
+    int32 rewarding_experience = 7;
     message Vector {
         double x = 1;
         double y = 2;
@@ -43,23 +46,17 @@ message Entity {
 }
 
 message Debris {
-    int32 id = 1;
-    Entity entity = 2;
-    double radius = 3;
+    Entity entity = 1;
 }
 
 message Bullet {
-    int32 id = 1;
-    Entity entity = 2;
-    double radius = 3;
-    int32 owner = 4;
+    Entity entity = 1;
+    int32 owner = 2;
 }
 
 message Hero {
-    int32 id = 1;
-    Entity entity = 2;
-    double radius = 3;
-    repeated int32 ability_levels = 5;
-    repeated int32 ability_values = 6;
-    int32 skill_points = 7;
+    Entity entity = 1;
+    repeated int32 ability_levels = 2;
+    repeated int32 ability_values = 3;
+    int32 skill_points = 4;
 }

@@ -13,10 +13,13 @@ type Bullet struct {
 
 func (b *Bullet) ToProto() *pb.Bullet {
 	return &pb.Bullet{
-		Entity: b.Entity.ToProto(),
+		Entity: EntityToProto(b),
 		Owner:  int32(b.owner.id),
-		Radius: b.Radius(),
 	}
+}
+
+func (b *Bullet) ID() int {
+	return 0 // TODO
 }
 
 func (b *Bullet) Friction() float64 {
@@ -79,11 +82,9 @@ func (h *Hero) ToProto() *pb.Hero {
 		values[i] = int32(AbilityValues[i][level])
 	}
 	return &pb.Hero{
-		Entity:        h.Entity.ToProto(),
-		Id:            int32(h.id),
+		Entity:        EntityToProto(h),
 		AbilityLevels: levels,
 		AbilityValues: values,
-		Radius:        h.Radius(),
 	}
 }
 
@@ -93,6 +94,10 @@ func NewHero(id int) *Hero {
 		id:         id,
 		UpdateChan: make(chan *pb.GameState, 1),
 	}
+}
+
+func (h *Hero) ID() int {
+	return h.id
 }
 
 func (h *Hero) String() string {

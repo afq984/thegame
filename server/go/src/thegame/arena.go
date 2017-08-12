@@ -105,11 +105,6 @@ func filterBullets(a []*Bullet) {
 	}
 }
 
-type toBeSeen interface {
-	GetEntity() *pb.Entity
-	GetRadius() float64
-}
-
 func (a *Arena) broadcast() {
 	var debris []*pb.Debris
 	var bullets []*pb.Bullet
@@ -127,29 +122,29 @@ func (a *Arena) broadcast() {
 	// send updates to clients
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
-		canSee := func(w toBeSeen) bool {
+		canSee := func(w *pb.Entity) bool {
 			x := real(h.position)
 			y := imag(h.position)
-			return (w.GetEntity().Position.X+w.GetRadius() > x-400 &&
-				w.GetEntity().Position.X-w.GetRadius() < x+400 &&
-				w.GetEntity().Position.Y-w.GetRadius() > y-400 &&
-				w.GetEntity().Position.Y-w.GetRadius() < y+400)
+			return (w.Position.X+w.Radius > x-400 &&
+				w.Position.X-w.Radius < x+400 &&
+				w.Position.Y-w.Radius > y-400 &&
+				w.Position.Y-w.Radius < y+400)
 		}
 		var sdebris []*pb.Debris
 		var sbullets []*pb.Bullet
 		var sheroes []*pb.Hero
 		for _, d := range debris {
-			if canSee(d) {
+			if canSee(d.Entity) {
 				sdebris = append(sdebris, d)
 			}
 		}
 		for _, b := range bullets {
-			if canSee(b) {
+			if canSee(b.Entity) {
 				sbullets = append(sbullets, b)
 			}
 		}
 		for _, h := range heroes {
-			if canSee(h) {
+			if canSee(h.Entity) {
 				sheroes = append(sheroes, h)
 			}
 		}
