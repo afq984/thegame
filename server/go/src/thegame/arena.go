@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-const tickTime = time.Millisecond * 33
+const tickTime = time.Second / 30
 
 type HeroControls struct {
 	*Hero
