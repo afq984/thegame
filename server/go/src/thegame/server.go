@@ -34,9 +34,6 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 			log.Println(err)
 			return err
 		}
-		if err := stream.Send(&pb.GameState{Response: "yo"}); err != nil {
-			return err
-		}
 	}
 }
 

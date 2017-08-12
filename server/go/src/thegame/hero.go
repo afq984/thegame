@@ -11,6 +11,14 @@ type Bullet struct {
 	timeout int
 }
 
+func (b *Bullet) ToProto() *pb.Bullet {
+	return &pb.Bullet{
+		Entity: b.Entity.ToProto(),
+		Owner:  int32(b.owner.id),
+		Radius: b.Radius(),
+	}
+}
+
 func (b *Bullet) Friction() float64 {
 	return 0
 }
@@ -59,6 +67,22 @@ type Hero struct {
 	cooldown      int
 	id            int
 	controls      *pb.Controls
+}
+
+func (h *Hero) ToProto() *pb.Hero {
+	levels := make([]int32, 8)
+	values := make([]int32, 8)
+	for i, level := range h.abilityLevels {
+		levels[i] = int32(level)
+		values[i] = int32(AbilityValues[i][level])
+	}
+	return &pb.Hero{
+		Entity:        h.Entity.ToProto(),
+		Id:            int32(h.id),
+		AbilityLevels: levels,
+		AbilityValues: values,
+		Radius:        h.Radius(),
+	}
 }
 
 func NewHero(id int) *Hero {

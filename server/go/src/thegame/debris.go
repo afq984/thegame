@@ -1,5 +1,9 @@
 package main
 
+import (
+	"thegame/pb"
+)
+
 const (
 	_        = iota
 	Square   = iota
@@ -10,6 +14,13 @@ const (
 type Debris struct {
 	Entity
 	dtype int
+}
+
+func (d *Debris) ToProto() *pb.Debris {
+	return &pb.Debris{
+		Entity: d.Entity.ToProto(),
+		Radius: d.Radius(),
+	}
 }
 
 func (d *Debris) Friction() float64 {

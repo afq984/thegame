@@ -115,7 +115,7 @@ func (a *Arena) Run() {
 			log.Println(h, "joined the arena")
 			jc <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:
-			log.Println(l.Value.(Hero), "left the arena")
+			log.Println(l.Value.(*Hero), "left the arena")
 			a.heroes.Remove(l)
 		}
 	}

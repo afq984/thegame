@@ -14,18 +14,52 @@ message Controls {
     repeated Ability level_up = 5;
 }
 
-message GameState {
-    string response = 1;
+enum Ability {
+    health_regen = 0;
+    max_health = 1;
+    body_damage = 2;
+    bullet_speed = 3;
+    bullet_penetration = 4;
+    bullet_damage = 5;
+    bullet_reload = 6;
+    movement_speed = 7;
 }
 
-enum Ability {
-    unused = 0;
-    health_regen = 1;
-    max_health = 2;
-    body_damage = 3;
-    bullet_speed = 4;
-    bullet_penetration = 5;
-    bullet_damage = 6;
-    bullet_reload = 7;
-    movement_speed = 8;
+message GameState {
+    repeated Debris debris = 1;
+    repeated Bullet bullet = 2;
+    repeated Hero heroes = 3;
+}
+
+message Entity {
+    Vector position = 1;
+    Vector velocity = 2;
+    int32 health = 3;
+    int32 body_damage = 4;
+    message Vector {
+        double x = 1;
+        double y = 2;
+    }
+}
+
+message Debris {
+    int32 id = 1;
+    Entity entity = 2;
+    double radius = 3;
+}
+
+message Bullet {
+    int32 id = 1;
+    Entity entity = 2;
+    double radius = 3;
+    int32 owner = 4;
+}
+
+message Hero {
+    int32 id = 1;
+    Entity entity = 2;
+    double radius = 3;
+    repeated int32 ability_levels = 5;
+    repeated int32 ability_values = 6;
+    int32 skill_points = 7;
 }
