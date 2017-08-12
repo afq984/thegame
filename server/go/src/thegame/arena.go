@@ -94,6 +94,67 @@ func filterBullets(a []*Bullet) {
 	}
 }
 
+type toBeSeen interface {
+	GetEntity() *pb.Entity
+	GetRadius() float64
+}
+
+func (a *Arena) broadcast() {
+	var debris []*pb.Debris
+	var bullets []*pb.Bullet
+	var heroes []*pb.Hero
+	for _, d := range a.debris {
+		debris = append(debris, d.ToProto())
+	}
+	for _, b := range a.bullets {
+		bullets = append(bullets, b.ToProto())
+	}
+	for e := a.heroes.Front(); e != nil; e = e.Next() {
+		h := e.Value.(*Hero)
+		heroes = append(heroes, h.ToProto())
+	}
+	// send updates to clients
+	for e := a.heroes.Front(); e != nil; e = e.Next() {
+		h := e.Value.(*Hero)
+		canSee := func(w toBeSeen) bool {
+			x := real(h.position)
+			y := imag(h.position)
+			return (w.GetEntity().Position.X+w.GetRadius() > x-400 &&
+				w.GetEntity().Position.X-w.GetRadius() < x+400 &&
+				w.GetEntity().Position.Y-w.GetRadius() > y-400 &&
+				w.GetEntity().Position.Y-w.GetRadius() < y+400)
+		}
+		var sdebris []*pb.Debris
+		var sbullets []*pb.Bullet
+		var sheroes []*pb.Hero
+		for _, d := range debris {
+			if canSee(d) {
+				sdebris = append(sdebris, d)
+			}
+		}
+		for _, b := range bullets {
+			if canSee(b) {
+				sbullets = append(sbullets, b)
+			}
+		}
+		for _, h := range heroes {
+			if canSee(h) {
+				sheroes = append(sheroes, h)
+			}
+		}
+		state := &pb.GameState{
+			Debris:  sdebris,
+			Bullets: sbullets,
+			Heroes:  sheroes,
+		}
+		select {
+		case h.UpdateChan <- state:
+		default:
+			log.Println(h, "not responding to updates")
+		}
+	}
+}
+
 func (a *Arena) Run() {
 	tick := time.Tick(tickTime)
 	perfTick := time.Tick(time.Second)
@@ -104,6 +165,7 @@ func (a *Arena) Run() {
 		case <-tick:
 			tickCount++
 			a.tick()
+			a.broadcast()
 		case <-perfTick:
 			log.Println("ticks per second:", tickCount-lastTick)
 			lastTick = tickCount

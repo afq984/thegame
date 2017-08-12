@@ -7,7 +7,6 @@ from thegame import thegame_pb2, thegame_pb2_grpc
 
 def gen():
     while True:
-        time.sleep(2)
         print('send')
         yield thegame_pb2.Controls()
 

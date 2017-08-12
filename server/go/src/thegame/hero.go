@@ -66,7 +66,9 @@ type Hero struct {
 	orientation   float64
 	cooldown      int
 	id            int
-	controls      *pb.Controls
+
+	controls   *pb.Controls
+	UpdateChan chan *pb.GameState
 }
 
 func (h *Hero) ToProto() *pb.Hero {
@@ -87,8 +89,9 @@ func (h *Hero) ToProto() *pb.Hero {
 
 func NewHero(id int) *Hero {
 	return &Hero{
-		level: 1,
-		id:    id,
+		level:      1,
+		id:         id,
+		UpdateChan: make(chan *pb.GameState, 1),
 	}
 }
 

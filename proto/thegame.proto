@@ -27,7 +27,7 @@ enum Ability {
 
 message GameState {
     repeated Debris debris = 1;
-    repeated Bullet bullet = 2;
+    repeated Bullet bullets = 2;
     repeated Hero heroes = 3;
 }
 

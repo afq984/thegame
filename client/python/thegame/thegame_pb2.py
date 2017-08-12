@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"T\n\tGameState\x12\x17\n\x06\x64\x65\x62ris\x18\x01 \x03(\x0b\x32\x07.Debris\x12\x17\n\x06\x62ullet\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\x91\x01\n\x06\x45ntity\x12 \n\x08position\x18\x01 \x01(\x0b\x32\x0e.Entity.Vector\x12 \n\x08velocity\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x03 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x04 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"=\n\x06\x44\x65\x62ris\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\"L\n\x06\x42ullet\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\r\n\x05owner\x18\x04 \x01(\x05\"\x81\x01\n\x04Hero\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x16\n\x0e\x61\x62ility_levels\x18\x05 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x06 \x03(\x05\x12\x14\n\x0cskill_points\x18\x07 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"U\n\tGameState\x12\x17\n\x06\x64\x65\x62ris\x18\x01 \x03(\x0b\x32\x07.Debris\x12\x18\n\x07\x62ullets\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\x91\x01\n\x06\x45ntity\x12 \n\x08position\x18\x01 \x01(\x0b\x32\x0e.Entity.Vector\x12 \n\x08velocity\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x03 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x04 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"=\n\x06\x44\x65\x62ris\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\"L\n\x06\x42ullet\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\r\n\x05owner\x18\x04 \x01(\x05\"\x81\x01\n\x04Hero\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x17\n\x06\x65ntity\x18\x02 \x01(\x0b\x32\x07.Entity\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x16\n\x0e\x61\x62ility_levels\x18\x05 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x06 \x03(\x05\x12\x14\n\x0cskill_points\x18\x07 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=666,
-  serialized_end=826,
+  serialized_start=667,
+  serialized_end=827,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -155,7 +155,7 @@ _GAMESTATE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bullet', full_name='GameState.bullet', index=1,
+      name='bullets', full_name='GameState.bullets', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -181,7 +181,7 @@ _GAMESTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=158,
-  serialized_end=242,
+  serialized_end=243,
 )
 
 
@@ -218,8 +218,8 @@ _ENTITY_VECTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=360,
-  serialized_end=390,
+  serialized_start=361,
+  serialized_end=391,
 )
 
 _ENTITY = _descriptor.Descriptor(
@@ -269,8 +269,8 @@ _ENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=245,
-  serialized_end=390,
+  serialized_start=246,
+  serialized_end=391,
 )
 
 
@@ -314,8 +314,8 @@ _DEBRIS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=392,
-  serialized_end=453,
+  serialized_start=393,
+  serialized_end=454,
 )
 
 
@@ -366,8 +366,8 @@ _BULLET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=455,
-  serialized_end=531,
+  serialized_start=456,
+  serialized_end=532,
 )
 
 
@@ -432,13 +432,13 @@ _HERO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=534,
-  serialized_end=663,
+  serialized_start=535,
+  serialized_end=664,
 )
 
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
 _GAMESTATE.fields_by_name['debris'].message_type = _DEBRIS
-_GAMESTATE.fields_by_name['bullet'].message_type = _BULLET
+_GAMESTATE.fields_by_name['bullets'].message_type = _BULLET
 _GAMESTATE.fields_by_name['heroes'].message_type = _HERO
 _ENTITY_VECTOR.containing_type = _ENTITY
 _ENTITY.fields_by_name['position'].message_type = _ENTITY_VECTOR
