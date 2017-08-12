@@ -47,6 +47,7 @@ message Entity {
 
 message Debris {
     Entity entity = 1;
+    int32 edges = 2;
 }
 
 message Bullet {

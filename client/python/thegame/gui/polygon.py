@@ -53,12 +53,13 @@ class Polygon(QGraphicsObject):
 
     def constructPolygon(self):
         points = []
+        rbase = math.tau / self.edges
         for i in range(self.edges):
-            theta = math.tau * i / self.edges
+            theta = i * rbase
             points.append(QPoint(
                 self.axis * math.cos(theta),
                 self.axis * math.sin(theta)
             ))
         points.append(QPoint(self.axis, 0))
-        print(points)
+        print(64, points)
         self.polygonShape = QPolygonF(points)

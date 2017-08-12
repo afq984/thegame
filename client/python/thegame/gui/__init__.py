@@ -1,9 +1,19 @@
 import sys
 from PyQt5.Qt import Qt, QApplication, QRectF
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QColor, QPainter
+import grpc
+import threading
 
+from thegame import thegame_pb2, thegame_pb2_grpc
+from thegame.entity import Debris
 from thegame.gui.polygon import Polygon
+
+def emptyg():
+    import time
+    time.sleep(10)
+    yield 3
 
 class Scene(QGraphicsScene):
     def __init__(self):
@@ -15,12 +25,13 @@ class Scene(QGraphicsScene):
 
     def initGame(self):
         self.setSceneRect(5, 5, self.width, self.height)
-
-        poly = Polygon(3)
-        poly.setPos(100, 200)
-        self.addItem(poly)
-        poly.setVisible(True)
-        print(666)
+        self.polygons = {}
+        self.wow()
+        class T(QThread):
+            def run(se1f):
+                self.wow()
+        t = T()
+        # threading.Thread(target=self.wow).start()
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
         backgroundColor = QColor(10, 10, 255, 30)
@@ -31,6 +42,23 @@ class Scene(QGraphicsScene):
         for i in range(-5, self.height + 20, 20):
             painter.drawLine(5, i, self.width + 5, i)
 
+
+    def dataArrived(self, debris):
+        for id, d in enumerate(debris):
+            try:
+                poly = self.polygons[id]
+            except KeyError:
+                poly = self.polygons[id] = Polygon(d.edges)
+                self.addItem(poly)
+            poly.setPos(*d.position)
+
+    def wow(self):
+        channel = grpc.insecure_channel('localhost:50051')
+        stub = thegame_pb2_grpc.TheGameStub(channel)
+        for response in stub.Game(emptyg()):
+            debris = [Debris(d) for d in response.debris]
+            self.dataArrived(debris)
+            break
 
 class View(QGraphicsView):
     viewWidth = 960

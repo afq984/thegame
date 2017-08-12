@@ -74,7 +74,9 @@ class Debris(Entity):
     '''
     The netural debris.
     '''
-
+    @property
+    def edges(self):
+        return self.data.edges
 
 class Bullet(Entity):
     '''

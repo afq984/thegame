@@ -23,6 +23,20 @@ func (d *Debris) ID() int {
 func (d *Debris) ToProto() *pb.Debris {
 	return &pb.Debris{
 		Entity: EntityToProto(d),
+		Edges:  int32(d.Edges()),
+	}
+}
+
+func (d *Debris) Edges() int {
+	switch d.dtype {
+	case Square:
+		return 4
+	case Triangle:
+		return 3
+	case Pentagon:
+		return 5
+	default:
+		panic("Unexpected shape")
 	}
 }
 
