@@ -1,48 +1,31 @@
 import abc
-import enum
+import typing
+import math
+
+from thegame.entity import Polygon, Bullet, Hero
+from thegame.thegame_pb2 import Controls
 
 
-class Skill(enum.IntEnum):
-    HealthRegen = 0
-    MaxHealth = 1
-    BodyDamage = 2
-    BulletSpeed = 3
-    BulletPenetration = 4
-    BulletDamage = 5
-    Reload = 6
-    MovementSpeed = 7
-
-
-class Entity(abc.ABC):
-    @abc.abstractproperty
-    def position(self):
+class Client(abc.ABC):
+    @abc.abstractmethod
+    def action(
+            self,
+            hero: Hero,
+            polygons: typing.List[Polygon],
+            heroes: typing.List[Hero],
+            bullets: typing.List[Bullet]):
         '''
-        The entity's current position in a 2-tuple: (x, y)
-        '''
+        decide what to do in a turn, given the environment:
 
-    @abc.abstractproperty
-    def velocity(self):
-        '''
-        The entity's current velocity in a 2-tuple: (x, y)
+        hero is your hero
+        polygon is a list of polygons
+        heroes is a list of heroes, including yourself
+        bullets is a list of bullets, including yours
         '''
 
-    @abc.abstractproperty
-    def health(self):
-        '''
-        The entity's current health, as a non-negative number
-        '''
-
-
-class Client:
-    def action(self, debris, heroes, bullets):
-        '''
-        decide what to do in a turn, given the environment
-
-        debris: list of 拉機
-        heroes: list of 敵人
-        bullets: list of 敵人的子彈
-        '''
-        self.level_up(Skill.BodyDamage)
+    def _turn(self):
+        self._controls = Controls()
+        self.action()
 
     def accelerate(self, x, y):
         '''
@@ -51,6 +34,8 @@ class Client:
         Repeated calls to this function in a turn will
         overwrite the previous one.
         '''
+        self._controls.accelerate = True
+        self._controls.accelerate =
 
     def shoot(self, x, y):
         '''
@@ -59,6 +44,7 @@ class Client:
         Repeated calls to this function in a turn will
         overwrite the previous one.
         '''
+        self._controls.
 
     def level_up(self, ability):
         '''
@@ -67,3 +53,4 @@ class Client:
         Repeated calls to this function in a turn will
         result in ability being leveled up multiple times.
         '''
+        self._controls.
