@@ -25,7 +25,7 @@ func EntityToProto(e ProtoEntity) *pb.Entity {
 		Radius: e.Radius(),
 		Velocity: &pb.Entity_Vector{
 			X: real(e.Velocity()),
-			Y: imag(e.Position()),
+			Y: imag(e.Velocity()),
 		},
 		Health:              int32(e.Health()),
 		BodyDamage:          int32(e.BodyDamage()),

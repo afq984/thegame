@@ -15,6 +15,7 @@ class Bullet(QGraphicsObject):
 
     def loadEntity(self, entity):
         self.setPos(*entity.position)
+        self.velocity = entity.velocity
 
     def boundingRect(self):
         halfPenWidth = 2

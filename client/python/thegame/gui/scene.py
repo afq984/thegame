@@ -27,10 +27,7 @@ class Scene(QGraphicsScene):
         }  # This will be modified by View, and be read by GuiClient
         self.mouseDown = False
         self.mousePos = QPoint()
-
-        self.initGame()
-
-    def initGame(self):
+        self.decaying = []
         self.setSceneRect(5, 5, self.width, self.height)
         self.polygons = ObjectTracker()
         self.heroes = ObjectTracker()
@@ -74,21 +71,50 @@ class Scene(QGraphicsScene):
                 self.addItem(gh.healthBar)
             gh.loadEntity(h)
 
-        for removal in itertools.chain(
+        for decay in itertools.chain(
             self.polygons.discard_reset(),
             self.bullets.discard_reset(),
             self.heroes.discard_reset(),
         ):
-            self.removeItem(removal)
-            try:
-                healthBar = removal.healthBar
-            except AttributeError:
-                pass
-            else:
-                self.removeItem(healthBar)
+            if hasattr(decay, 'healthBar'):
+                self.removeItem(decay.healthBar)
+            self.decaying.append(decay)
+        self.decaying = [
+            entity for entity in self.decaying
+            if not self.decay_and_remove(entity)
+        ]
 
         view, = self.views()
         view.centerOn(*hero.position)
         expCenter = view.mapToScene(
             QPoint(view.viewWidth / 2, view.viewHeight - 50))
         self.experienceBar.setPos(expCenter)
+
+    def decay_and_remove(self, entity):
+        '''
+        return the opacity of the entity and return wheter the entity
+        has been removed
+        '''
+        should_remove = self.decay(entity)
+        if should_remove:
+            self.removeItem(entity)
+        return should_remove
+
+    def decay(self, entity):
+        '''
+        reduce the opacity of the entity and return whether the entity
+        should be removed
+        '''
+        # if isinstance(entity, Hero) and entity.id in self.heroes:
+        #     return True
+        # if isinstance(entity, Bullet) and entity.id in self.bullets:
+        #     return True
+        # if isinstance(entity, Polygon) and entity.id in self.polygons:
+        #     return True
+        opa = entity.opacity() - 0.05
+        if opa <= 0:
+            return True
+        entity.setX(entity.x() + entity.velocity.x)
+        entity.setY(entity.y() + entity.velocity.y)
+        entity.setOpacity(opa)
+        return False

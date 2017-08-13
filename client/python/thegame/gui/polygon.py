@@ -29,6 +29,7 @@ class Polygon(QGraphicsObject):
         self.setPos(*entity.position)
         self.healthBar.setPos(*entity.position)
         self.healthBar.setHealth(entity.health, entity.max_health)
+        self.velocity = entity.velocity
 
     def rotate(self):
         self.setRotation(self.rotation() + self.rotationAngle)

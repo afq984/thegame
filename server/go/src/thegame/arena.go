@@ -9,7 +9,7 @@ import (
 	"thegame/pb"
 )
 
-const tickTime = time.Second / 40
+const tickTime = time.Second / 30
 
 type HeroControls struct {
 	*Hero

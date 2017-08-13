@@ -17,3 +17,6 @@ class ObjectTracker:
         unused_keys = set(self.data) - self.accessed_keys
         self.accessed_keys.clear()
         return [self.data.pop(key) for key in unused_keys]
+
+    def __contains__(self, key):
+        return key in self.data
