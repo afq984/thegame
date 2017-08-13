@@ -4,8 +4,9 @@ import (
 	"container/list"
 	"log"
 	"math/rand"
-	"thegame/pb"
 	"time"
+
+	"thegame/pb"
 )
 
 const tickTime = time.Second / 40
