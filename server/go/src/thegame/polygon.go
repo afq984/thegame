@@ -24,7 +24,20 @@ func (p *Polygon) ID() int {
 }
 
 func (p *Polygon) String() string {
-	return fmt.Sprintf("Polygon#%d", p.id)
+	return fmt.Sprintf("%s#%d", p.ShapeString(), p.id)
+}
+
+func (p *Polygon) ShapeString() string {
+	switch p.shape {
+	case Square:
+		return "Square"
+	case Triangle:
+		return "Triangle"
+	case Pentagon:
+		return "Pentagon"
+	default:
+		return "Polygon?"
+	}
 }
 
 func (p *Polygon) ToProto() *pb.Polygon {

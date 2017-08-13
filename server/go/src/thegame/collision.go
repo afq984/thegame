@@ -30,8 +30,8 @@ func Collide(a, b Collidable) {
 	if dist > rsum {
 		return
 	}
-	a.SetVelocity(a.Velocity() + cmplx.Rect((rsum-dist)/rsum, phi))
-	b.SetVelocity(b.Velocity() + cmplx.Rect((dist-rsum)/rsum, phi))
+	a.SetVelocity(a.Velocity() + cmplx.Rect((rsum-dist)/rsum+0.1, phi))
+	b.SetVelocity(b.Velocity() + cmplx.Rect((dist-rsum)/rsum+0.1, phi))
 	if a.Team() != b.Team() {
 		Hit(a, b)
 		Hit(b, a)
@@ -39,15 +39,13 @@ func Collide(a, b Collidable) {
 }
 
 func Hit(a, b Collidable) {
-	if a.Visible() {
-		hp := a.Health()
-		hp -= b.BodyDamage()
-		b.SetHealth(hp)
-		if hp < 0 {
-			log.Println(a, "killed", b)
-			b.SetVisible(false)
-			a.AcquireExperience(b.RewardingExperience())
-		}
+	hp := b.Health()
+	hp -= a.BodyDamage()
+	b.SetHealth(hp)
+	if hp < 0 {
+		log.Println(a, "killed", b)
+		b.SetVisible(false)
+		a.AcquireExperience(b.RewardingExperience())
 	}
 }
 
@@ -80,7 +78,7 @@ func DoCollision(a []Collidable) {
 		for j := i + 1; j < len(a); j++ {
 			right := a[j]
 			if leftBound(right) < rightBound(left) {
-				if bottomBound(right) < topBound(left) || bottomBound(left) < topBound(right) {
+				if bottomBound(right) < topBound(left) && bottomBound(left) < topBound(right) {
 					pairs = append(pairs, [2]Collidable{left, right})
 				}
 			} else {

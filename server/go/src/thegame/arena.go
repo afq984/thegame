@@ -61,7 +61,9 @@ func (a *Arena) tick() {
 	var objects []Collidable
 	for _, p := range a.polygons {
 		TickPosition(p)
-		objects = append(objects, p)
+		if p.visible {
+			objects = append(objects, p)
+		}
 	}
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
@@ -73,7 +75,9 @@ func (a *Arena) tick() {
 	}
 	for _, b := range a.bullets {
 		TickPosition(b)
-		objects = append(objects, b)
+		if b.visible {
+			objects = append(objects, b)
+		}
 	}
 
 	DoCollision(objects)
