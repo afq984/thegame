@@ -22,6 +22,10 @@ func (b *Bullet) ID() int {
 	return 0 // TODO
 }
 
+func (b *Bullet) MaxHealth() int {
+	return b.owner.ability(BulletPenetration)
+}
+
 func (b *Bullet) Friction() float64 {
 	return 0
 }
@@ -144,6 +148,10 @@ func (h *Hero) AcquireExperience(e int) {
 
 func (h *Hero) RewardingExperience() int {
 	return h.score / 2
+}
+
+func (h *Hero) MaxHealth() int {
+	return h.ability(MaxHealth)
 }
 
 func (h *Hero) Shoot() *Bullet {

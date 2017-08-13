@@ -4,16 +4,17 @@ from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QColor, QPainter
 import grpc
-import threading
 
-from thegame import thegame_pb2, thegame_pb2_grpc
-from thegame.entity import Debris
+from thegame import thegame_pb2_grpc
+from thegame import entity
 from thegame.gui.polygon import Polygon
+
 
 def emptyg():
     import time
     time.sleep(10)
     yield 3
+
 
 class Scene(QGraphicsScene):
     def __init__(self):
@@ -30,7 +31,7 @@ class Scene(QGraphicsScene):
         class T(QThread):
             def run(se1f):
                 self.wow()
-        t = T()
+        self.t = T()
         # threading.Thread(target=self.wow).start()
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
@@ -41,7 +42,6 @@ class Scene(QGraphicsScene):
             painter.drawLine(i, 5, i, self.height + 5)
         for i in range(-5, self.height + 20, 20):
             painter.drawLine(5, i, self.width + 5, i)
-
 
     def dataArrived(self, debris):
         for id, d in enumerate(debris):
@@ -56,9 +56,10 @@ class Scene(QGraphicsScene):
         channel = grpc.insecure_channel('localhost:50051')
         stub = thegame_pb2_grpc.TheGameStub(channel)
         for response in stub.Game(emptyg()):
-            debris = [Debris(d) for d in response.debris]
-            self.dataArrived(debris)
+            polygons = [entity.Polygon(p) for p in response.polygons]
+            self.dataArrived(polygons)
             break
+
 
 class View(QGraphicsView):
     viewWidth = 960

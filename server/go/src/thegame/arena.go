@@ -16,7 +16,7 @@ type HeroControls struct {
 }
 
 type Arena struct {
-	debris      [300]*Debris
+	polygons    [300]*Polygon
 	heroCounter int
 	heroes      *list.List
 	bullets     []*Bullet
@@ -33,13 +33,13 @@ func NewArena() *Arena {
 		quitChan:    make(chan *list.Element),
 	}
 	for i := 0; i < 10; i++ {
-		a.debris[i] = &Debris{dtype: Pentagon}
+		a.polygons[i] = &Polygon{shape: Pentagon}
 	}
 	for i := 10; i < 60; i++ {
-		a.debris[i] = &Debris{dtype: Triangle}
+		a.polygons[i] = &Polygon{shape: Triangle}
 	}
 	for i := 60; i < 300; i++ {
-		a.debris[i] = &Debris{dtype: Square}
+		a.polygons[i] = &Polygon{shape: Square}
 	}
 	go a.Run()
 	return a
@@ -57,9 +57,9 @@ func (a *Arena) Quit(e *list.Element) {
 
 func (a *Arena) tick() {
 	var objects []Collidable
-	for _, d := range a.debris {
-		TickPosition(d)
-		objects = append(objects, d)
+	for _, p := range a.polygons {
+		TickPosition(p)
+		objects = append(objects, p)
 	}
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
@@ -83,12 +83,12 @@ func (a *Arena) tick() {
 		h.Action(a)
 	}
 
-	// random respawn debris
-	for _, d := range a.debris {
-		if !d.visible {
+	// random respawn polygon
+	for _, p := range a.polygons {
+		if !p.visible {
 			if rand.Float64() < 0.008 {
-				d.visible = true
-				d.position = RandomPosition()
+				p.visible = true
+				p.position = RandomPosition()
 			}
 		}
 	}
@@ -106,11 +106,13 @@ func filterBullets(a []*Bullet) {
 }
 
 func (a *Arena) broadcast() {
-	var debris []*pb.Debris
+	var polygons []*pb.Polygon
 	var bullets []*pb.Bullet
 	var heroes []*pb.Hero
-	for _, d := range a.debris {
-		debris = append(debris, d.ToProto())
+	for _, p := range a.polygons {
+		if p.visible {
+			polygons = append(polygons, p.ToProto())
+		}
 	}
 	for _, b := range a.bullets {
 		bullets = append(bullets, b.ToProto())
@@ -130,12 +132,12 @@ func (a *Arena) broadcast() {
 				w.Position.Y-w.Radius > y-400 &&
 				w.Position.Y-w.Radius < y+400)
 		}
-		var sdebris []*pb.Debris
+		var spolygons []*pb.Polygon
 		var sbullets []*pb.Bullet
 		var sheroes []*pb.Hero
-		for _, d := range debris {
-			if canSee(d.Entity) {
-				sdebris = append(sdebris, d)
+		for _, p := range polygons {
+			if canSee(p.Entity) {
+				spolygons = append(spolygons, p)
 			}
 		}
 		for _, b := range bullets {
@@ -149,9 +151,9 @@ func (a *Arena) broadcast() {
 			}
 		}
 		state := &pb.GameState{
-			Debris:  sdebris,
-			Bullets: sbullets,
-			Heroes:  sheroes,
+			Polygons: spolygons,
+			Bullets:  sbullets,
+			Heroes:   sheroes,
 		}
 		select {
 		case h.UpdateChan <- state:

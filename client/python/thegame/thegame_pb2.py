@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"U\n\tGameState\x12\x17\n\x06\x64\x65\x62ris\x18\x01 \x03(\x0b\x32\x07.Debris\x12\x18\n\x07\x62ullets\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\xcb\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"0\n\x06\x44\x65\x62ris\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"e\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x82\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\"X\n\tGameState\x12\x1a\n\x08polygons\x18\x01 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x02 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x03 \x03(\x0b\x32\x05.Hero\"\xdf\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"e\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=655,
-  serialized_end=815,
+  serialized_start=679,
+  serialized_end=839,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -148,7 +148,7 @@ _GAMESTATE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='debris', full_name='GameState.debris', index=0,
+      name='polygons', full_name='GameState.polygons', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -181,7 +181,7 @@ _GAMESTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=158,
-  serialized_end=243,
+  serialized_end=246,
 )
 
 
@@ -218,8 +218,8 @@ _ENTITY_VECTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=419,
-  serialized_end=449,
+  serialized_start=442,
+  serialized_end=472,
 )
 
 _ENTITY = _descriptor.Descriptor(
@@ -278,6 +278,13 @@ _ENTITY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='max_health', full_name='Entity.max_health', index=7,
+      number=8, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -290,27 +297,27 @@ _ENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=246,
-  serialized_end=449,
+  serialized_start=249,
+  serialized_end=472,
 )
 
 
-_DEBRIS = _descriptor.Descriptor(
-  name='Debris',
-  full_name='Debris',
+_POLYGON = _descriptor.Descriptor(
+  name='Polygon',
+  full_name='Polygon',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='entity', full_name='Debris.entity', index=0,
+      name='entity', full_name='Polygon.entity', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='edges', full_name='Debris.edges', index=1,
+      name='edges', full_name='Polygon.edges', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -328,8 +335,8 @@ _DEBRIS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=451,
-  serialized_end=499,
+  serialized_start=474,
+  serialized_end=523,
 )
 
 
@@ -366,8 +373,8 @@ _BULLET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=501,
-  serialized_end=549,
+  serialized_start=525,
+  serialized_end=573,
 )
 
 
@@ -418,24 +425,24 @@ _HERO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=551,
-  serialized_end=652,
+  serialized_start=575,
+  serialized_end=676,
 )
 
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
-_GAMESTATE.fields_by_name['debris'].message_type = _DEBRIS
+_GAMESTATE.fields_by_name['polygons'].message_type = _POLYGON
 _GAMESTATE.fields_by_name['bullets'].message_type = _BULLET
 _GAMESTATE.fields_by_name['heroes'].message_type = _HERO
 _ENTITY_VECTOR.containing_type = _ENTITY
 _ENTITY.fields_by_name['position'].message_type = _ENTITY_VECTOR
 _ENTITY.fields_by_name['velocity'].message_type = _ENTITY_VECTOR
-_DEBRIS.fields_by_name['entity'].message_type = _ENTITY
+_POLYGON.fields_by_name['entity'].message_type = _ENTITY
 _BULLET.fields_by_name['entity'].message_type = _ENTITY
 _HERO.fields_by_name['entity'].message_type = _ENTITY
 DESCRIPTOR.message_types_by_name['Controls'] = _CONTROLS
 DESCRIPTOR.message_types_by_name['GameState'] = _GAMESTATE
 DESCRIPTOR.message_types_by_name['Entity'] = _ENTITY
-DESCRIPTOR.message_types_by_name['Debris'] = _DEBRIS
+DESCRIPTOR.message_types_by_name['Polygon'] = _POLYGON
 DESCRIPTOR.message_types_by_name['Bullet'] = _BULLET
 DESCRIPTOR.message_types_by_name['Hero'] = _HERO
 DESCRIPTOR.enum_types_by_name['Ability'] = _ABILITY
@@ -470,12 +477,12 @@ Entity = _reflection.GeneratedProtocolMessageType('Entity', (_message.Message,),
 _sym_db.RegisterMessage(Entity)
 _sym_db.RegisterMessage(Entity.Vector)
 
-Debris = _reflection.GeneratedProtocolMessageType('Debris', (_message.Message,), dict(
-  DESCRIPTOR = _DEBRIS,
+Polygon = _reflection.GeneratedProtocolMessageType('Polygon', (_message.Message,), dict(
+  DESCRIPTOR = _POLYGON,
   __module__ = 'thegame.thegame_pb2'
-  # @@protoc_insertion_point(class_scope:Debris)
+  # @@protoc_insertion_point(class_scope:Polygon)
   ))
-_sym_db.RegisterMessage(Debris)
+_sym_db.RegisterMessage(Polygon)
 
 Bullet = _reflection.GeneratedProtocolMessageType('Bullet', (_message.Message,), dict(
   DESCRIPTOR = _BULLET,

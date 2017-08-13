@@ -26,7 +26,7 @@ enum Ability {
 }
 
 message GameState {
-    repeated Debris debris = 1;
+    repeated Polygon polygons = 1;
     repeated Bullet bullets = 2;
     repeated Hero heroes = 3;
 }
@@ -39,13 +39,14 @@ message Entity {
     int32 health = 5;
     int32 body_damage = 6;
     int32 rewarding_experience = 7;
+    int32 max_health = 8;
     message Vector {
         double x = 1;
         double y = 2;
     }
 }
 
-message Debris {
+message Polygon {
     Entity entity = 1;
     int32 edges = 2;
 }

@@ -9,6 +9,7 @@ A 2D vector.
 Used to represent a point and velocity in thegame
 '''
 
+
 class EntityAttribute:
     def __init__(self, doc=None):
         self.__doc__ = doc
@@ -68,15 +69,21 @@ class Entity:
         How much experience you will get if you kill this entity.
         '''
     )
+    max_health = EntityAttribute(
+        '''
+        The maximum health of this entity.
+        '''
+    )
 
 
-class Debris(Entity):
+class Polygon(Entity):
     '''
-    The netural debris.
+    The netural polygons.
     '''
     @property
     def edges(self):
         return self.data.edges
+
 
 class Bullet(Entity):
     '''
