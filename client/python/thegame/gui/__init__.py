@@ -3,11 +3,12 @@ import collections
 from PyQt5.Qt import Qt, QApplication, QRectF
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QColor, QPainter, QKeyEvent
+from PyQt5.QtGui import QColor, QPainter, QKeyEvent, QMouseEvent
 
 from thegame.api import Client
 from thegame.gui.polygon import Polygon
 from thegame.gui.hero import Hero
+from thegame.gui.objecttracker import ObjectTracker
 
 
 class GuiClient(Client, QThread):
@@ -32,6 +33,7 @@ class GuiClient(Client, QThread):
         if self.scene.keys[Qt.Key_D]:
             x += 1
         self.accelerate(x, y)
+        self.shoot(*self.scene.mouseLocation, not self.scene.mouseDown)
 
 
 class Scene(QGraphicsScene):
@@ -47,13 +49,16 @@ class Scene(QGraphicsScene):
             Qt.Key_S: False,
             Qt.Key_D: False,
         }  # This will be modified by View, and be read by GuiClient
+        self.mouseDown = False
+        self.mouseLocation = (0, 0)
 
         self.initGame()
 
     def initGame(self):
         self.setSceneRect(5, 5, self.width, self.height)
-        self.polygons = {}
-        self.heroes = {}
+        self.polygons = ObjectTracker()
+        self.heroes = ObjectTracker()
+        self.bullets = ObjectTracker()
         self.rpc = GuiClient(self)
         self.rpc.dataArrived.connect(self.updateDataSlot)
         self.rpc.start()
@@ -71,20 +76,16 @@ class Scene(QGraphicsScene):
         self.updateData(**self.rpc.dataQueue.popleft())
 
     def updateData(self, hero, heroes, polygons, bullets):
-        for d in polygons:
-            try:
-                poly = self.polygons[d.id]
-            except KeyError:
-                poly = self.polygons[d.id] = Polygon(d.edges)
-                self.addItem(poly)
-            poly.setPos(*d.position)
+        for p in polygons:
+            gp, created = self.polygons.get_or_create(p.id, Polygon, p.edges)
+            if created:
+                self.addItem(gp)
+            gp.setPos(*p.position)
         for h in heroes:
-            try:
-                hr = self.heroes[h.id]
-            except KeyError:
-                hr = self.polygons[h.id] = Hero()
-                self.addItem(hr)
-            hr.setPos(*h.position)
+            gh, created = self.heroes.get_or_create(h.id, Hero)
+            if created:
+                self.addItem(gh)
+            gh.setPos(*h.position)
 
         for view in self.views():
             view.centerOn(*hero.position)
@@ -121,6 +122,20 @@ class View(QGraphicsView):
         key = event.key()
         if key in self.keys:
             self.keys[key] = False
+
+    def mouseMoveEvent(self, event: QMouseEvent):
+        point = self.mapToScene(event.pos())
+        self.scene().mouseLocation = (point.x(), point.y())
+
+    def mousePressEvent(self, event):
+        self.scene().mouseDown = True
+
+    def mouseReleaseEvent(self, event):
+        self.scene().mouseDown = False
+
+    def wheelEvent(self, event):
+        # consume the event so it will do nothing
+        pass
 
 
 def main():

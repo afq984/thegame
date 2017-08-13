@@ -1,7 +1,7 @@
-from thegame import api
+from thegame import Client, Ability
 
 
-class Client(api.Client):
+class IClient(Client):
     def action(self, hero, polygons, heroes, bullets):
         print("I'm", hero)
         print("I'm surrounded by these polygons:", polygons)
@@ -12,4 +12,4 @@ class Client(api.Client):
             self.shoot(*polygons[0].position)
 
 
-Client().run()
+IClient().run()

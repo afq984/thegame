@@ -12,6 +12,7 @@ from thegame.gui.healthbar import HealthBar
 
 class Hero(QGraphicsObject):
     def __init__(self):
+        print('init')
         super().__init__()
         self.width = 60
 
@@ -41,9 +42,9 @@ class Hero(QGraphicsObject):
         halfPenWidth = 3 / 2
         return QRectF(
             -self.width - halfPenWidth,
-            -self.width * 2 - halfPenWidth,
-            self.width * 2 + halfPenWidth,
-            self.width * 4 + halfPenWidth,
+            -self.width - halfPenWidth,
+            self.width * 2 + 2 * halfPenWidth,
+            self.width * 2 + 2 * halfPenWidth,
         )
 
     def paint(

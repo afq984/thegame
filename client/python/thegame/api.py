@@ -30,14 +30,14 @@ class Client:
             self._controls.accelerate = True
             self._controls.acceleration_direction = self._pos_to_dir(x, y)
 
-    def shoot(self, x, y):
+    def shoot(self, x, y, turn_only=False):
         '''
         Shoots a bullet in the current turn, aiming at the point (x, y).
         If bullet is reloading, then nothing will happen.
         Repeated calls to this function in a turn will
         overwrite the previous one.
         '''
-        self._controls.shoot = True
+        self._controls.shoot = not turn_only
         self._controls.shoot_direction = self._pos_to_dir(x, y)
 
     def level_up(self, ability):
