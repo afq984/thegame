@@ -92,6 +92,8 @@ func (a *Arena) tick() {
 	for _, p := range a.polygons {
 		if !p.visible {
 			if rand.Float64() < 0.008 {
+				a.polygonCounter++
+				p.id = a.polygonCounter
 				p.visible = true
 				p.health = p.MaxHealth()
 				p.position = RandomPosition()

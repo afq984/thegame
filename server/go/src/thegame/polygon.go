@@ -14,11 +14,12 @@ const (
 
 type Polygon struct {
 	Entity
+	id    int
 	shape Shape
 }
 
 func (p *Polygon) ID() int {
-	return 0 // TODO
+	return p.id
 }
 
 func (p *Polygon) ToProto() *pb.Polygon {
