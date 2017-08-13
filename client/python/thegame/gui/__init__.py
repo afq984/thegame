@@ -3,7 +3,7 @@ import collections
 from PyQt5.Qt import Qt, QApplication, QRectF
 from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QColor, QPainter
+from PyQt5.QtGui import QColor, QPainter, QKeyEvent
 
 from thegame.api import Client
 from thegame.gui.polygon import Polygon
@@ -22,6 +22,16 @@ class GuiClient(Client, QThread):
     def action(self, **kwds):
         self.dataQueue.append(kwds)
         self.dataArrived.emit()
+        x, y = kwds['hero'].position
+        if self.scene.keys[Qt.Key_W]:
+            y -= 1
+        if self.scene.keys[Qt.Key_A]:
+            x -= 1
+        if self.scene.keys[Qt.Key_S]:
+            y += 1
+        if self.scene.keys[Qt.Key_D]:
+            x += 1
+        self.accelerate(x, y)
 
 
 class Scene(QGraphicsScene):
@@ -30,6 +40,14 @@ class Scene(QGraphicsScene):
         self.width = 5000
         self.height = 4000
         self.margin = 10
+
+        self.keys = {
+            Qt.Key_W: False,
+            Qt.Key_A: False,
+            Qt.Key_S: False,
+            Qt.Key_D: False,
+        }  # This will be modified by View, and be read by GuiClient
+
         self.initGame()
 
     def initGame(self):
@@ -88,6 +106,21 @@ class View(QGraphicsView):
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.centerOn(100, 200)
+
+        self.keys = scene.keys
+
+    def keyPressEvent(self, event: QKeyEvent):
+        key = event.key()
+        if key in self.keys:
+            self.keys[key] = True
+
+    def keyReleaseEvent(self, event: QKeyEvent):
+        if event.isAutoRepeat():
+            event.ignore()
+            return
+        key = event.key()
+        if key in self.keys:
+            self.keys[key] = False
 
 
 def main():

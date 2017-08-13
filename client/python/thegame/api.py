@@ -26,8 +26,9 @@ class Client:
         Repeated calls to this function in a turn will
         overwrite the previous one.
         '''
-        self._controls.accelerate = True
-        self._controls.acceleration_direction = self._pos_to_dir(x, y)
+        if (x, y) != self._hero.position:
+            self._controls.accelerate = True
+            self._controls.acceleration_direction = self._pos_to_dir(x, y)
 
     def shoot(self, x, y):
         '''

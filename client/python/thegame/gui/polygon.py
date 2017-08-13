@@ -62,5 +62,4 @@ class Polygon(QGraphicsObject):
                 self.axis * math.sin(theta)
             ))
         points.append(QPoint(self.axis, 0))
-        print(64, points)
         self.polygonShape = QPolygonF(points)
