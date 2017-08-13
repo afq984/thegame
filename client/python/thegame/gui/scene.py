@@ -6,6 +6,7 @@ from thegame.gui.client import GuiClient
 from thegame.gui.objecttracker import ObjectTracker
 from thegame.gui.polygon import Polygon
 from thegame.gui.hero import Hero
+from thegame.gui.bullet import Bullet
 
 
 class Scene(QGraphicsScene):
@@ -53,6 +54,11 @@ class Scene(QGraphicsScene):
             if created:
                 self.addItem(gp)
             gp.setPos(*p.position)
+        for b in bullets:
+            gb, created = self.bullets.get_or_create(b.id, Bullet)
+            if created:
+                self.addItem(gb)
+            gb.setPos(*b.position)
         for h in heroes:
             gh, created = self.heroes.get_or_create(h.id, Hero)
             if created:

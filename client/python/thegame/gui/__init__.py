@@ -6,6 +6,9 @@ from thegame.gui.scene import Scene
 from thegame.gui.view import View
 
 
+app = None
+
+
 def main():
     global app
     app = QApplication(sys.argv)

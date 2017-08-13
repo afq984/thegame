@@ -176,6 +176,7 @@ func (h *Hero) Action(a *Arena) {
 	if h.controls == nil {
 		return // TODO
 	}
+	h.orientation = h.controls.ShootDirection
 	if h.cooldown > 0 {
 		h.cooldown--
 	} else if h.controls.Shoot {
