@@ -1,6 +1,7 @@
 import sys
+import collections
 from PyQt5.Qt import Qt, QApplication, QRectF
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread, pyqtSignal
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QColor, QPainter
 
@@ -10,14 +11,17 @@ from thegame.gui.hero import Hero
 
 
 class GuiClient(Client, QThread):
+
+    dataArrived = pyqtSignal()
+
     def __init__(self, scene):
         super().__init__()
+        self.dataQueue = collections.deque()
         self.scene = scene
 
     def action(self, **kwds):
-        import threading, sys
-        print(threading.current_thread(), file=sys.stderr)
-        self.scene.dataArrived(**kwds)
+        self.dataQueue.append(kwds)
+        self.dataArrived.emit()
 
 
 class Scene(QGraphicsScene):
@@ -33,8 +37,8 @@ class Scene(QGraphicsScene):
         self.polygons = {}
         self.heroes = {}
         self.rpc = GuiClient(self)
+        self.rpc.dataArrived.connect(self.updateDataSlot)
         self.rpc.start()
-        # threading.Thread(target=self.wow).start()
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
         backgroundColor = QColor(10, 10, 255, 30)
@@ -45,7 +49,10 @@ class Scene(QGraphicsScene):
         for i in range(-5, self.height + 20, 20):
             painter.drawLine(5, i, self.width + 5, i)
 
-    def dataArrived(self, hero, heroes, polygons, bullets):
+    def updateDataSlot(self):
+        self.updateData(**self.rpc.dataQueue.popleft())
+
+    def updateData(self, hero, heroes, polygons, bullets):
         for d in polygons:
             try:
                 poly = self.polygons[d.id]
