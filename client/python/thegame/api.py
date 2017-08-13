@@ -1,13 +1,13 @@
-import abc
 import typing
-import math
+import queue
+
+import grpc
 
 from thegame.entity import Polygon, Bullet, Hero
-from thegame.thegame_pb2 import Controls
+from thegame import thegame_pb2, thegame_pb2_grpc
 
 
-class Client(abc.ABC):
-    @abc.abstractmethod
+class Client:
     def action(
             self,
             hero: Hero,
@@ -23,10 +23,6 @@ class Client(abc.ABC):
         bullets is a list of bullets, including yours
         '''
 
-    def _turn(self):
-        self._controls = Controls()
-        self.action()
-
     def accelerate(self, x, y):
         '''
         Accelerates towards the point (x, y).
@@ -35,7 +31,7 @@ class Client(abc.ABC):
         overwrite the previous one.
         '''
         self._controls.accelerate = True
-        self._controls.accelerate =
+        # XXX
 
     def shoot(self, x, y):
         '''
@@ -44,7 +40,8 @@ class Client(abc.ABC):
         Repeated calls to this function in a turn will
         overwrite the previous one.
         '''
-        self._controls.
+        self._controls.shoot = True
+        # XXX self._controls.shoot_direction =
 
     def level_up(self, ability):
         '''
@@ -53,4 +50,37 @@ class Client(abc.ABC):
         Repeated calls to this function in a turn will
         result in ability being leveled up multiple times.
         '''
-        self._controls.
+        self._controls.level_up.append(ability)
+
+    def _gen(self):
+        '''
+        Generate requests to grpc
+        '''
+        yield thegame_pb2.Controls()
+        while True:
+            yield self._queue.get()
+
+    def _turn(self):
+        self._controls = thegame_pb2.Controls()
+        self.action()
+
+    def run(self, remote='localhost:50051'):
+        '''
+        Starts the client
+        '''
+        channel = grpc.insecure_channel(remote)
+        stub = thegame_pb2_grpc.TheGameStub(channel)
+        self._queue = queue.Queue()
+        for response in stub.Game(self._gen()):
+            hero = None
+            polygons = list(map(Polygon, response.polygons))
+            heroes = list(map(Hero, response.heroes))
+            bullets = list(map(Bullet, response.bullets))
+            self._controls = thegame_pb2.Controls()
+            self.action(
+                hero=hero,
+                polygons=polygons,
+                heroes=heroes,
+                bullets=bullets)
+            self._queue.put(self._controls)
+

@@ -3,17 +3,18 @@ from PyQt5.Qt import Qt, QApplication, QRectF
 from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QColor, QPainter
-import grpc
 
-from thegame import thegame_pb2_grpc
-from thegame import entity
+from thegame.api import Client
 from thegame.gui.polygon import Polygon
 
 
-def emptyg():
-    import time
-    time.sleep(10)
-    yield 3
+class GuiClient(Client, QThread):
+    def __init__(self, scene):
+        super().__init__()
+        self.scene = scene
+
+    def action(self, hero, polygons, bullets, heroes):
+        self.scene.dataArrived(polygons)
 
 
 class Scene(QGraphicsScene):
@@ -27,11 +28,8 @@ class Scene(QGraphicsScene):
     def initGame(self):
         self.setSceneRect(5, 5, self.width, self.height)
         self.polygons = {}
-        self.wow()
-        class T(QThread):
-            def run(se1f):
-                self.wow()
-        self.t = T()
+        self.rpc = GuiClient(self)
+        self.rpc.start()
         # threading.Thread(target=self.wow).start()
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
@@ -51,14 +49,6 @@ class Scene(QGraphicsScene):
                 poly = self.polygons[id] = Polygon(d.edges)
                 self.addItem(poly)
             poly.setPos(*d.position)
-
-    def wow(self):
-        channel = grpc.insecure_channel('localhost:50051')
-        stub = thegame_pb2_grpc.TheGameStub(channel)
-        for response in stub.Game(emptyg()):
-            polygons = [entity.Polygon(p) for p in response.polygons]
-            self.dataArrived(polygons)
-            break
 
 
 class View(QGraphicsView):
