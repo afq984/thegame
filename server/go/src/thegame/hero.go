@@ -205,6 +205,7 @@ func (h *Hero) Spawn() {
 	experience := h.score / 2
 	h.score = 0
 	h.experience = 0
+	h.health = h.MaxHealth()
 	h.visible = true
 	h.AcquireExperience(experience)
 	h.position = RandomPosition()

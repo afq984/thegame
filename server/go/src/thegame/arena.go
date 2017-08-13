@@ -16,13 +16,15 @@ type HeroControls struct {
 }
 
 type Arena struct {
-	polygons    [300]*Polygon
-	heroCounter int
-	heroes      *list.List
-	bullets     []*Bullet
-	controlChan chan HeroControls
-	joinChan    chan chan *list.Element
-	quitChan    chan *list.Element
+	polygons       [300]*Polygon
+	heroCounter    int
+	bulletCounter  int
+	polygonCounter int
+	heroes         *list.List
+	bullets        []*Bullet
+	controlChan    chan HeroControls
+	joinChan       chan chan *list.Element
+	quitChan       chan *list.Element
 }
 
 func NewArena() *Arena {
@@ -91,6 +93,7 @@ func (a *Arena) tick() {
 		if !p.visible {
 			if rand.Float64() < 0.008 {
 				p.visible = true
+				p.health = p.MaxHealth()
 				p.position = RandomPosition()
 			}
 		}

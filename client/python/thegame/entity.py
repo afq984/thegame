@@ -31,7 +31,13 @@ class Entity:
         self.data = data
 
     def __repr__(self):
-        return f'<{self.__class__.__name__}#{self.id} @({self.position.x:.2f}, {self.position.y:.2f})>'
+        return (
+            f'<{self.__class__.__name__}#{self.id} '
+            f'@({self.position.x:.0f},{self.position.y:.0f}) '
+            f'HP={self.health}/{self.max_health} '
+            f'D={self.body_damage}'
+            '>'
+        )
 
     id = _EntityAttribute()
 
