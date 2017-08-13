@@ -26,6 +26,22 @@ class _EntityAttribute:
         raise AttributeError(f'read-only attribute {self.name!r}')
 
 
+class _DataAttribute:
+    def __init__(self, doc=None):
+        self.__doc__ = doc
+
+    def __set_name__(self, klass, name):
+        self.name = name
+
+    def __get__(self, instance, klass=None):
+        if instance is None:
+            return self
+        return getattr(instance.data, self.name)
+
+    def __set__(self, obj, value):
+        raise AttributeError(f'read-only attribute {self.name!r}')
+
+
 class Entity:
     def __init__(self, data):
         self.data = data
@@ -194,10 +210,14 @@ class Hero(Entity, metaclass=_HeroMeta):
         '''
         return self.__dict__['abilities']
 
-    @property
-    def orientation(self):
+    orientation = _DataAttribute(
         '''
-        The orientation of the hero; the direction the barrel is facing
-        at, in radians.
+        The orientation of the hero; the direction the barrel is faction at,
+        in radians.
         '''
-        return self.data.orientation
+    )
+    level = _DataAttribute('The level of the hero')
+    score = _DataAttribute('The score of the hero')
+    experience = _DataAttribute('The experience the hero has')
+    experience_to_level_up = _DataAttribute(
+        'The experience required for the hero to level up')

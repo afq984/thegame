@@ -66,4 +66,8 @@ message Hero {
     repeated int32 ability_values = 3;
     int32 skill_points = 4;
     double orientation = 5;
+    int32 level = 6;
+    int32 score = 7;
+    int32 experience = 8;
+    int32 experience_to_level_up = 9;
 }
