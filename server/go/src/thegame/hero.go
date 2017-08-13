@@ -10,6 +10,7 @@ type Bullet struct {
 	Entity
 	owner   *Hero
 	timeout int
+	id      int
 }
 
 func (b *Bullet) ToProto() *pb.Bullet {
@@ -20,7 +21,7 @@ func (b *Bullet) ToProto() *pb.Bullet {
 }
 
 func (b *Bullet) ID() int {
-	return 0 // TODO
+	return b.id
 }
 
 func (b *Bullet) MaxHealth() int {
@@ -155,6 +156,8 @@ func (h *Hero) MaxHealth() int {
 	return h.ability(MaxHealth)
 }
 
+// Shoot creates a bullet from the hero's stats
+// After shooting, remember to assign a bullet id
 func (h *Hero) Shoot() *Bullet {
 	return &Bullet{
 		Entity: Entity{
@@ -177,6 +180,8 @@ func (h *Hero) Action(a *Arena) {
 		h.cooldown--
 	} else if h.controls.Shoot {
 		bullet := h.Shoot()
+		a.bulletCounter++
+		bullet.id = a.bulletCounter
 		a.bullets = append(a.bullets, bullet)
 		h.cooldown = h.ability(Reload)
 	}
