@@ -12,7 +12,6 @@ from thegame.gui.healthbar import HealthBar
 
 class Hero(QGraphicsObject):
     def __init__(self):
-        print('init')
         super().__init__()
         self.width = 60
 
