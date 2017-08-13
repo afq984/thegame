@@ -5,6 +5,7 @@ import grpc
 
 from thegame.entity import Polygon, Bullet, Hero
 from thegame import thegame_pb2, thegame_pb2_grpc
+from thegame.abilities import Ability
 
 
 class Client:
@@ -49,7 +50,7 @@ class Client:
 
         :param thegame.Ability ability: the ability to level up
         '''
-        self._controls.level_up.append(ability)
+        self._controls.level_up.append(Ability(ability))
 
     def _pos_to_dir(self, x, y):
         sx, sy = self._hero.position
