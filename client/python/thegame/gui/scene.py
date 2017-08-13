@@ -9,6 +9,7 @@ from thegame.gui.objecttracker import ObjectTracker
 from thegame.gui.polygon import Polygon
 from thegame.gui.hero import Hero
 from thegame.gui.bullet import Bullet
+from thegame.gui.experiencebar import ExperienceBar
 
 
 class Scene(QGraphicsScene):
@@ -37,6 +38,8 @@ class Scene(QGraphicsScene):
         self.rpc = GuiClient(self)
         self.rpc.dataArrived.connect(self.updateDataSlot)
         self.rpc.start()
+        self.experienceBar = ExperienceBar()
+        self.addItem(self.experienceBar)
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
         backgroundColor = QColor(10, 10, 255, 30)
@@ -51,6 +54,8 @@ class Scene(QGraphicsScene):
         self.updateData(**self.rpc.dataQueue.popleft())
 
     def updateData(self, hero, heroes, polygons, bullets):
+        self.experienceBar.loadEntity(hero)
+
         for p in polygons:
             gp, created = self.polygons.get_or_create(p.id, Polygon, p.edges)
             if created:
@@ -82,5 +87,8 @@ class Scene(QGraphicsScene):
             else:
                 self.removeItem(healthBar)
 
-        for view in self.views():
-            view.centerOn(*hero.position)
+        view, = self.views()
+        view.centerOn(*hero.position)
+        expCenter = view.mapToScene(
+            QPoint(view.viewWidth / 2, view.viewHeight - 50))
+        self.experienceBar.setPos(expCenter)
