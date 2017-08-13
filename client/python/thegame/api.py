@@ -114,7 +114,7 @@ class Client:
             bullets=bullets)
         return self._controls
 
-    def _run(self, remote='localhost:50051'):
+    def run(self, remote='localhost:50051'):
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
@@ -126,7 +126,7 @@ class Client:
     @classmethod
     def main(cls):
         '''
-        parse the command line arguments and starts the client
+        parse command line arguments and run the client
         '''
         self = cls()
         self._run()

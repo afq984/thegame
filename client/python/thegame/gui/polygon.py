@@ -1,6 +1,7 @@
 import math
+import random
 
-from PyQt5.QtCore import QPoint, QRectF
+from PyQt5.QtCore import QPoint, QRectF, QTimer
 from PyQt5.QtGui import (
     QPainter, QPainterPath, QPen, QColor, QBrush, QPolygonF
 )
@@ -19,10 +20,18 @@ class Polygon(QGraphicsObject):
         self.edges = edges
         self.constructPolygon()
 
+        self.rotationAngle = random.random() - 0.5
+        self.rotationTimer = QTimer(self)
+        self.rotationTimer.timeout.connect(self.rotate)
+        self.rotationTimer.start(25)
+
     def loadEntity(self, entity):
         self.setPos(*entity.position)
         self.healthBar.setPos(*entity.position)
         self.healthBar.setHealth(entity.health, entity.max_health)
+
+    def rotate(self):
+        self.setRotation(self.rotation() + self.rotationAngle)
 
     def paint(
             self,
