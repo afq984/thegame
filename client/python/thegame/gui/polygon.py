@@ -19,6 +19,11 @@ class Polygon(QGraphicsObject):
         self.edges = edges
         self.constructPolygon()
 
+    def loadEntity(self, entity):
+        self.setPos(*entity.position)
+        self.healthBar.setPos(*entity.position)
+        self.healthBar.setHealth(entity.health, entity.max_health)
+
     def paint(
             self,
             painter: QPainter,

@@ -13,6 +13,9 @@ class Bullet(QGraphicsObject):
         super().__init__()
         self.radius = 10
 
+    def loadEntity(self, entity):
+        self.setPos(*entity.position)
+
     def boundingRect(self):
         halfPenWidth = 2
         return QRectF(

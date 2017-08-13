@@ -34,10 +34,10 @@ class HealthBar(QGraphicsObject):
         pen.setColor(QColor(85, 85, 85, 255))
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(pen)
-        painter.setBrush(QBrush(QColor(85, 85, 85, 255)), Qt.SolidPattern)
+        painter.setBrush(QBrush(QColor(85, 85, 85, 255), Qt.SolidPattern))
         painter.drawRect(-self.width / 2, self.offsetY, self.width, 6)
-        painter.setBrush(QBrush(QColor(134, 198, 128, 255)), Qt.SolidPattern)
-        painter.drawRect(-self.width / 2, self.offsetY, self.currentHealthWidth)
+        painter.setBrush(QBrush(QColor(134, 198, 128, 255), Qt.SolidPattern))
+        painter.drawRect(-self.width / 2, self.offsetY, self.currentHealthWidth, 6)
 
     def shape(self):
         path = QPainterPath()
@@ -47,3 +47,9 @@ class HealthBar(QGraphicsObject):
             -self.width / 2, self.offsetY, self.width, 6
         )
         return path
+
+    def setHealth(self, currentHealth, maxHealth):
+        self.currentHealth = currentHealth
+        self.maxHealth = maxHealth
+        self.currentHealthWidth = self.width * currentHealth / maxHealth
+        self.update(self.boundingRect())

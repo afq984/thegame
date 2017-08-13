@@ -55,17 +55,19 @@ class Scene(QGraphicsScene):
             gp, created = self.polygons.get_or_create(p.id, Polygon, p.edges)
             if created:
                 self.addItem(gp)
-            gp.setPos(*p.position)
+                self.addItem(gp.healthBar)
+            gp.loadEntity(p)
         for b in bullets:
             gb, created = self.bullets.get_or_create(b.id, Bullet)
             if created:
                 self.addItem(gb)
-            gb.setPos(*b.position)
+            gb.loadEntity(b)
         for h in heroes:
             gh, created = self.heroes.get_or_create(h.id, Hero)
             if created:
                 self.addItem(gh)
-            gh.setPos(*h.position)
+                self.addItem(gh.healthBar)
+            gh.loadEntity(h)
 
         for removal in itertools.chain(
             self.polygons.discard_reset(),
@@ -73,6 +75,12 @@ class Scene(QGraphicsScene):
             self.heroes.discard_reset(),
         ):
             self.removeItem(removal)
+            try:
+                healthBar = removal.healthBar
+            except AttributeError:
+                pass
+            else:
+                self.removeItem(healthBar)
 
         for view in self.views():
             view.centerOn(*hero.position)
