@@ -129,4 +129,4 @@ class Client:
         parse command line arguments and run the client
         '''
         self = cls()
-        self._run()
+        self.run()
