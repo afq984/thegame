@@ -63,6 +63,9 @@ func (a *Arena) tick() {
 	}
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
+		if !h.visible {
+			h.Spawn()
+		}
 		TickPosition(h)
 		objects = append(objects, h)
 	}

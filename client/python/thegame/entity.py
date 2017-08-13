@@ -10,7 +10,7 @@ Used to represent a point and velocity in thegame
 '''
 
 
-class EntityAttribute:
+class _EntityAttribute:
     def __init__(self, doc=None):
         self.__doc__ = doc
 
@@ -30,7 +30,10 @@ class Entity:
     def __init__(self, data):
         self.data = data
 
-    id = EntityAttribute()
+    def __repr__(self):
+        return f'<{self.__class__.__name__}#{self.id} @({self.position.x:.2f}, {self.position.y:.2f})>'
+
+    id = _EntityAttribute()
 
     @property
     def position(self):
@@ -48,15 +51,15 @@ class Entity:
         v = self.data.entity.velocity
         return Vector(v.x, v.y)
 
-    radius = EntityAttribute('The radius of the entity')
-    health = EntityAttribute(
+    radius = _EntityAttribute('The radius of the entity')
+    health = _EntityAttribute(
         '''
         The health of the entity in a non-negative integer.
 
         When a entity's health is less than or equal to zero it dies.
         '''
     )
-    body_damage = EntityAttribute(
+    body_damage = _EntityAttribute(
         '''
         The body damage of the entity.
 
@@ -64,12 +67,12 @@ class Entity:
         with their body damage.
         '''
     )
-    rewarding_experience = EntityAttribute(
+    rewarding_experience = _EntityAttribute(
         '''
         How much experience you will get if you kill this entity.
         '''
     )
-    max_health = EntityAttribute(
+    max_health = _EntityAttribute(
         '''
         The maximum health of this entity.
         '''
@@ -110,7 +113,7 @@ class _HeroAbilityShortcut:
     def __init__(self, ability):
         self.ability = ability
         self.__doc__ = \
-            f'shortcut to ``hero.abilities.{ability.as_camel}.value``'
+            f'shortcut to `hero.abilities.{ability.as_camel}.value`'
 
     def __get__(self, instance, klass=None):
         if klass is None:
@@ -125,7 +128,7 @@ class _HeroAbilityLevelShortcut:
     def __init__(self, ability):
         self.ability = ability
         self.__doc__ = \
-            f'shortcut to ``hero.abilities.{ability.as_camel}.level``'
+            f'shortcut to `hero.abilities.{ability.as_camel}.level`'
 
     def __get__(self, instance, klass=None):
         if klass is None:
@@ -170,8 +173,9 @@ class Hero(Entity, metaclass=_HeroMeta):
         '''
         returns a tuple of abilities.
 
-        Example:
-            hero.abilities[MaxHealth].value  # get the value of heros' max health
+        Example::
+
+            hero.abilities[MaxHealth].value  # get the hero's max health
             hero.abilities.max_health.value  # the same thing
 
             hero.abilities[MaxHealth].level  # get the ability level

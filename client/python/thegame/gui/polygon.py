@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
 )
 from thegame.gui.healthbar import HealthBar
 
+
 class Polygon(QGraphicsObject):
 
     def __init__(self, edges):

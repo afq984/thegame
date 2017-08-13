@@ -4,6 +4,7 @@ import "math"
 import "math/cmplx"
 import "thegame/pb"
 import "fmt"
+import "log"
 
 type Bullet struct {
 	Entity
@@ -198,4 +199,15 @@ func (h *Hero) Action(a *Arena) {
 	if h.controls.Accelerate {
 		h.velocity += cmplx.Rect(0.6, h.controls.AccelerationDirection)
 	}
+}
+
+func (h *Hero) Spawn() {
+	experience := h.score / 2
+	h.score = 0
+	h.experience = 0
+	h.visible = true
+	h.AcquireExperience(experience)
+	h.position = RandomPosition()
+	h.velocity = 0
+	log.Println(h, "spawned at", h.position)
 }
