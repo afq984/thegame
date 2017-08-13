@@ -26,4 +26,5 @@ class GuiClient(Client, QThread):
         if self.scene.keys[Qt.Key_D]:
             x += 1
         self.accelerate(x, y)
-        self.shoot(*self.scene.mouseLocation, not self.scene.mouseDown)
+        mpos = self.scene.views()[0].mapToScene(self.scene.mousePos)
+        self.shoot(mpos.x(), mpos.y(), not self.scene.mouseDown)

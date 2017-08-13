@@ -1,6 +1,6 @@
 import itertools
 
-from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtCore import Qt, QRectF, QPoint
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QGraphicsScene
 
@@ -25,7 +25,7 @@ class Scene(QGraphicsScene):
             Qt.Key_D: False,
         }  # This will be modified by View, and be read by GuiClient
         self.mouseDown = False
-        self.mouseLocation = (0, 0)
+        self.mousePos = QPoint()
 
         self.initGame()
 

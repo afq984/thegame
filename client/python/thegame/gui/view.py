@@ -20,6 +20,9 @@ class View(QGraphicsView):
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.centerOn(100, 200)
 
+        # so that mouseMoveEvent is always triggered
+        self.setMouseTracking(True)
+
         self.keys = scene.keys
 
     def keyPressEvent(self, event: QKeyEvent):
@@ -36,8 +39,7 @@ class View(QGraphicsView):
             self.keys[key] = False
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        point = self.mapToScene(event.pos())
-        self.scene().mouseLocation = (point.x(), point.y())
+        self.scene().mousePos = event.pos()
 
     def mousePressEvent(self, event):
         self.scene().mouseDown = True
