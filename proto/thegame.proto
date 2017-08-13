@@ -26,9 +26,13 @@ enum Ability {
 }
 
 message GameState {
-    repeated Polygon polygons = 1;
-    repeated Bullet bullets = 2;
-    repeated Hero heroes = 3;
+    Meta meta = 1;
+    message Meta {
+        int32 hero_id = 2;
+    }
+    repeated Polygon polygons = 2;
+    repeated Bullet bullets = 3;
+    repeated Hero heroes = 4;
 }
 
 message Entity {

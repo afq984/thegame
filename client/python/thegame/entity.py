@@ -33,10 +33,9 @@ class Entity:
     def __repr__(self):
         return (
             f'<{self.__class__.__name__}#{self.id} '
-            f'@({self.position.x:.0f},{self.position.y:.0f}) '
+            f'BD={self.body_damage} '
             f'HP={self.health}/{self.max_health} '
-            f'D={self.body_damage}'
-            '>'
+            f'@({self.position.x:.0f},{self.position.y:.0f})>'
         )
 
     id = _EntityAttribute()
@@ -98,9 +97,13 @@ class Bullet(Entity):
     '''
     The bullet. Shot from a Hero.
     '''
-    def __init__(self, data, hero):
-        super().__init__(data)
-        self.owner = hero  #: The owner (a ``Hero`` object) of the bullet
+
+    @property
+    def owner_id(self):
+        '''
+        The id of the hero owning the bullet
+        '''
+        return self.data.owner
 
 
 HeroAbility = collections.namedtuple(

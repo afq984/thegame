@@ -163,6 +163,7 @@ func (h *Hero) Shoot() *Bullet {
 			velocity: cmplx.Rect(float64(h.ability(BulletSpeed)), h.orientation),
 			visible:  true,
 		},
+		owner:   h,
 		timeout: 100,
 	}
 }

@@ -153,12 +153,15 @@ func (a *Arena) broadcast() {
 				sbullets = append(sbullets, b)
 			}
 		}
-		for _, h := range heroes {
-			if canSee(h.Entity) {
-				sheroes = append(sheroes, h)
+		for _, oh := range heroes {
+			if canSee(oh.Entity) {
+				sheroes = append(sheroes, oh)
 			}
 		}
 		state := &pb.GameState{
+			Meta: &pb.GameState_Meta{
+				HeroId: int32(h.id),
+			},
 			Polygons: spolygons,
 			Bullets:  sbullets,
 			Heroes:   sheroes,

@@ -1,3 +1,4 @@
+import math
 import typing
 import queue
 
@@ -31,7 +32,7 @@ class Client:
         overwrite the previous one.
         '''
         self._controls.accelerate = True
-        # XXX
+        self._controls.acceleration_direction = self._pos_to_dir(x, y)
 
     def shoot(self, x, y):
         '''
@@ -41,7 +42,7 @@ class Client:
         overwrite the previous one.
         '''
         self._controls.shoot = True
-        # XXX self._controls.shoot_direction =
+        self._controls.shoot_direction = self._pos_to_dir(x, y)
 
     def level_up(self, ability):
         '''
@@ -52,17 +53,18 @@ class Client:
         '''
         self._controls.level_up.append(ability)
 
+    def _pos_to_dir(self, x, y):
+        sx, sy = self._hero.position
+        return math.atan2(y - sy, x - sx)
+
     def _gen(self):
         '''
         Generate requests to grpc
         '''
         yield thegame_pb2.Controls()
         while True:
-            yield self._queue.get()
-
-    def _turn(self):
-        self._controls = thegame_pb2.Controls()
-        self.action()
+            controls = self._queue.get()
+            yield controls
 
     def run(self, remote='localhost:50051'):
         '''
@@ -72,10 +74,15 @@ class Client:
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
         for response in stub.Game(self._gen()):
-            hero = None
             polygons = list(map(Polygon, response.polygons))
             heroes = list(map(Hero, response.heroes))
             bullets = list(map(Bullet, response.bullets))
+            for hero in heroes:
+                if hero.id == response.meta.hero_id:
+                    break
+            else:
+                raise Exception('Hero not found')
+            self._hero = hero
             self._controls = thegame_pb2.Controls()
             self.action(
                 hero=hero,
