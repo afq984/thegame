@@ -113,6 +113,8 @@ func filterBullets(a []*Bullet) {
 	}
 }
 
+const fieldOfView = 600
+
 func (a *Arena) broadcast() {
 	var polygons []*pb.Polygon
 	var bullets []*pb.Bullet
@@ -135,10 +137,10 @@ func (a *Arena) broadcast() {
 		canSee := func(w *pb.Entity) bool {
 			x := real(h.position)
 			y := imag(h.position)
-			return (w.Position.X+w.Radius > x-400 &&
-				w.Position.X-w.Radius < x+400 &&
-				w.Position.Y-w.Radius > y-400 &&
-				w.Position.Y-w.Radius < y+400)
+			return (w.Position.X+w.Radius > x-fieldOfView &&
+				w.Position.X-w.Radius < x+fieldOfView &&
+				w.Position.Y-w.Radius > y-fieldOfView &&
+				w.Position.Y-w.Radius < y+fieldOfView)
 		}
 		var spolygons []*pb.Polygon
 		var sbullets []*pb.Bullet
