@@ -1,6 +1,6 @@
 import math
 
-from PyQt5.QtCore import QPointF, QRectF
+from PyQt5.QtCore import QPointF, QRectF, Qt
 from PyQt5.QtGui import (
     QPainter, QPainterPath, QPen, QColor, QBrush, QPolygonF
 )
@@ -37,3 +37,35 @@ class Hero(QGraphicsObject):
 
         self.healthBar = HealthBar(10000, 60, 40)
 
+    def boundingRect(self):
+        halfPenWidth = 3 / 2
+        return QRectF(
+            -self.width - halfPenWidth,
+            -self.width * 2 - halfPenWidth,
+            self.width * 2 + halfPenWidth,
+            self.width * 4 + halfPenWidth,
+        )
+
+    def paint(
+        self,
+        painter: QPainter,
+        option: QStyleOptionGraphicsItem,
+        widget: QWidget,
+    ):
+        pen = QPen()
+        pen.setWidth(3)
+        pen.setColor(QColor(85, 85, 85, 255))
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(pen)
+        painter.setBrush(QBrush(QColor(153, 153, 153, 255), Qt.SolidPattern))
+        painter.drawPolygon(self.barrel)
+        painter.setBrush(QBrush(QColor(0, 178, 255, 255), Qt.SolidPattern))
+        painter.drawEllipse(
+            -self.width / 2, -self.width / 2, self.width, self.width)
+
+    def shape(self):
+        path = QPainterPath()
+        path.addPolygon(self.barrel)
+        path.addEllipse(
+            -self.width / 2, -self.width / 2, self.width, self.width)
+        return path

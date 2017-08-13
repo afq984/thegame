@@ -6,6 +6,7 @@ from PyQt5.QtGui import QColor, QPainter
 
 from thegame.api import Client
 from thegame.gui.polygon import Polygon
+from thegame.gui.hero import Hero
 
 
 class GuiClient(Client, QThread):
@@ -13,8 +14,10 @@ class GuiClient(Client, QThread):
         super().__init__()
         self.scene = scene
 
-    def action(self, hero, polygons, bullets, heroes):
-        self.scene.dataArrived(polygons)
+    def action(self, **kwds):
+        import threading, sys
+        print(threading.current_thread(), file=sys.stderr)
+        self.scene.dataArrived(**kwds)
 
 
 class Scene(QGraphicsScene):
@@ -28,6 +31,7 @@ class Scene(QGraphicsScene):
     def initGame(self):
         self.setSceneRect(5, 5, self.width, self.height)
         self.polygons = {}
+        self.heroes = {}
         self.rpc = GuiClient(self)
         self.rpc.start()
         # threading.Thread(target=self.wow).start()
@@ -41,14 +45,24 @@ class Scene(QGraphicsScene):
         for i in range(-5, self.height + 20, 20):
             painter.drawLine(5, i, self.width + 5, i)
 
-    def dataArrived(self, debris):
-        for id, d in enumerate(debris):
+    def dataArrived(self, hero, heroes, polygons, bullets):
+        for d in polygons:
             try:
-                poly = self.polygons[id]
+                poly = self.polygons[d.id]
             except KeyError:
-                poly = self.polygons[id] = Polygon(d.edges)
+                poly = self.polygons[d.id] = Polygon(d.edges)
                 self.addItem(poly)
             poly.setPos(*d.position)
+        for h in heroes:
+            try:
+                hr = self.heroes[h.id]
+            except KeyError:
+                hr = self.polygons[h.id] = Hero()
+                self.addItem(hr)
+            hr.setPos(*h.position)
+
+        for view in self.views():
+            view.centerOn(*hero.position)
 
 
 class View(QGraphicsView):

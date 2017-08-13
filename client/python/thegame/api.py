@@ -66,6 +66,24 @@ class Client:
             controls = self._queue.get()
             yield controls
 
+    def _response_to_controls(self, response):
+        polygons = list(map(Polygon, response.polygons))
+        heroes = list(map(Hero, response.heroes))
+        bullets = list(map(Bullet, response.bullets))
+        for hero in heroes:
+            if hero.id == response.meta.hero_id:
+                break
+        else:
+            raise Exception('Hero not found')
+        self._hero = hero
+        self._controls = thegame_pb2.Controls()
+        self.action(
+            hero=hero,
+            polygons=polygons,
+            heroes=heroes,
+            bullets=bullets)
+        return self._controls
+
     def run(self, remote='localhost:50051'):
         '''
         Starts the client
@@ -73,21 +91,7 @@ class Client:
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
-        for response in stub.Game(self._gen()):
-            polygons = list(map(Polygon, response.polygons))
-            heroes = list(map(Hero, response.heroes))
-            bullets = list(map(Bullet, response.bullets))
-            for hero in heroes:
-                if hero.id == response.meta.hero_id:
-                    break
-            else:
-                raise Exception('Hero not found')
-            self._hero = hero
-            self._controls = thegame_pb2.Controls()
-            self.action(
-                hero=hero,
-                polygons=polygons,
-                heroes=heroes,
-                bullets=bullets)
-            self._queue.put(self._controls)
-
+        request_iterator = self._gen()
+        response_iterator = stub.Game(request_iterator)
+        for response in response_iterator:
+            self._queue.put(self._response_to_controls(response))
