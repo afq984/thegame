@@ -39,6 +39,7 @@ class Hero(QGraphicsObject):
 
     def loadEntity(self, entity):
         self.setPos(*entity.position)
+        self.setRotation(math.degrees(entity.orientation))
         self.healthBar.setPos(*entity.position)
         self.healthBar.setHealth(entity.health, entity.max_health)
 

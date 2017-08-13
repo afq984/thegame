@@ -193,3 +193,11 @@ class Hero(Entity, metaclass=_HeroMeta):
             hero.abilities.max_health.value  # the same thing again
         '''
         return self.__dict__['abilities']
+
+    @property
+    def orientation(self):
+        '''
+        The orientation of the hero; the direction the barrel is facing
+        at, in radians.
+        '''
+        return self.data.orientation

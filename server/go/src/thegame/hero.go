@@ -35,6 +35,7 @@ func (h *Hero) ToProto() *pb.Hero {
 		Entity:        EntityToProto(h),
 		AbilityLevels: levels,
 		AbilityValues: values,
+		Orientation:   h.orientation,
 	}
 }
 
