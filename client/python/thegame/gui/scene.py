@@ -1,3 +1,5 @@
+import itertools
+
 from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QGraphicsScene
@@ -64,6 +66,13 @@ class Scene(QGraphicsScene):
             if created:
                 self.addItem(gh)
             gh.setPos(*h.position)
+
+        for removal in itertools.chain(
+            self.polygons.discard_reset(),
+            self.bullets.discard_reset(),
+            self.heroes.discard_reset(),
+        ):
+            self.removeItem(removal)
 
         for view in self.views():
             view.centerOn(*hero.position)
