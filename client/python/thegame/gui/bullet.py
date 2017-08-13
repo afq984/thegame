@@ -11,7 +11,7 @@ from thegame.gui.healthbar import HealthBar
 class Bullet(QGraphicsObject):
     def __init__(self):
         super().__init__()
-        self.radius = 20
+        self.radius = 10
 
     def boundingRect(self):
         halfPenWidth = 2
@@ -38,5 +38,6 @@ class Bullet(QGraphicsObject):
 
     def shape(self):
         path = QPainterPath()
-        path.addEllipse(0, 0, self.radius, self.radius)
+        path.addEllipse(
+            -self.radius, -self.radius, self.radius * 2, self.radius * 2)
         return path

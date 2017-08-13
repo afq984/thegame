@@ -41,7 +41,7 @@ func (b *Bullet) MaxSpeed() float64 {
 }
 
 func (b *Bullet) Radius() float64 {
-	return 20
+	return 10
 }
 
 func (b *Bullet) Team() int {
