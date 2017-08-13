@@ -145,11 +145,9 @@ func (h *Hero) Action(a *Arena) {
 		if h.skillPoints <= 0 {
 			break
 		}
-		if skill != 0 {
-			if h.abilityLevels[skill] < 8 {
-				h.abilityLevels[skill]++
-				h.skillPoints--
-			}
+		if h.abilityLevels[skill] < 8 {
+			h.abilityLevels[skill]++
+			h.skillPoints--
 		}
 	}
 	if h.controls.Accelerate {
