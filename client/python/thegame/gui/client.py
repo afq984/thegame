@@ -1,4 +1,5 @@
 import collections
+import math
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 
 from thegame import Client
@@ -16,7 +17,7 @@ class GuiClient(Client, QThread):
     def action(self, **kwds):
         self.dataQueue.append(kwds)
         self.dataArrived.emit()
-        x, y = kwds['hero'].position
+        x = y = 0
         if self.scene.keys[Qt.Key_W]:
             y -= 1
         if self.scene.keys[Qt.Key_A]:
@@ -25,6 +26,9 @@ class GuiClient(Client, QThread):
             y += 1
         if self.scene.keys[Qt.Key_D]:
             x += 1
-        self.accelerate(x, y)
+        if x or y:
+            self.accelerate(math.atan2(y, x))
         mpos = self.scene.views()[0].mapToScene(self.scene.mousePos)
-        self.shoot(mpos.x(), mpos.y(), not self.scene.mouseDown)
+        self.shoot_at(
+            mpos.x(), mpos.y(),
+            rotate_only=not self.scene.mouseDown)

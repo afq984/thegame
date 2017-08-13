@@ -20,26 +20,57 @@ class Client:
         :param list bullets: list of bullets within the field of view, including those shot from your hero
         '''
 
-    def accelerate(self, x, y):
+    def accelerate(self, direction):
         '''
-        Accelerates towards the point (x, y).
+        Accelerates to the direction (in radians) in the current turn.
 
-        Repeated calls to this function in a turn will
-        overwrite the previous one.
+        In a turn, only the last call to ``accelerate*`` counts.
+        Repeated calls overwrite previous ones.
+
+        :param float direction: The direction to accelerate to, in radians
+        '''
+        self._controls.accelerate = True
+        self._controls.acceleration_direction = direction % math.tau
+
+    def accelerate_towards(self, x, y):
+        '''
+        Accelerates towards the point (x, y) in the current turn.
+
+        In a turn, only the last call to ``accelerate*`` counts.
+        Repeated calls overwrite previous ones.
+
+        :param float x: the absolute x axis
+        :param float y: the absolute y axis
         '''
         if (x, y) != self._hero.position:
-            self._controls.accelerate = True
-            self._controls.acceleration_direction = self._pos_to_dir(x, y)
+            self.accelerate(self._pos_to_dir(x, y))
 
-    def shoot(self, x, y, turn_only=False):
+    def shoot(self, direction, *, rotate_only=False):
+        '''
+        Shoot a bullet in the current turn, aiming at the direction
+        (in radians).
+        If bullet is reloading, then nothing will happen.
+
+        In a turn, only the last call to ``shoot*`` counts.
+        Repeated calls overwrite previous ones.
+
+        :param float direction: the direction to shoot to, in radians
+        '''
+        self._controls.shoot = not rotate_only
+        self._controls.shoot_direction = direction % math.tau
+
+    def shoot_at(self, x, y, *, rotate_only=False):
         '''
         Shoots a bullet in the current turn, aiming at the point (x, y).
         If bullet is reloading, then nothing will happen.
-        Repeated calls to this function in a turn will
-        overwrite the previous one.
+
+        In a turn, only the last call to ``shoot*`` counts.
+        Repeated calls overwrite previous ones.
+
+        :param float x: the absolute x axis
+        :param float y: the absolute y axis
         '''
-        self._controls.shoot = not turn_only
-        self._controls.shoot_direction = self._pos_to_dir(x, y)
+        self.shoot(self._pos_to_dir(x, y), rotate_only=rotate_only)
 
     def level_up(self, ability):
         '''
@@ -83,10 +114,7 @@ class Client:
             bullets=bullets)
         return self._controls
 
-    def run(self, remote='localhost:50051'):
-        '''
-        Start the client
-        '''
+    def _run(self, remote='localhost:50051'):
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
@@ -94,3 +122,11 @@ class Client:
         response_iterator = stub.Game(request_iterator)
         for response in response_iterator:
             self._queue.put(self._response_to_controls(response))
+
+    @classmethod
+    def main(cls):
+        '''
+        parse the command line arguments and starts the client
+        '''
+        self = cls()
+        self._run()

@@ -12,4 +12,4 @@ class IClient(Client):
             self.shoot(*polygons[0].position)
 
 
-IClient().run()
+IClient.main()
