@@ -1,5 +1,4 @@
 import math
-import typing
 import queue
 
 import grpc
@@ -9,19 +8,15 @@ from thegame import thegame_pb2, thegame_pb2_grpc
 
 
 class Client:
-    def action(
-            self,
-            hero: Hero,
-            polygons: typing.List[Polygon],
-            heroes: typing.List[Hero],
-            bullets: typing.List[Bullet]):
+    def action(self, hero, polygons, heroes, bullets):
         '''
-        decide what to do in a turn, given the environment:
+        Implement this method to decide what to do in a turn, given the environment.
+        The arguments are passed as keyword arguments.
 
-        hero is your hero
-        polygon is a list of polygons
-        heroes is a list of heroes, including yourself
-        bullets is a list of bullets, including yours
+        :param hero: your hero
+        :param list polygons: list of polygons within the field of view
+        :param list heroes: list of heroes within the field of view, including yourself
+        :param list bullets: list of bullets within the field of view, including those shot from your hero
         '''
 
     def accelerate(self, x, y):
@@ -36,7 +31,7 @@ class Client:
 
     def shoot(self, x, y):
         '''
-        Shoots a bullet in the current turn, aiming at the point (x, y)
+        Shoots a bullet in the current turn, aiming at the point (x, y).
         If bullet is reloading, then nothing will happen.
         Repeated calls to this function in a turn will
         overwrite the previous one.
@@ -46,10 +41,12 @@ class Client:
 
     def level_up(self, ability):
         '''
-        Level up the ability.
+        Level up the ability in the current turn.
         If there is no skill point available, nothing will happen.
         Repeated calls to this function in a turn will
-        result in ability being leveled up multiple times.
+        make the ability being leveled up multiple times.
+
+        :param thegame.Ability ability: the ability to level up
         '''
         self._controls.level_up.append(ability)
 
@@ -86,7 +83,7 @@ class Client:
 
     def run(self, remote='localhost:50051'):
         '''
-        Starts the client
+        Start the client
         '''
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)

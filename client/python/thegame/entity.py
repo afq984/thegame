@@ -18,7 +18,7 @@ class _EntityAttribute:
         self.name = name
 
     def __get__(self, instance, klass=None):
-        if klass is None:
+        if instance is None:
             return self
         return getattr(instance.data.entity, self.name)
 
@@ -62,13 +62,15 @@ class Entity:
         The health of the entity in a non-negative integer.
 
         When a entity's health is less than or equal to zero it dies.
+        And the one dealing the killing blow is rewarded with
+        ``rewarding_experience``.
         '''
     )
     body_damage = _EntityAttribute(
         '''
         The body damage of the entity.
 
-        When to entities collide, they reduce each other's health
+        When two entities collide, they reduce each other's health
         with their body damage.
         '''
     )
@@ -122,10 +124,10 @@ class _HeroAbilityShortcut:
     def __init__(self, ability):
         self.ability = ability
         self.__doc__ = \
-            f'shortcut to `hero.abilities.{ability.as_camel}.value`'
+            f'shortcut to ``hero.abilities.{ability.as_camel}.value``'
 
     def __get__(self, instance, klass=None):
-        if klass is None:
+        if instance is None:
             return self
         return instance.abilities[self.ability].value
 
@@ -137,10 +139,10 @@ class _HeroAbilityLevelShortcut:
     def __init__(self, ability):
         self.ability = ability
         self.__doc__ = \
-            f'shortcut to `hero.abilities.{ability.as_camel}.level`'
+            f'shortcut to ``hero.abilities.{ability.as_camel}.level``'
 
     def __get__(self, instance, klass=None):
-        if klass is None:
+        if instance is None:
             return self
         return instance.abilities[self.ability].level
 
