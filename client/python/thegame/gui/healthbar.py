@@ -52,4 +52,5 @@ class HealthBar(QGraphicsObject):
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
         self.currentHealthWidth = self.width * currentHealth / maxHealth
+        self.setVisible(self.currentHealth != self.maxHealth)
         self.update(self.boundingRect())
