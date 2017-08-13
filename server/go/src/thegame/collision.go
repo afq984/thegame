@@ -56,6 +56,14 @@ func rightBound(c Collidable) float64 {
 	return real(c.Position()) + c.Radius()
 }
 
+func topBound(c Collidable) float64 {
+	return imag(c.Position()) + c.Radius()
+}
+
+func bottomBound(c Collidable) float64 {
+	return imag(c.Position()) - c.Radius()
+}
+
 type ByX []Collidable
 
 func (a ByX) Len() int           { return len(a) }
@@ -69,6 +77,9 @@ func DoCollision(a []Collidable) {
 		for j := i + 1; j < len(a); j++ {
 			right := a[j]
 			if leftBound(right) < rightBound(left) {
+				if bottomBound(right) < topBound(left) || bottomBound(left) < topBound(right) {
+					pairs = append(pairs, [2]Collidable{left, right})
+				}
 			} else {
 				break
 			}
