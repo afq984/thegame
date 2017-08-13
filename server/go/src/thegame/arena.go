@@ -81,7 +81,7 @@ func (a *Arena) tick() {
 	for _, b := range a.bullets {
 		b.timeout--
 	}
-	filterBullets(a.bullets)
+	a.bullets = filterBullets(a.bullets)
 
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
@@ -103,7 +103,7 @@ func (a *Arena) tick() {
 }
 
 // remove dead and timed out bullets
-func filterBullets(a []*Bullet) {
+func filterBullets(a []*Bullet) []*Bullet {
 	// https://github.com/golang/go/wiki/SliceTricks#filtering-without-allocating
 	b := a[:0]
 	for _, x := range a {
@@ -111,6 +111,7 @@ func filterBullets(a []*Bullet) {
 			b = append(b, x)
 		}
 	}
+	return b
 }
 
 const fieldOfView = 600
