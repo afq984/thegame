@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"thegame/pb"
 )
 
@@ -20,6 +21,10 @@ type Polygon struct {
 
 func (p *Polygon) ID() int {
 	return p.id
+}
+
+func (p *Polygon) String() string {
+	return fmt.Sprintf("Polygon#%d", p.id)
 }
 
 func (p *Polygon) ToProto() *pb.Polygon {
