@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QTimer, QRectF
-from PyQt5.QtGui import QPen, QPainter, QColor, QBrush
+from PyQt5.QtGui import QPen, QPainter, QColor, QBrush, QPainterPath, QFont
 from PyQt5.QtWidgets import QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 
 
@@ -20,7 +20,7 @@ class ExperienceBar(QGraphicsObject):
         self.timer.start(25)
 
     def boundingRect(self):
-        return QRectF(-self.maxWidth / 2, -15, self.maxWidth, 30)
+        return QRectF(-self.maxWidth / 2, -15, self.maxWidth, 30 + 40)
 
     @property
     def actualWidth(self):
@@ -44,6 +44,15 @@ class ExperienceBar(QGraphicsObject):
         painter.setBrush(QBrush(QColor(240, 217, 108, 255), Qt.SolidPattern))
         painter.drawRect(
             QRectF(-self.maxWidth / 2, -10, self.displayWidth, 20))
+        path = QPainterPath()
+
+        path.addText(-self.maxWidth / 2, 35, QFont('monospace', 18, QFont.Bold), f'{self.name}  Lv.{self.level}  Exp. {self.actualExperience:{len(str(self.maxExperience))}}/{self.maxExperience}')
+
+        # pen.setColor(Qt.white)
+        pen.setWidth(2)
+        painter.setPen(pen)
+        painter.setBrush(QBrush(QColor(0, 0, 0, 61), Qt.SolidPattern))
+        painter.drawPath(path)
 
     def stepExperience(self):
         if self.displayWidth == self.actualWidth:
@@ -58,3 +67,5 @@ class ExperienceBar(QGraphicsObject):
     def loadEntity(self, hero):
         self.actualExperience = hero.experience
         self.maxExperience = hero.experience_to_level_up
+        self.level = hero.level
+        self.name = f'Hero#{hero.id}'
