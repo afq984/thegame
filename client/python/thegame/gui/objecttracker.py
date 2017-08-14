@@ -16,7 +16,7 @@ class ObjectTracker:
     def discard_reset(self):
         unused_keys = set(self.data) - self.accessed_keys
         self.accessed_keys.clear()
-        return [self.data.pop(key) for key in unused_keys]
+        return [(key, self.data.pop(key)) for key in unused_keys]
 
     def __contains__(self, key):
         return key in self.data

@@ -71,17 +71,17 @@ class Scene(QGraphicsScene):
                 self.addItem(gh.healthBar)
             gh.loadEntity(h)
 
-        for decay in itertools.chain(
+        for id, decay in itertools.chain(
             self.polygons.discard_reset(),
             self.bullets.discard_reset(),
             self.heroes.discard_reset(),
         ):
             if hasattr(decay, 'healthBar'):
                 self.removeItem(decay.healthBar)
-            self.decaying.append(decay)
+            self.decaying.append((id, decay))
         self.decaying = [
-            entity for entity in self.decaying
-            if not self.decay_and_remove(entity)
+            tup for tup in self.decaying
+            if not self.decay_and_remove(tup)
         ]
 
         view, = self.views()
@@ -90,27 +90,29 @@ class Scene(QGraphicsScene):
             QPoint(view.viewWidth / 2, view.viewHeight - 50))
         self.experienceBar.setPos(expCenter)
 
-    def decay_and_remove(self, entity):
+    def decay_and_remove(self, tup):
         '''
         return the opacity of the entity and return wheter the entity
         has been removed
         '''
-        should_remove = self.decay(entity)
+        should_remove = self.decay(tup)
+        id, entity = tup
         if should_remove:
             self.removeItem(entity)
         return should_remove
 
-    def decay(self, entity):
+    def decay(self, tup):
         '''
         reduce the opacity of the entity and return whether the entity
         should be removed
         '''
-        # if isinstance(entity, Hero) and entity.id in self.heroes:
-        #     return True
-        # if isinstance(entity, Bullet) and entity.id in self.bullets:
-        #     return True
-        # if isinstance(entity, Polygon) and entity.id in self.polygons:
-        #     return True
+        id, entity = tup
+        if isinstance(entity, Hero) and id in self.heroes:
+            return True
+        if isinstance(entity, Bullet) and id in self.bullets:
+            return True
+        if isinstance(entity, Polygon) and id in self.polygons:
+            return True
         opa = entity.opacity() - 0.1
         if opa <= 0:
             return True
