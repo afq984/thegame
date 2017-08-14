@@ -161,6 +161,10 @@ func (h *Hero) Spawn() {
 	h.experience = 0
 	h.health = h.MaxHealth()
 	h.visible = true
+	h.level = 1
+	for i := range h.abilityLevels {
+		h.abilityLevels[i] = 0
+	}
 	h.AcquireExperience(experience)
 	h.position = RandomPosition()
 	h.velocity = 0
