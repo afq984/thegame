@@ -4,7 +4,7 @@ thegame API
 Client
 ------
 
-.. autoclass:: thegame.Client
+.. autoclass:: thegame.HeadlessClient
     :members:
     :inherited-members:
 
