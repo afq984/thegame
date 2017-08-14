@@ -1,3 +1,7 @@
+import math
+
+from PyQt5.QtCore import Qt
+
 from thegame.gui import GuiClient
 
 

@@ -1,6 +1,5 @@
 import collections
-import math
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal
 
 from thegame import HeadlessClient
 

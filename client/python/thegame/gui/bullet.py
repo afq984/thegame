@@ -1,11 +1,10 @@
-from PyQt5.QtCore import QPointF, QRectF, Qt
+from PyQt5.QtCore import QRectF, Qt
 from PyQt5.QtGui import (
-    QPainter, QPainterPath, QPen, QColor, QBrush, QPolygonF
+    QPainter, QPainterPath, QPen, QColor, QBrush
 )
 from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
-from thegame.gui.healthbar import HealthBar
 
 
 class Bullet(QGraphicsObject):

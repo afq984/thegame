@@ -1,6 +1,9 @@
 from thegame.gui.client import GuiClient
 
 
+__all__ = ('GuiClient',)
+
+
 app = None
 
 
