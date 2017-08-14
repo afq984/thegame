@@ -98,9 +98,9 @@ func (p *Polygon) BodyDamage() int {
 	case Square:
 		return 10
 	case Triangle:
-		return 15
+		return 20
 	case Pentagon:
-		return 25
+		return 40
 	default:
 		panic("Unknown shape")
 	}
@@ -115,9 +115,9 @@ func (p *Polygon) RewardingExperience() int {
 	case Square:
 		return 10
 	case Triangle:
-		return 30
+		return 60
 	case Pentagon:
-		return 250
+		return 360
 	default:
 		panic("Unknown shape")
 	}

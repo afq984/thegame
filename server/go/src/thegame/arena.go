@@ -17,7 +17,7 @@ type HeroControls struct {
 }
 
 type Arena struct {
-	polygons       [300]*Polygon
+	polygons       [360]*Polygon
 	heroCounter    int
 	bulletCounter  int
 	polygonCounter int
@@ -35,13 +35,13 @@ func NewArena() *Arena {
 		joinChan:    make(chan chan *list.Element),
 		quitChan:    make(chan *list.Element),
 	}
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 30; i++ {
 		a.polygons[i] = &Polygon{shape: Pentagon}
 	}
-	for i := 10; i < 60; i++ {
+	for i := 30; i < 90; i++ {
 		a.polygons[i] = &Polygon{shape: Triangle}
 	}
-	for i := 60; i < 300; i++ {
+	for i := 90; i < 360; i++ {
 		a.polygons[i] = &Polygon{shape: Square}
 	}
 	go a.Run()
