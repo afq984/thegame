@@ -15,7 +15,10 @@ class Polygon(QGraphicsObject):
 
     def __init__(self, edges):
         super().__init__()
-        self.axis = 20
+        if edges == 5:
+            self.axis = 25
+        else:
+            self.axis = 20
         self.healthBar = HealthBar(1000, 2 * self.axis, self.axis + 5)
         self.edges = edges
         self.constructPolygon()
