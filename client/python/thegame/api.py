@@ -8,7 +8,18 @@ from thegame import thegame_pb2, thegame_pb2_grpc
 from thegame.abilities import Ability
 
 
-class Client:
+class HeadlessClient:
+    def __init__(self):
+        super().__init__()
+        self.init()
+
+    def init(self):
+        '''
+        This method is called when the client is constructed
+
+        If you want to initialize the client, put the code here.
+        '''
+
     def action(self, hero, polygons, heroes, bullets):
         '''
         Implement this method to decide what to do in a turn, given the environment.
@@ -96,6 +107,10 @@ class Client:
             controls = self._queue.get()
             yield controls
 
+    def _action(self, **kwds):
+        # warpper to action() to inject stuff
+        return self.action(**kwds)
+
     def _response_to_controls(self, response):
         polygons = list(map(Polygon, response.polygons))
         heroes = list(map(Hero, response.heroes))
@@ -107,14 +122,16 @@ class Client:
             raise Exception('Hero not found')
         self._hero = hero
         self._controls = thegame_pb2.Controls()
-        self.action(
+        self._action(
             hero=hero,
-            polygons=polygons,
             heroes=heroes,
-            bullets=bullets)
+            polygons=polygons,
+            bullets=bullets,
+        )
         return self._controls
 
-    def run(self, remote='localhost:50051'):
+    def run(self):
+        remote = self.remote
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
@@ -123,10 +140,26 @@ class Client:
         for response in response_iterator:
             self._queue.put(self._response_to_controls(response))
 
+    def _parse(self):
+        import argparse
+        parser = argparse.ArgumentParser(
+            allow_abbrev=False,
+
+        )
+        parser.add_argument(
+            'remote',
+            nargs='?',
+            default='localhost:50051',
+            help='the location of the server'
+        )
+        args = parser.parse_args()
+        self.remote = args.remote
+
     @classmethod
     def main(cls):
         '''
         parse command line arguments and run the client
         '''
         self = cls()
+        self._parse()
         self.run()

@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt, QRectF, QPoint
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QGraphicsScene
 
-from thegame.gui.client import GuiClient
 from thegame.gui.objecttracker import ObjectTracker
 from thegame.gui.polygon import Polygon
 from thegame.gui.hero import Hero
@@ -13,7 +12,7 @@ from thegame.gui.experiencebar import ExperienceBar
 
 
 class Scene(QGraphicsScene):
-    def __init__(self):
+    def __init__(self, client_instance):
         super().__init__()
         self.width = 5000
         self.height = 4000
@@ -32,7 +31,8 @@ class Scene(QGraphicsScene):
         self.polygons = ObjectTracker()
         self.heroes = ObjectTracker()
         self.bullets = ObjectTracker()
-        self.rpc = GuiClient(self)
+        self.rpc = client_instance
+        self.rpc.scene = self
         self.rpc.dataArrived.connect(self.updateDataSlot)
         self.rpc.start()
         self.experienceBar = ExperienceBar()

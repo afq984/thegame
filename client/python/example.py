@@ -1,7 +1,8 @@
-from thegame import Client, Ability
+from thegame import HeadlessClient, Ability, Polygon, Bullet, Hero
+from thegame.gui import GuiClient
 
 
-class IClient(Client):
+class Client(GuiClient):
     def action(self, hero, polygons, heroes, bullets):
         print("I'm", hero)
         print(
@@ -16,4 +17,4 @@ class IClient(Client):
             self.shoot_at(*polygons[0].position)
 
 
-IClient.main()
+Client.main()
