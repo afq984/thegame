@@ -20,7 +20,9 @@ class Polygon(QGraphicsObject):
         self.edges = edges
         self.constructPolygon()
 
-        self.rotationAngle = random.random() - 0.5
+        self.setRotation(random.random() * 360)
+
+        self.rotationAngle = random.random() * 2 - 1
         self.rotationTimer = QTimer(self)
         self.rotationTimer.timeout.connect(self.rotate)
         self.rotationTimer.start(25)
