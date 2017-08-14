@@ -111,7 +111,7 @@ class Scene(QGraphicsScene):
         #     return True
         # if isinstance(entity, Polygon) and entity.id in self.polygons:
         #     return True
-        opa = entity.opacity() - 0.05
+        opa = entity.opacity() - 0.1
         if opa <= 0:
             return True
         entity.setX(entity.x() + entity.velocity.x)
