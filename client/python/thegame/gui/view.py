@@ -1,6 +1,9 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeyEvent, QMouseEvent
-from PyQt5.QtWidgets import QGraphicsView
+from PyQt5.QtWidgets import QGraphicsView, QPushButton, QLabel, QButtonGroup
+
+from thegame import Ability
+from thegame.gui import const
 
 
 class View(QGraphicsView):
@@ -24,6 +27,54 @@ class View(QGraphicsView):
         self.setMouseTracking(True)
 
         self.keys = scene.keys
+
+        self.initAbilityButtons()
+
+    def initAbilityButtons(self):
+        self.abilityButtons = []
+        for ab in Ability:
+            text = ab.as_camel.replace('_', ' ')
+            label = QLabel(text, self)
+            button = QPushButton('+', self)
+            self.abilityButtons.append((label, button))
+        self.abilityButtonGroup = QButtonGroup(self)
+        for label, button in self.abilityButtons:
+            label.setVisible(True)
+            label.setEnabled(False)
+            button.setVisible(True)
+            button.setEnabled(False)
+            self.abilityButtonGroup.addButton(button)
+        self.setAbilityButtonStyle()
+
+    def setAbilityButtonStyle(self):
+        for i, (label, button) in enumerate(self.abilityButtons):
+            label.setStyleSheet(const.AbilityLabelStyle)
+            label.setAlignment(Qt.AlignCenter)
+            if button.isEnabled():
+                button.setStyleSheet(
+                    const.AbilityButtonCommonStyle +
+                    const.AbilityButtonEnabledStyleList)
+            else:
+                button.setStyleSheet(
+                    const.AbilityButtonCommonStyle +
+                    const.AbilityButtonDisabledStyle)
+
+    def resizeEvent(self, event):
+        currentWidth = self.width()
+        currentHeight = self.height()
+        for i, (label, button) in enumerate(self.abilityButtons):
+            label.setGeometry(
+                10,
+                currentHeight - (8 - i) * const.AbilityYDelta - 10,
+                const.AbilityLabelWidth,
+                const.AbilityHeight,
+            )
+            button.setGeometry(
+                const.AbilityLabelWidth + 10,
+                currentHeight - (8 - i) * const.AbilityYDelta - 10,
+                const.AbilityButtonWidth,
+                const.AbilityHeight,
+            )
 
     def keyPressEvent(self, event: QKeyEvent):
         key = event.key()
