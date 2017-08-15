@@ -172,7 +172,7 @@ func (h *Hero) Action(a *Arena) {
 		}
 	}
 	if h.controls.Accelerate {
-		h.velocity += cmplx.Rect(0.6, h.controls.AccelerationDirection)
+		h.velocity += cmplx.Rect(h.MaxSpeed()/10, h.controls.AccelerationDirection)
 	}
 }
 
