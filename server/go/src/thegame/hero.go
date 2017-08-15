@@ -11,14 +11,15 @@ import (
 type Hero struct {
 	Entity
 
-	score         int
-	experience    int
-	skillPoints   int
-	level         int
-	abilityLevels [NAbilities]int
-	orientation   float64
-	cooldown      int
-	id            int
+	score               int
+	experience          int
+	skillPoints         int
+	level               int
+	abilityLevels       [NAbilities]int
+	orientation         float64
+	cooldown            int
+	healthRegenCooldown int
+	id                  int
 
 	controls   *pb.Controls
 	UpdateChan chan *pb.GameState
@@ -105,6 +106,13 @@ func (h *Hero) MaxHealth() int {
 	return h.ability(MaxHealth)
 }
 
+func (h *Hero) SetHealth(health int) {
+	if health < h.health {
+		h.healthRegenCooldown = 50
+	}
+	h.health = health
+}
+
 // Shoot creates a bullet from the hero's stats
 // After shooting, remember to assign a bullet id
 func (h *Hero) Shoot() *Bullet {
@@ -136,9 +144,13 @@ func (h *Hero) Action(a *Arena) {
 		h.cooldown = h.ability(Reload)
 	}
 	if h.health > 0 {
-		h.health += h.ability(HealthRegen)
-		if h.health > h.ability(MaxHealth) {
-			h.health = h.ability(MaxHealth)
+		if h.healthRegenCooldown > 0 {
+			h.healthRegenCooldown--
+		} else {
+			h.health += h.ability(HealthRegen)
+			if h.health > h.ability(MaxHealth) {
+				h.health = h.ability(MaxHealth)
+			}
 		}
 	}
 	for _, skill := range h.controls.LevelUp {
