@@ -76,9 +76,9 @@ class NamedHealthBar(HealthBar):
     def boundingRect(self):
         penWidth = 3
         return QRectF(
-            - self.width / 2 - penWidth,
+            - self.width / 2 - penWidth - 15,
             - self.offsetY - 14,
-            self.width + penWidth,
+            self.width + penWidth * 2 + 30,
             19 + penWidth + self.offsetY * 2
         )
 
@@ -96,9 +96,9 @@ class NamedHealthBar(HealthBar):
         painter.setBrush(QBrush(QColor(240, 240, 240, 255), Qt.SolidPattern))
         painter.drawText(
             QRectF(
-                -self.width / 2,
+                -self.width / 2 - 15,
                 -self.offsetY - 14,
-                self.width,
+                self.width + 30,
                 14),
             Qt.AlignCenter,
             self.name)
