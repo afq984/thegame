@@ -7,11 +7,11 @@ __all__ = ('GuiClient',)
 app = None
 
 
-def main(client_instance=None):
+def main(client_class=None):
     global app
-    if client_instance is None:
+    if client_class is None:
         from thegame.gui.interactive import InteractiveClient
-        client_instance = InteractiveClient()
+        client_class = InteractiveClient
     import sys
     from PyQt5.QtWidgets import QApplication
     from thegame.gui.scene import Scene
@@ -20,7 +20,7 @@ def main(client_instance=None):
     app = QApplication(sys.argv)
     scene = Scene()
     view = View(scene)
-
+    client_instance = client_class()
     client_instance._attach(view, scene)
     client_instance.start()
 

@@ -1,16 +1,29 @@
 import math
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAbstractButton
+from PyQt5.QtWidgets import (
+    QAbstractButton, QDialog, QLabel, QPushButton,
+    QDialogButtonBox, QVBoxLayout, QLineEdit)
 
 from thegame.gui import GuiClient
 
 
 class InteractiveClient(GuiClient):
 
-    def __init__(self, *args, **kwds):
-        super().__init__(*args, **kwds)
+    def init(self):
         self.to_level_up = []
+        dialog = QDialog()
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel('Enter your name:'))
+        line = QLineEdit()
+        layout.addWidget(line)
+        box = QDialogButtonBox()
+        button = box.addButton('OK', QDialogButtonBox.AcceptRole)
+        button.clicked.connect(dialog.accept)
+        layout.addWidget(box)
+        dialog.setLayout(layout)
+        dialog.exec()
+        self.name = line.text()
 
     def action(self, **kwds):
         x = y = 0
