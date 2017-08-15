@@ -19,6 +19,6 @@ var AbilityValues = [NAbilities][9]int{
 	{8, 9, 10, 11, 12, 13, 14, 15, 16},                     // BulletSpeed
 	{40, 50, 60, 70, 80, 90, 100, 110, 120},                // BulletPenetration
 	{12, 15, 18, 21, 24, 27, 30, 33, 36},                   // BulletDamage
-	{11, 10, 9, 8, 7, 6, 5, 4, 3},                          // Reload
+	{15, 13, 11, 9, 7, 6, 5, 4, 3},                         // Reload
 	{6, 7, 8, 9, 10, 11, 12, 13, 14},                       // MovementSpeed
 }
