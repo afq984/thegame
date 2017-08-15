@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 
@@ -10,9 +11,11 @@ import (
 	"thegame/pb"
 )
 
-const (
-	port = ":50051"
-)
+var listen string
+
+func init() {
+	flag.StringVar(&listen, "listen", ":50051", "[host]:port to listen to")
+}
 
 type server struct {
 	arena *Arena
@@ -52,12 +55,14 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 }
 
 func main() {
-	lis, err := net.Listen("tcp", port)
+	flag.Parse()
+	lis, err := net.Listen("tcp", listen)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterTheGameServer(s, NewServer())
+	log.Println("listening on", listen)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
