@@ -24,14 +24,14 @@ class HeadlessClient:
             self.name = 'yo'
         '''
 
-    def action(self, hero, polygons, heroes, bullets):
+    def action(self, hero, heroes, polygons, bullets):
         '''
         Implement this method to decide what to do in a turn, given the environment.
         The arguments are passed as keyword arguments.
 
         :param hero: your hero
-        :param list polygons: list of polygons within the field of view
         :param list heroes: list of heroes within the field of view, including yourself
+        :param list polygons: list of polygons within the field of view
         :param list bullets: list of bullets within the field of view, including those shot from your hero
         '''
 
