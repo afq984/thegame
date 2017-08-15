@@ -48,7 +48,7 @@ class Scene(QGraphicsScene):
             painter.drawLine(5, i, self.width + 5, i)
 
     def updateDataSlot(self):
-        self.updateData(**self.rpc.dataQueue.popleft())
+        self.updateData(**self.rpc.data)
 
     def updateData(self, hero, heroes, polygons, bullets):
         self.experienceBar.loadEntity(hero)

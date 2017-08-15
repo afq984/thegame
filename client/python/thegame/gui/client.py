@@ -11,13 +11,9 @@ class GuiClient(HeadlessClient, QThread):
 
     dataArrived = pyqtSignal()
 
-    def __init__(self):
-        super().__init__()
-        self.dataQueue = collections.deque()
-
     def _action(self, **kwds):
         self.action(**kwds)
-        self.dataQueue.append(kwds)
+        self.data = kwds
         self.dataArrived.emit()
 
     def _attach(self, view, scene):

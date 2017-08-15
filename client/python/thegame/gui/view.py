@@ -60,7 +60,17 @@ class View(QGraphicsView):
                     const.AbilityButtonDisabledStyle)
 
     def attachClient(self, client):
-        pass
+        self.rpc = client
+        self.rpc.dataArrived.connect(self.updateDataSlot)
+
+    def updateDataSlot(self):
+        self.updateData(**self.rpc.data)
+
+    def updateData(self, hero, heroes, polygons, bullets):
+        for ab in Ability:
+            self.abilityButtons[ab][0].setText(
+                f'{ab.as_camel.replace("_", " ")} [{hero.abilities[ab].level}]'
+            )
 
     def resizeEvent(self, event):
         currentWidth = self.width()
