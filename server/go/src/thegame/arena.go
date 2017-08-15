@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"log"
 	"math/rand"
+	"sort"
 	"time"
 
 	"thegame/pb"
@@ -130,6 +131,7 @@ func (a *Arena) broadcast() {
 	var polygons []*pb.Polygon
 	var bullets []*pb.Bullet
 	var heroes []*pb.Hero
+	var scores []*pb.ScoreEntry
 	for _, p := range a.polygons {
 		if p.visible {
 			polygons = append(polygons, p.ToProto())
@@ -141,7 +143,9 @@ func (a *Arena) broadcast() {
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
 		heroes = append(heroes, h.ToProto())
+		scores = append(scores, h.ToScoreEntry())
 	}
+	sort.Sort(ByScore(scores))
 	// send updates to clients
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
@@ -174,6 +178,7 @@ func (a *Arena) broadcast() {
 		state := &pb.GameState{
 			Meta: &pb.GameState_Meta{
 				HeroId: int32(h.id),
+				Scores: scores,
 			},
 			Polygons: spolygons,
 			Bullets:  sbullets,

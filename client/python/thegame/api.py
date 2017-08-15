@@ -142,6 +142,7 @@ class HeadlessClient:
         request_iterator = self._gen()
         response_iterator = stub.Game(request_iterator)
         for response in response_iterator:
+            self._game_state = response
             self._queue.put(self._response_to_controls(response))
 
     def _parse(self):

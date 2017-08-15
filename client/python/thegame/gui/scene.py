@@ -9,6 +9,7 @@ from thegame.gui.polygon import Polygon
 from thegame.gui.hero import Hero
 from thegame.gui.bullet import Bullet
 from thegame.gui.experiencebar import ExperienceBar
+from thegame.gui.scoreboard import Scoreboard
 
 
 class Scene(QGraphicsScene):
@@ -33,6 +34,8 @@ class Scene(QGraphicsScene):
         self.bullets = ObjectTracker()
         self.experienceBar = ExperienceBar()
         self.addItem(self.experienceBar)
+        self.scoreboard = Scoreboard()
+        self.addItem(self.scoreboard)
 
     def attachClient(self, client):
         self.rpc = client
@@ -89,6 +92,11 @@ class Scene(QGraphicsScene):
         expCenter = view.mapToScene(
             QPoint(view.viewWidth / 2, view.viewHeight - 50))
         self.experienceBar.setPos(expCenter)
+        scoreboardCenter = view.mapToScene(
+            QPoint(view.viewWidth - 5, 5))
+        self.scoreboard.setPos(scoreboardCenter)
+        # XXX this is ugly
+        self.scoreboard.loadScores(self.rpc._game_state.meta.scores)
 
     def decay_and_remove(self, tup):
         '''

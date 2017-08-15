@@ -49,6 +49,21 @@ func (h *Hero) ToProto() *pb.Hero {
 	}
 }
 
+type ByScore []*pb.ScoreEntry
+
+func (a ByScore) Len() int           { return len(a) }
+func (a ByScore) Less(i, j int) bool { return a[i].Score > a[j].Score }
+func (a ByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
+func (h *Hero) ToScoreEntry() *pb.ScoreEntry {
+	return &pb.ScoreEntry{
+		HeroId:   int32(h.id),
+		HeroName: h.name,
+		Score:    int32(h.score),
+		Level:    int32(h.level),
+	}
+}
+
 func NewHero(id int, name string) *Hero {
 	if name == "" {
 		name = fmt.Sprintf("Hero#%d", id)

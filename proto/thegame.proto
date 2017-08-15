@@ -30,6 +30,7 @@ message GameState {
     Meta meta = 1;
     message Meta {
         int32 hero_id = 2;
+        repeated ScoreEntry scores = 4;
     }
     repeated Polygon polygons = 2;
     repeated Bullet bullets = 3;
@@ -49,6 +50,13 @@ message Entity {
         double x = 1;
         double y = 2;
     }
+}
+
+message ScoreEntry {
+    int32 hero_id = 1;
+    string hero_name = 2;
+    int32 score = 3;
+    int32 level = 4;
 }
 
 message Polygon {

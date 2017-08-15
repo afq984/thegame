@@ -3,7 +3,7 @@ from thegame.gui import GuiClient
 
 
 class Client(GuiClient):
-    def action(self, hero, polygons, heroes, bullets):
+    def action(self, hero, heroes, polygons, bullets):
         print("I'm", hero)
         print(
             f'level: {hero.level}',
