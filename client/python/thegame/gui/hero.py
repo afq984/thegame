@@ -38,8 +38,7 @@ class Hero(QGraphicsObject):
         self.healthBar = NamedHealthBar(10000, 60, 40)
 
     def loadEntity(self, entity):
-        # XXX use the actual name when implemented
-        self.healthBar.setName(f'Hero#{entity.id}')
+        self.healthBar.setName(entity.name)
         self.setPos(*entity.position)
         self.setRotation(math.degrees(entity.orientation))
         self.healthBar.setPos(*entity.position)

@@ -18,6 +18,10 @@ class HeadlessClient:
         This method is called when the client is constructed
 
         If you want to initialize the client, put the code here.
+
+        To set the name of your hero, set it here like::
+
+            self.name = 'yo'
         '''
 
     def action(self, hero, polygons, heroes, bullets):
@@ -102,7 +106,7 @@ class HeadlessClient:
         '''
         Generate requests to grpc
         '''
-        yield thegame_pb2.Controls()
+        yield thegame_pb2.Controls(name=getattr(self, 'name', ''))
         while True:
             controls = self._queue.get()
             yield controls

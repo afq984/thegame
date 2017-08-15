@@ -12,6 +12,7 @@ message Controls {
     bool shoot = 3;
     double shoot_direction = 4;
     repeated Ability level_up = 5;
+    string name = 6;  // only valid on first message
 }
 
 enum Ability {
@@ -72,4 +73,5 @@ message Hero {
     int32 experience_to_level_up = 9;
     int32 cooldown = 10;
     int32 health_regen_cooldown = 11;
+    string name = 12;
 }

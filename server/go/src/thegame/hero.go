@@ -20,6 +20,7 @@ type Hero struct {
 	cooldown            int
 	healthRegenCooldown int
 	id                  int
+	name                string
 
 	controls   *pb.Controls
 	UpdateChan chan *pb.GameState
@@ -44,12 +45,17 @@ func (h *Hero) ToProto() *pb.Hero {
 		SkillPoints:         int32(h.skillPoints),
 		Cooldown:            int32(h.cooldown),
 		HealthRegenCooldown: int32(h.healthRegenCooldown),
+		Name:                h.name,
 	}
 }
 
-func NewHero(id int) *Hero {
+func NewHero(id int, name string) *Hero {
+	if name == "" {
+		name = fmt.Sprintf("Hero#%d", id)
+	}
 	return &Hero{
 		level:      1,
+		name:       name,
 		id:         id,
 		UpdateChan: make(chan *pb.GameState, 1),
 	}

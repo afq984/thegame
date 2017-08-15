@@ -16,6 +16,11 @@ type HeroControls struct {
 	*pb.Controls
 }
 
+type joinRequest struct {
+	name string
+	ch   chan *list.Element
+}
+
 type Arena struct {
 	polygons       [360]*Polygon
 	heroCounter    int
@@ -24,7 +29,7 @@ type Arena struct {
 	heroes         *list.List
 	bullets        []*Bullet
 	controlChan    chan HeroControls
-	joinChan       chan chan *list.Element
+	joinChan       chan joinRequest
 	quitChan       chan *list.Element
 }
 
@@ -32,7 +37,7 @@ func NewArena() *Arena {
 	a := &Arena{
 		heroes:      list.New(),
 		controlChan: make(chan HeroControls),
-		joinChan:    make(chan chan *list.Element),
+		joinChan:    make(chan joinRequest),
 		quitChan:    make(chan *list.Element),
 	}
 	for i := 0; i < 30; i++ {
@@ -48,9 +53,9 @@ func NewArena() *Arena {
 	return a
 }
 
-func (a *Arena) Join() *list.Element {
+func (a *Arena) Join(name string) *list.Element {
 	c := make(chan *list.Element)
-	a.joinChan <- c
+	a.joinChan <- joinRequest{name, c}
 	return <-c
 }
 
@@ -198,11 +203,11 @@ func (a *Arena) Run() {
 			lastTick = tickCount
 		case hc := <-a.controlChan:
 			hc.Hero.controls = hc.Controls
-		case jc := <-a.joinChan:
+		case jr := <-a.joinChan:
 			a.heroCounter++
-			h := NewHero(a.heroCounter)
+			h := NewHero(a.heroCounter, jr.name)
 			log.Println(h, "joined the arena")
-			jc <- a.heroes.PushBack(h)
+			jr.ch <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:
 			log.Println(l.Value.(*Hero), "left the arena")
 			a.heroes.Remove(l)

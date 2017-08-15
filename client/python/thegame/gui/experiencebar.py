@@ -68,4 +68,4 @@ class ExperienceBar(QGraphicsObject):
         self.actualExperience = hero.experience
         self.maxExperience = hero.experience_to_level_up
         self.level = hero.level
-        self.name = f'Hero#{hero.id}'
+        self.name = hero.name

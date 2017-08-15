@@ -238,3 +238,8 @@ class Hero(Entity, metaclass=_HeroMeta):
         How many ticks until the hero can start to regenerate health
         '''
     )
+    name = _DataAttribute(
+        '''
+        The name of the hero. Not guranteed to be unique
+        '''
+    )
