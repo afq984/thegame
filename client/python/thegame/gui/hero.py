@@ -7,7 +7,7 @@ from PyQt5.QtGui import (
 from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
-from thegame.gui.healthbar import HealthBar
+from thegame.gui.healthbar import NamedHealthBar
 
 
 class Hero(QGraphicsObject):
@@ -35,9 +35,11 @@ class Hero(QGraphicsObject):
         ]
         self.barrel = QPolygonF(shapePoint)
 
-        self.healthBar = HealthBar(10000, 60, 40)
+        self.healthBar = NamedHealthBar(10000, 60, 40)
 
     def loadEntity(self, entity):
+        # XXX use the actual name when implemented
+        self.healthBar.setName(f'Hero#{entity.id}')
         self.setPos(*entity.position)
         self.setRotation(math.degrees(entity.orientation))
         self.healthBar.setPos(*entity.position)
