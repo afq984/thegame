@@ -148,7 +148,7 @@ func (h *Hero) Shoot() *Bullet {
 			visible:  true,
 		},
 		owner:   h,
-		timeout: 100,
+		timeout: 120,
 	}
 }
 

@@ -34,7 +34,7 @@ func (b *Bullet) MaxHealth() int {
 }
 
 func (b *Bullet) Friction() float64 {
-	return 0
+	return 0.04
 }
 
 func (b *Bullet) IsBounded() bool {
