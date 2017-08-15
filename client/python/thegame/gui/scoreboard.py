@@ -49,4 +49,3 @@ class Scoreboard(QGraphicsObject):
     def loadScores(self, scores):
         self.scores = scores
         self.update(self.boundingRect())
-        print(self.height)
