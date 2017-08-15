@@ -41,6 +41,7 @@ func (h *Hero) ToProto() *pb.Hero {
 		Score:               int32(h.score),
 		Experience:          int32(h.experience),
 		ExperienceToLevelUp: int32(experienceToLevelUp(h.level)),
+		SkillPoints:         int32(h.skillPoints),
 	}
 }
 

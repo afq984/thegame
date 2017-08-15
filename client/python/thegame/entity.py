@@ -221,3 +221,6 @@ class Hero(Entity, metaclass=_HeroMeta):
     experience = _DataAttribute('The experience the hero has')
     experience_to_level_up = _DataAttribute(
         'The experience required for the hero to level up')
+    skill_points = _DataAttribute(
+        'Number of skill points available to level up abilities'
+    )
