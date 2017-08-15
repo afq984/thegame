@@ -6,28 +6,24 @@
 
 ## Client
 
-### Prerequisites
+### Installation
 
-- Qt5
-- PyQt5
+1. Make sure you have python (3.6 or later required) and Qt5
+2. `pip install git+https://github.com/afg984/thegame.git#subdirectory=client/python`
 
-### Start Client
+### Interactive Client
 
-```bash=
-cd client/python
+```
 python -m thegame.gui
 ```
 
+### Writing your own client
+
+Use `client/python/example.py` as a template to start with
+
+To start the client: `python example.py`
+
 ## Server
 
-### Prerequisites
-
-- go
-- grpcio
-
-### Start Server
-
-```bash=
-cd server/go
-make run
-```
+1. go to `server/go`
+2. `make run`
