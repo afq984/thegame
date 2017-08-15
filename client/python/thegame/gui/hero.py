@@ -21,7 +21,7 @@ class Hero(QGraphicsObject):
         radian60 = math.radians(30)
         shapePoint = [
             QPointF(
-                math.cos(radian60) * self.width / 2 + 3,
+                math.cos(radian60) * self.width / 2,
                 -math.sin(radian60) * self.width / 2),
             QPointF(
                 math.cos(radian60) * self.width / 2 + 30,
@@ -30,7 +30,7 @@ class Hero(QGraphicsObject):
                 math.cos(radian60) * self.width / 2 + 30,
                 math.sin(radian60) * self.width / 2),
             QPointF(
-                math.cos(radian60) * self.width / 2 + 3,
+                math.cos(radian60) * self.width / 2,
                 math.sin(radian60) * self.width / 2),
         ]
         self.barrel = QPolygonF(shapePoint)
