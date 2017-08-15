@@ -125,7 +125,7 @@ func filterBullets(a []*Bullet) []*Bullet {
 	return b
 }
 
-const fieldOfView = 600
+const fieldOfView = 800
 
 func (a *Arena) broadcast() {
 	var polygons []*pb.Polygon
