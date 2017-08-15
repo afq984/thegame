@@ -17,6 +17,7 @@ class HealthBar(QGraphicsObject):
         self.width = width
         self.offsetY = offsetY
         self.currentHealthWidth = width * (self.currentHealth / self.maxHealth)
+        self.setZValue(9)
 
     def boundingRect(self):
         penWidth = 3

@@ -13,7 +13,7 @@ class ExperienceBar(QGraphicsObject):
         self.maxWidth = 500
         self.displayWidth = 0
         self.setOpacity(0.8)
-        self.setZValue(1)
+        self.setZValue(10)
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.stepExperience)

@@ -36,6 +36,7 @@ class Hero(QGraphicsObject):
         self.barrel = QPolygonF(shapePoint)
 
         self.healthBar = NamedHealthBar(10000, 60, 40)
+        self.setZValue(0)
 
     def loadEntity(self, entity):
         self.healthBar.setName(entity.name)

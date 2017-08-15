@@ -29,6 +29,7 @@ class Polygon(QGraphicsObject):
         self.rotationTimer = QTimer(self)
         self.rotationTimer.timeout.connect(self.rotate)
         self.rotationTimer.start(25)
+        self.setZValue(1)
 
     def loadEntity(self, entity):
         self.setPos(*entity.position)

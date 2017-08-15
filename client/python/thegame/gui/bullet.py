@@ -11,6 +11,7 @@ class Bullet(QGraphicsObject):
     def __init__(self):
         super().__init__()
         self.radius = 10
+        self.setZValue(8)
 
     def loadEntity(self, entity):
         self.setPos(*entity.position)
