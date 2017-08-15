@@ -59,6 +59,9 @@ class View(QGraphicsView):
                     const.AbilityButtonCommonStyle +
                     const.AbilityButtonDisabledStyle)
 
+    def attachClient(self, client):
+        pass
+
     def resizeEvent(self, event):
         currentWidth = self.width()
         currentHeight = self.height()

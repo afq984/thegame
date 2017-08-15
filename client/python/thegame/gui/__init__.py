@@ -18,7 +18,11 @@ def main(client_instance=None):
     from thegame.gui.view import View
 
     app = QApplication(sys.argv)
-    scene = Scene(client_instance=client_instance)
+    scene = Scene()
     view = View(scene)
+
+    client_instance._attach(view, scene)
+    client_instance.start()
+
     view.show()
     return app.exec()

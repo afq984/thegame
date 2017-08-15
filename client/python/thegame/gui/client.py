@@ -5,6 +5,9 @@ from thegame import HeadlessClient
 
 
 class GuiClient(HeadlessClient, QThread):
+    '''
+    GUI Client to be used with thegame.gui.view.View and thegame.gui.view.Scene
+    '''
 
     dataArrived = pyqtSignal()
 
@@ -16,6 +19,13 @@ class GuiClient(HeadlessClient, QThread):
         self.action(**kwds)
         self.dataQueue.append(kwds)
         self.dataArrived.emit()
+
+    def _attach(self, view, scene):
+        '''attach to view and scene'''
+        self.scene = scene
+        self.view = view
+        scene.attachClient(self)
+        view.attachClient(self)
 
     def run(self):
         self._parse()

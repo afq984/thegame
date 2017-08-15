@@ -12,7 +12,7 @@ from thegame.gui.experiencebar import ExperienceBar
 
 
 class Scene(QGraphicsScene):
-    def __init__(self, client_instance):
+    def __init__(self):
         super().__init__()
         self.width = 5000
         self.height = 4000
@@ -31,12 +31,12 @@ class Scene(QGraphicsScene):
         self.polygons = ObjectTracker()
         self.heroes = ObjectTracker()
         self.bullets = ObjectTracker()
-        self.rpc = client_instance
-        self.rpc.scene = self
-        self.rpc.dataArrived.connect(self.updateDataSlot)
-        self.rpc.start()
         self.experienceBar = ExperienceBar()
         self.addItem(self.experienceBar)
+
+    def attachClient(self, client):
+        self.rpc = client
+        self.rpc.dataArrived.connect(self.updateDataSlot)
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
         backgroundColor = QColor(10, 10, 255, 30)
