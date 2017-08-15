@@ -7,7 +7,7 @@ from thegame.gui import const
 
 
 class View(QGraphicsView):
-    viewWidth = 960
+    viewWidth = 1280
     viewHeight = 768
 
     def __init__(self, scene):
@@ -15,13 +15,8 @@ class View(QGraphicsView):
         self.resize(self.viewWidth, self.viewHeight)
         self.setWindowTitle('thegame')
 
-        # The size of the view is not fixed. We may want to change it later
-        self.setMinimumSize(self.viewWidth, self.viewHeight)
-        self.setMaximumSize(self.viewWidth, self.viewHeight)
-
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.centerOn(100, 200)
 
         # so that mouseMoveEvent is always triggered
         self.setMouseTracking(True)
@@ -91,6 +86,7 @@ class View(QGraphicsView):
                 const.AbilityButtonWidth,
                 const.AbilityHeight,
             )
+        self.scene().setUiPos(self)
 
     def keyPressEvent(self, event: QKeyEvent):
         key = event.key()

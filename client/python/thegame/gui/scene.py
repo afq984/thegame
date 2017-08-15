@@ -45,9 +45,9 @@ class Scene(QGraphicsScene):
         backgroundColor = QColor(10, 10, 255, 30)
         painter.setBrush(backgroundColor)
         painter.setPen(backgroundColor)
-        for i in range(-5, self.width + 20, 20):
+        for i in range(-5, self.width + 20 + 1, 20):
             painter.drawLine(i, 5, i, self.height + 5)
-        for i in range(-5, self.height + 20, 20):
+        for i in range(-5, self.height + 20 + 1, 20):
             painter.drawLine(5, i, self.width + 5, i)
 
     def updateDataSlot(self):
@@ -89,14 +89,20 @@ class Scene(QGraphicsScene):
 
         view, = self.views()
         view.centerOn(*hero.position)
-        expCenter = view.mapToScene(
-            QPoint(view.viewWidth / 2, view.viewHeight - 50))
-        self.experienceBar.setPos(expCenter)
-        scoreboardCenter = view.mapToScene(
-            QPoint(view.viewWidth - 5, 5))
-        self.scoreboard.setPos(scoreboardCenter)
+        self.setUiPos(view)
+
         # XXX this is ugly
         self.scoreboard.loadScores(self.rpc._game_state.meta.scores)
+
+    def setUiPos(self, view):
+        vw = view.width()
+        vh = view.height()
+        expCenter = view.mapToScene(
+            QPoint(vw / 2, vh - 50))
+        self.experienceBar.setPos(expCenter)
+        scoreboardCenter = view.mapToScene(
+            QPoint(vw - 5, 5))
+        self.scoreboard.setPos(scoreboardCenter)
 
     def decay_and_remove(self, tup):
         '''
