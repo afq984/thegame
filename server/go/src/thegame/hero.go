@@ -128,7 +128,7 @@ func (h *Hero) Shoot() *Bullet {
 	return &Bullet{
 		Entity: Entity{
 			health:   h.ability(BulletPenetration),
-			position: h.position + h.velocity + cmplx.Rect(h.Radius(), h.orientation),
+			position: h.position + cmplx.Rect(h.Radius()+10+1, h.orientation),
 			velocity: cmplx.Rect(float64(h.ability(BulletSpeed)), h.orientation),
 			visible:  true,
 		},
