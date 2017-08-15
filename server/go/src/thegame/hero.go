@@ -192,7 +192,7 @@ func (h *Hero) Action(a *Arena) {
 }
 
 func (h *Hero) Spawn() {
-	experience := h.score / 2
+	experience := h.score / 3
 	h.score = 0
 	h.experience = 0
 	h.health = h.MaxHealth()
