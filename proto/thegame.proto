@@ -70,4 +70,6 @@ message Hero {
     int32 score = 7;
     int32 experience = 8;
     int32 experience_to_level_up = 9;
+    int32 cooldown = 10;
+    int32 health_regen_cooldown = 11;
 }

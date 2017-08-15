@@ -224,3 +224,17 @@ class Hero(Entity, metaclass=_HeroMeta):
     skill_points = _DataAttribute(
         'Number of skill points available to level up abilities'
     )
+    cooldown = _DataAttribute(
+        '''
+        How many ticks until the a is ready.
+        Increase the *reload* ability to reduce the cooldown.
+
+        ``shoot`` and ``shoot_at`` can still be called when on cooldown, but
+        nothing will happen instead.
+        '''
+    )
+    health_regen_cooldown = _DataAttribute(
+        '''
+        How many ticks until the hero can start to regenerate health
+        '''
+    )
