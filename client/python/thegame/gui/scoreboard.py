@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 class Scoreboard(QGraphicsObject):
     def __init__(self):
         super().__init__()
-        self.width = 160
+        self.width = 210
         self.scores = []
         self.setZValue(10)
 
@@ -29,21 +29,12 @@ class Scoreboard(QGraphicsObject):
         painter.setPen(pen)
         painter.setBrush(QBrush(QColor(81, 81, 81, 255), Qt.SolidPattern))
         for i, score in enumerate(self.scores):
-            # painter.drawText(
-            #     QRectF(
-            #         -self.width,
-            #         i * 15,
-            #         self.width,
-            #         i * 15 + 14),
-            #     Qt.AlignCenter,
-            #     f'{score.hero_name} {score.score}'
-            # )
             path = QPainterPath()
             path.addText(
                 -self.width,
                 14 + i * 16,
                 QFont('monospace', 13, QFont.PreferNoHinting),
-                f'{score.hero_name}  {score.score}')
+                f'{score.score:6}  {score.hero_name}')
             painter.drawPath(path)
 
     def loadScores(self, scores):
