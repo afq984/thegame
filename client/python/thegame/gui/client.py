@@ -30,6 +30,4 @@ class GuiClient(HeadlessClient, QThread):
     @classmethod
     def main(cls):
         from thegame.gui import main
-        self = cls()
-        self._parse()
-        main(self)
+        main(cls)

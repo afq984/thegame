@@ -3,6 +3,10 @@ from thegame.gui import GuiClient
 
 
 class Client(GuiClient):
+
+    def init(self):
+        name = ''  # Set your name here
+
     def action(self, hero, heroes, polygons, bullets):
         print("I'm", hero)
         print(
