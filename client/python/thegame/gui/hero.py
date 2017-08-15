@@ -45,7 +45,6 @@ class Hero(QGraphicsObject):
         self.healthBar.setHealth(entity.health, entity.max_health)
         self.velocity = entity.velocity
 
-
     def boundingRect(self):
         halfPenWidth = 3 / 2
         return QRectF(

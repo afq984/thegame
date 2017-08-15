@@ -32,18 +32,17 @@ class View(QGraphicsView):
 
     def initAbilityButtons(self):
         self.abilityButtons = []
+        self.abilityButtonGroup = QButtonGroup(self)
         for ab in Ability:
             text = ab.as_camel.replace('_', ' ')
             label = QLabel(text, self)
             button = QPushButton('+', self)
             self.abilityButtons.append((label, button))
-        self.abilityButtonGroup = QButtonGroup(self)
-        for label, button in self.abilityButtons:
             label.setVisible(True)
             label.setEnabled(False)
             button.setVisible(True)
             button.setEnabled(False)
-            self.abilityButtonGroup.addButton(button)
+            self.abilityButtonGroup.addButton(button, ab)
         self.setAbilityButtonStyle()
 
     def setAbilityButtonStyle(self):
@@ -53,7 +52,7 @@ class View(QGraphicsView):
             if button.isEnabled():
                 button.setStyleSheet(
                     const.AbilityButtonCommonStyle +
-                    const.AbilityButtonEnabledStyleList)
+                    const.AbilityButtonEnabledStyleList[i])
             else:
                 button.setStyleSheet(
                     const.AbilityButtonCommonStyle +
@@ -67,10 +66,14 @@ class View(QGraphicsView):
         self.updateData(**self.rpc.data)
 
     def updateData(self, hero, heroes, polygons, bullets):
-        for ab in Ability:
+        for ab, (label, button) in zip(Ability, self.abilityButtons):
             self.abilityButtons[ab][0].setText(
                 f'{ab.as_camel.replace("_", " ")} [{hero.abilities[ab].level}]'
             )
+            button.setEnabled(
+                hero.skill_points > 0
+                and hero.abilities[ab].level < 8)
+        self.setAbilityButtonStyle()
 
     def resizeEvent(self, event):
         currentWidth = self.width()
