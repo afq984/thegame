@@ -221,6 +221,7 @@ func (a *Arena) Run() {
 		case jr := <-a.joinChan:
 			a.heroCounter++
 			h := NewHero(a.heroCounter, jr.name)
+			h.Spawn()
 			log.Println(h, "joined the arena")
 			jr.ch <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:
