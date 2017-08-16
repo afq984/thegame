@@ -37,6 +37,7 @@ type Arena struct {
 	controlChan    chan HeroControls
 	joinChan       chan joinRequest
 	quitChan       chan *list.Element
+	commandChan    chan GameCommand
 }
 
 func NewArena() *Arena {
@@ -45,6 +46,7 @@ func NewArena() *Arena {
 		controlChan: make(chan HeroControls),
 		joinChan:    make(chan joinRequest),
 		quitChan:    make(chan *list.Element),
+		commandChan: make(chan GameCommand),
 	}
 	for i := 0; i < 30; i++ {
 		a.polygons[i] = &Polygon{shape: Pentagon}
@@ -202,11 +204,14 @@ func (a *Arena) Run() {
 	perfTick := time.Tick(time.Second)
 	var tickCount int64
 	var lastTick int64
+	paused := false
 	for {
 		select {
 		case <-tick:
-			tickCount++
-			a.tick()
+			if !paused {
+				tickCount++
+				a.tick()
+			}
 			a.broadcast()
 		case <-perfTick:
 			log.Println("ticks per second:", tickCount-lastTick)
@@ -221,6 +226,17 @@ func (a *Arena) Run() {
 		case l := <-a.quitChan:
 			log.Println(l.Value.(*Hero), "left the arena")
 			a.heroes.Remove(l)
+		case c := <-a.commandChan:
+			switch c {
+			case Pause:
+				log.Println("Game Paused")
+				paused = true
+			case Resume:
+				log.Println("Game Resumed")
+				paused = false
+			case c:
+				log.Printf("No known action to %q", c)
+			}
 		}
 	}
 }

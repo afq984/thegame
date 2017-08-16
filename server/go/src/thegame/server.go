@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net"
 
@@ -66,8 +67,23 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterTheGameServer(s, NewServer())
+	gs := NewServer()
+	pb.RegisterTheGameServer(s, gs)
 	log.Println("listening on", listen)
+	go func() {
+		for {
+			var line string
+			fmt.Scanln(&line)
+			switch line {
+			case "p":
+				gs.arena.commandChan <- Pause
+			case "r":
+				gs.arena.commandChan <- Resume
+			default:
+				fmt.Printf("Unknown command: %q\n", line)
+			}
+		}
+	}()
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
