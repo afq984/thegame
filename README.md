@@ -19,8 +19,10 @@ pip3 install --upgrade git+https://github.com/afg984/thegame.git#subdirectory=cl
 ### Interactive Client
 
 ```
-python3 -m thegame.gui
+python3 -m thegame.gui [SERVER_ADDRESS]
 ```
+
+Where `[SERVER_ADDRESS]` is the `host:port` of the server, which defaults to `localhost:50051`
 
 ### Writing your own client
 
@@ -29,7 +31,7 @@ Use `client/python/example.py` as a template to start with
 To start the client:
 
 ```
-python3 example.py
+python3 example.py [SERVER_ADDRESS]
 ```
 
 The API documentation is at: https://afg984.github.io/thegame/
