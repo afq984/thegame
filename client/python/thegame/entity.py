@@ -108,6 +108,9 @@ class Polygon(Entity):
     '''
     @property
     def edges(self):
+        '''
+        How many edges does the polygon have
+        '''
         return self.data.edges
 
 
