@@ -133,6 +133,8 @@ class HeadlessClient:
                 self._hero = hero
             else:
                 heroes.append(hero)
+        if self._hero is None:
+            raise Exception('player hero not found in hero list')
         self._controls = thegame_pb2.Controls()
         self._action(
             hero=hero,
