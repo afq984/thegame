@@ -1,0 +1,614 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>thegame alpha documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="toctree-wrapper compound">
+<span id="document-main"></span><div class="section" id="thegame-api">
+<h1>thegame API<a class="headerlink" href="#thegame-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="client">
+<h2>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="thegame.HeadlessClient">
+<em class="property">class </em><code class="descclassname">thegame.</code><code class="descname">HeadlessClient</code><a class="headerlink" href="#thegame.HeadlessClient" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="thegame.HeadlessClient.init">
+<code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the client is constructed</p>
+<p>If you want to initialize the client, put the code here.</p>
+<p>To set the name of your hero, set it here like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;yo&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.action">
+<code class="descname">action</code><span class="sig-paren">(</span><em>hero</em>, <em>heroes</em>, <em>polygons</em>, <em>bullets</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement this method to decide what to do in a turn, given the environment.
+The arguments are passed as keyword arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>hero</strong> – your hero</li>
+<li><strong>heroes</strong> (<em>list</em>) – list of heroes within the field of view, including yourself</li>
+<li><strong>polygons</strong> (<em>list</em>) – list of polygons within the field of view</li>
+<li><strong>bullets</strong> (<em>list</em>) – list of bullets within the field of view, including those shot from your hero</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.accelerate">
+<code class="descname">accelerate</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.accelerate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accelerates to the direction (in radians) in the current turn.</p>
+<p>In a turn, only the last call to <code class="docutils literal"><span class="pre">accelerate*</span></code> counts.
+Repeated calls overwrite previous ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>direction</strong> (<em>float</em>) – The direction to accelerate to, in radians</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.accelerate_towards">
+<code class="descname">accelerate_towards</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.accelerate_towards" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accelerates towards the point (x, y) in the current turn.</p>
+<p>In a turn, only the last call to <code class="docutils literal"><span class="pre">accelerate*</span></code> counts.
+Repeated calls overwrite previous ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>float</em>) – the absolute x axis</li>
+<li><strong>y</strong> (<em>float</em>) – the absolute y axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.shoot">
+<code class="descname">shoot</code><span class="sig-paren">(</span><em>direction</em>, <em>*</em>, <em>rotate_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.shoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shoot a bullet in the current turn, aiming at the direction
+(in radians).
+If bullet is reloading, then nothing will happen.</p>
+<p>In a turn, only the last call to <code class="docutils literal"><span class="pre">shoot*</span></code> counts.
+Repeated calls overwrite previous ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>direction</strong> (<em>float</em>) – the direction to shoot to, in radians</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.shoot_at">
+<code class="descname">shoot_at</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>*</em>, <em>rotate_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.shoot_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shoots a bullet in the current turn, aiming at the point (x, y).
+If bullet is reloading, then nothing will happen.</p>
+<p>In a turn, only the last call to <code class="docutils literal"><span class="pre">shoot*</span></code> counts.
+Repeated calls overwrite previous ones.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>float</em>) – the absolute x axis</li>
+<li><strong>y</strong> (<em>float</em>) – the absolute y axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="thegame.HeadlessClient.level_up">
+<code class="descname">level_up</code><span class="sig-paren">(</span><em>ability</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.level_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Level up the ability in the current turn.
+If there is no skill point available, nothing will happen.
+Repeated calls to this function in a turn will
+make the ability being leveled up multiple times.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ability</strong> (<a class="reference internal" href="index.html#thegame.Ability" title="thegame.Ability"><em>thegame.Ability</em></a>) – the ability to level up</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="thegame.HeadlessClient.main">
+<em class="property">classmethod </em><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#thegame.HeadlessClient.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse command line arguments and run the client</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="polygon">
+<h2>Polygon<a class="headerlink" href="#polygon" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="thegame.Polygon">
+<em class="property">class </em><code class="descclassname">thegame.</code><code class="descname">Polygon</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.Polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The netural polygons.</p>
+<dl class="attribute">
+<dt id="thegame.Polygon.body_damage">
+<code class="descname">body_damage</code><a class="headerlink" href="#thegame.Polygon.body_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>The body damage of the entity.</p>
+<p>When two entities collide, they reduce each other’s health
+with their body damage.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.health">
+<code class="descname">health</code><a class="headerlink" href="#thegame.Polygon.health" title="Permalink to this definition">¶</a></dt>
+<dd><p>The health of the entity in a non-negative integer.</p>
+<p>When a entity’s health is less than or equal to zero it dies.
+And the one dealing the killing blow is rewarded with
+<code class="docutils literal"><span class="pre">rewarding_experience</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.max_health">
+<code class="descname">max_health</code><a class="headerlink" href="#thegame.Polygon.max_health" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum health of this entity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.position">
+<code class="descname">position</code><a class="headerlink" href="#thegame.Polygon.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.radius">
+<code class="descname">radius</code><a class="headerlink" href="#thegame.Polygon.radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the entity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.rewarding_experience">
+<code class="descname">rewarding_experience</code><a class="headerlink" href="#thegame.Polygon.rewarding_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>How much experience you will get if you kill this entity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Polygon.velocity">
+<code class="descname">velocity</code><a class="headerlink" href="#thegame.Polygon.velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bullet">
+<h2>Bullet<a class="headerlink" href="#bullet" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="thegame.Bullet">
+<em class="property">class </em><code class="descclassname">thegame.</code><code class="descname">Bullet</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.Bullet" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bullet. Shot from a Hero.</p>
+<dl class="attribute">
+<dt id="thegame.Bullet.body_damage">
+<code class="descname">body_damage</code><a class="headerlink" href="#thegame.Bullet.body_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>The body damage of the entity.</p>
+<p>When two entities collide, they reduce each other’s health
+with their body damage.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.health">
+<code class="descname">health</code><a class="headerlink" href="#thegame.Bullet.health" title="Permalink to this definition">¶</a></dt>
+<dd><p>The health of the entity in a non-negative integer.</p>
+<p>When a entity’s health is less than or equal to zero it dies.
+And the one dealing the killing blow is rewarded with
+<code class="docutils literal"><span class="pre">rewarding_experience</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.max_health">
+<code class="descname">max_health</code><a class="headerlink" href="#thegame.Bullet.max_health" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum health of this entity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.owner_id">
+<code class="descname">owner_id</code><a class="headerlink" href="#thegame.Bullet.owner_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The id of the hero owning the bullet</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.position">
+<code class="descname">position</code><a class="headerlink" href="#thegame.Bullet.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.radius">
+<code class="descname">radius</code><a class="headerlink" href="#thegame.Bullet.radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the entity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.rewarding_experience">
+<code class="descname">rewarding_experience</code><a class="headerlink" href="#thegame.Bullet.rewarding_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>How much experience you will get if you kill this entity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Bullet.velocity">
+<code class="descname">velocity</code><a class="headerlink" href="#thegame.Bullet.velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="abilities">
+<h2>Abilities<a class="headerlink" href="#abilities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="thegame.Ability">
+<em class="property">class </em><code class="descclassname">thegame.</code><code class="descname">Ability</code><a class="headerlink" href="#thegame.Ability" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt id="thegame.Ability.HealthRegen">
+<code class="descname">HealthRegen</code><em class="property"> = 0</em><a class="headerlink" href="#thegame.Ability.HealthRegen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.MaxHealth">
+<code class="descname">MaxHealth</code><em class="property"> = 1</em><a class="headerlink" href="#thegame.Ability.MaxHealth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.BodyDamage">
+<code class="descname">BodyDamage</code><em class="property"> = 2</em><a class="headerlink" href="#thegame.Ability.BodyDamage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.BulletSpeed">
+<code class="descname">BulletSpeed</code><em class="property"> = 3</em><a class="headerlink" href="#thegame.Ability.BulletSpeed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.BulletPenetration">
+<code class="descname">BulletPenetration</code><em class="property"> = 4</em><a class="headerlink" href="#thegame.Ability.BulletPenetration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.BulletDamage">
+<code class="descname">BulletDamage</code><em class="property"> = 5</em><a class="headerlink" href="#thegame.Ability.BulletDamage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.Reload">
+<code class="descname">Reload</code><em class="property"> = 6</em><a class="headerlink" href="#thegame.Ability.Reload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Ability.MovementSpeed">
+<code class="descname">MovementSpeed</code><em class="property"> = 7</em><a class="headerlink" href="#thegame.Ability.MovementSpeed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="hero">
+<h2>Hero<a class="headerlink" href="#hero" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="thegame.Hero">
+<em class="property">class </em><code class="descclassname">thegame.</code><code class="descname">Hero</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#thegame.Hero" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Hero is a player in thegame.</p>
+<dl class="attribute">
+<dt id="thegame.Hero.abilities">
+<code class="descname">abilities</code><a class="headerlink" href="#thegame.Hero.abilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a tuple of abilities.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hero</span><span class="o">.</span><span class="n">abilities</span><span class="p">[</span><span class="n">MaxHealth</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># get the hero&#39;s max health</span>
+<span class="n">hero</span><span class="o">.</span><span class="n">abilities</span><span class="o">.</span><span class="n">max_health</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># the same thing</span>
+
+<span class="n">hero</span><span class="o">.</span><span class="n">abilities</span><span class="p">[</span><span class="n">MaxHealth</span><span class="p">]</span><span class="o">.</span><span class="n">level</span>  <span class="c1"># get the ability level</span>
+<span class="n">hero</span><span class="o">.</span><span class="n">abilities</span><span class="o">.</span><span class="n">max_health</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># the same thing again</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.body_damage">
+<code class="descname">body_damage</code><a class="headerlink" href="#thegame.Hero.body_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.body_damage.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.body_damage_level">
+<code class="descname">body_damage_level</code><a class="headerlink" href="#thegame.Hero.body_damage_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.body_damage.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_damage">
+<code class="descname">bullet_damage</code><a class="headerlink" href="#thegame.Hero.bullet_damage" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_damage.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_damage_level">
+<code class="descname">bullet_damage_level</code><a class="headerlink" href="#thegame.Hero.bullet_damage_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_damage.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_penetration">
+<code class="descname">bullet_penetration</code><a class="headerlink" href="#thegame.Hero.bullet_penetration" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_penetration.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_penetration_level">
+<code class="descname">bullet_penetration_level</code><a class="headerlink" href="#thegame.Hero.bullet_penetration_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_penetration.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_speed">
+<code class="descname">bullet_speed</code><a class="headerlink" href="#thegame.Hero.bullet_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_speed.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.bullet_speed_level">
+<code class="descname">bullet_speed_level</code><a class="headerlink" href="#thegame.Hero.bullet_speed_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.bullet_speed.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.cooldown">
+<code class="descname">cooldown</code><a class="headerlink" href="#thegame.Hero.cooldown" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many ticks until the a is ready.
+Increase the <em>reload</em> ability to reduce the cooldown.</p>
+<p><code class="docutils literal"><span class="pre">shoot</span></code> and <code class="docutils literal"><span class="pre">shoot_at</span></code> can still be called when on cooldown, but
+nothing will happen instead.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.experience">
+<code class="descname">experience</code><a class="headerlink" href="#thegame.Hero.experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>The experience the hero has</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.experience_to_level_up">
+<code class="descname">experience_to_level_up</code><a class="headerlink" href="#thegame.Hero.experience_to_level_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>The experience required for the hero to level up</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.health">
+<code class="descname">health</code><a class="headerlink" href="#thegame.Hero.health" title="Permalink to this definition">¶</a></dt>
+<dd><p>The health of the entity in a non-negative integer.</p>
+<p>When a entity’s health is less than or equal to zero it dies.
+And the one dealing the killing blow is rewarded with
+<code class="docutils literal"><span class="pre">rewarding_experience</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.health_regen">
+<code class="descname">health_regen</code><a class="headerlink" href="#thegame.Hero.health_regen" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.health_regen.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.health_regen_cooldown">
+<code class="descname">health_regen_cooldown</code><a class="headerlink" href="#thegame.Hero.health_regen_cooldown" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many ticks until the hero can start to regenerate health</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.health_regen_level">
+<code class="descname">health_regen_level</code><a class="headerlink" href="#thegame.Hero.health_regen_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.health_regen.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.level">
+<code class="descname">level</code><a class="headerlink" href="#thegame.Hero.level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The level of the hero</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.max_health">
+<code class="descname">max_health</code><a class="headerlink" href="#thegame.Hero.max_health" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.max_health.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.max_health_level">
+<code class="descname">max_health_level</code><a class="headerlink" href="#thegame.Hero.max_health_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.max_health.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.movement_speed">
+<code class="descname">movement_speed</code><a class="headerlink" href="#thegame.Hero.movement_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.movement_speed.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.movement_speed_level">
+<code class="descname">movement_speed_level</code><a class="headerlink" href="#thegame.Hero.movement_speed_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.movement_speed.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.name">
+<code class="descname">name</code><a class="headerlink" href="#thegame.Hero.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the hero. Not guranteed to be unique</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.orientation">
+<code class="descname">orientation</code><a class="headerlink" href="#thegame.Hero.orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The orientation of the hero; the direction the barrel is faction at,
+in radians.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.position">
+<code class="descname">position</code><a class="headerlink" href="#thegame.Hero.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.radius">
+<code class="descname">radius</code><a class="headerlink" href="#thegame.Hero.radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the entity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.reload">
+<code class="descname">reload</code><a class="headerlink" href="#thegame.Hero.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.reload.value</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.reload_level">
+<code class="descname">reload_level</code><a class="headerlink" href="#thegame.Hero.reload_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>shortcut to <code class="docutils literal"><span class="pre">hero.abilities.reload.level</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.rewarding_experience">
+<code class="descname">rewarding_experience</code><a class="headerlink" href="#thegame.Hero.rewarding_experience" title="Permalink to this definition">¶</a></dt>
+<dd><p>How much experience you will get if you kill this entity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.score">
+<code class="descname">score</code><a class="headerlink" href="#thegame.Hero.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>The score of the hero</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.skill_points">
+<code class="descname">skill_points</code><a class="headerlink" href="#thegame.Hero.skill_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of skill points available to level up abilities</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="thegame.Hero.velocity">
+<code class="descname">velocity</code><a class="headerlink" href="#thegame.Hero.velocity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The velocity of the entity in a 2-tuple (x, y).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html#document-index">thegame</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-main">thegame API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#client">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#polygon">Polygon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bullet">Bullet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#abilities">Abilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hero">Hero</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html#document-index">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, afg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
