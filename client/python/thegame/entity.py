@@ -59,7 +59,7 @@ class Entity:
     @property
     def position(self):
         '''
-        The velocity of the entity in a 2-tuple (x, y).
+        The position of the entity in a 2-tuple (x, y).
         '''
         p = self.data.entity.position
         return Vector(p.x, p.y)
