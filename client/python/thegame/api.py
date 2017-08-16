@@ -8,6 +8,10 @@ from thegame import thegame_pb2, thegame_pb2_grpc
 from thegame.abilities import Ability
 
 
+class Stop:
+    '''Asks the generator to stop'''
+
+
 class HeadlessClient:
     def __init__(self):
         super().__init__()
@@ -109,6 +113,8 @@ class HeadlessClient:
         yield thegame_pb2.Controls(name=getattr(self, 'name', ''))
         while True:
             controls = self._queue.get()
+            if controls is Stop:
+                break
             yield controls
 
     def _action(self, **kwds):
@@ -139,11 +145,14 @@ class HeadlessClient:
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         self._queue = queue.Queue()
-        request_iterator = self._gen()
-        response_iterator = stub.Game(request_iterator)
-        for response in response_iterator:
-            self._game_state = response
-            self._queue.put(self._response_to_controls(response))
+        try:
+            request_iterator = self._gen()
+            response_iterator = stub.Game(request_iterator)
+            for response in response_iterator:
+                self._game_state = response
+                self._queue.put(self._response_to_controls(response))
+        finally:
+            self._queue.put(Stop)
 
     def _parse(self):
         import argparse
