@@ -42,7 +42,7 @@ func Hit(a, b Collidable) {
 	hp := b.Health()
 	hp -= a.BodyDamage()
 	b.SetHealth(hp)
-	if hp < 0 {
+	if hp <= 0 {
 		log.Println(a, "killed", b)
 		b.SetVisible(false)
 		a.AcquireExperience(b.RewardingExperience())
