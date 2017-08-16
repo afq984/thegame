@@ -1,6 +1,8 @@
 thegame API
 ===========
 
+For installation instructions, please follow: https://github.com/afg984/thegame
+
 Client
 ------
 

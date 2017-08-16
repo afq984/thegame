@@ -26,7 +26,13 @@ python3 -m thegame.gui
 
 Use `client/python/example.py` as a template to start with
 
-To start the client: `python example.py`
+To start the client:
+
+```
+python3 example.py
+```
+
+The API documentation is at: https://afg984.github.io/thegame/
 
 ## Server
 
