@@ -65,7 +65,7 @@ func (p *Polygon) Edges() int {
 }
 
 func (p *Polygon) Friction() float64 {
-	return 0.001
+	return 0.04
 }
 
 func (p *Polygon) IsBounded() bool {
@@ -73,7 +73,7 @@ func (p *Polygon) IsBounded() bool {
 }
 
 func (p *Polygon) MaxSpeed() float64 {
-	return 3
+	return 5
 }
 
 func (p *Polygon) Radius() float64 {
