@@ -1,7 +1,7 @@
-import collections
 from PyQt5.QtCore import QThread, pyqtSignal
 
 from thegame import HeadlessClient
+import copy
 
 
 class GuiClient(HeadlessClient, QThread):
@@ -12,7 +12,7 @@ class GuiClient(HeadlessClient, QThread):
     dataArrived = pyqtSignal()
 
     def _action(self, **kwds):
-        self.action(**kwds)
+        self.action(**copy.deepcopy(kwds))
         self.data = kwds
         self.dataArrived.emit()
 
