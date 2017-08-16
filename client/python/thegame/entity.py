@@ -54,7 +54,7 @@ class Entity:
             f'@({self.position.x:.0f},{self.position.y:.0f})>'
         )
 
-    id = _EntityAttribute()
+    id = _EntityAttribute('The id of the entity')
 
     @property
     def position(self):
