@@ -128,16 +128,16 @@ class HeadlessClient:
         heroes = []
         self._hero = None
         for rhero in response.heroes:
-            hero = Hero(rhero)
-            if hero.id == response.meta.hero_id:
-                self._hero = hero
+            thero = Hero(rhero)
+            if thero.id == response.meta.hero_id:
+                self._hero = thero
             else:
-                heroes.append(hero)
+                heroes.append(thero)
         if self._hero is None:
             raise Exception('player hero not found in hero list')
         self._controls = thegame_pb2.Controls()
         self._action(
-            hero=hero,
+            hero=self._hero,
             heroes=heroes,
             polygons=polygons,
             bullets=bullets,
