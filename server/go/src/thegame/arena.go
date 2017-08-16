@@ -2,6 +2,7 @@ package main
 
 import (
 	"container/list"
+	"flag"
 	"log"
 	"math/rand"
 	"sort"
@@ -10,7 +11,11 @@ import (
 	"thegame/pb"
 )
 
-const tickTime = time.Second / 30
+var ticksPerSecond int
+
+func init() {
+	flag.IntVar(&ticksPerSecond, "tps", 30, "ticks per second")
+}
 
 type HeroControls struct {
 	*Hero
@@ -193,7 +198,7 @@ func (a *Arena) broadcast() {
 }
 
 func (a *Arena) Run() {
-	tick := time.Tick(tickTime)
+	tick := time.Tick(time.Second / time.Duration(ticksPerSecond))
 	perfTick := time.Tick(time.Second)
 	var tickCount int64
 	var lastTick int64
