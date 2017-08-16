@@ -226,7 +226,7 @@ class Hero(Entity, metaclass=_HeroMeta):
     )
     cooldown = _DataAttribute(
         '''
-        How many ticks until the a bullet is ready.
+        How many ticks until a bullet is ready.
         Increase the *reload* ability to reduce the cooldown.
 
         ``shoot`` and ``shoot_at`` can still be called when on cooldown, but
