@@ -67,7 +67,7 @@ class Scene(QGraphicsScene):
             if created:
                 self.addItem(gb)
             gb.loadEntity(b)
-        for h in heroes:
+        for h in itertools.chain([hero], heroes):
             gh, created = self.heroes.get_or_create(h.id, Hero)
             if created:
                 self.addItem(gh)

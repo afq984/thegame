@@ -34,7 +34,8 @@ class HeadlessClient:
         The arguments are passed as keyword arguments.
 
         :param hero: your hero
-        :param list heroes: list of heroes within the field of view, including yourself
+        :param list heroes: list of heroes within the field of view, does not
+        include yourself
         :param list polygons: list of polygons within the field of view
         :param list bullets: list of bullets within the field of view, including those shot from your hero
         '''
@@ -123,14 +124,15 @@ class HeadlessClient:
 
     def _response_to_controls(self, response):
         polygons = list(map(Polygon, response.polygons))
-        heroes = list(map(Hero, response.heroes))
         bullets = list(map(Bullet, response.bullets))
-        for hero in heroes:
+        heroes = []
+        self._hero = None
+        for rhero in response.heroes:
+            hero = Hero(rhero)
             if hero.id == response.meta.hero_id:
-                break
-        else:
-            raise Exception('Hero not found')
-        self._hero = hero
+                self._hero = hero
+            else:
+                heroes.append(hero)
         self._controls = thegame_pb2.Controls()
         self._action(
             hero=hero,
