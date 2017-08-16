@@ -8,6 +8,7 @@ from PyQt5.QtGui import (
 from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
+from thegame.gui import const
 from thegame.gui.healthbar import HealthBar
 
 
@@ -46,16 +47,8 @@ class Polygon(QGraphicsObject):
             option: QStyleOptionGraphicsItem,
             widget: QWidget,
             ):
-        pen = QPen()
-        pen.setWidth(3)
-        pen.setColor(QColor(85, 85, 85, 255))
-        painter.setPen(pen)
-        brushColor = {
-            3: QColor(252, 118, 119, 255),
-            4: QColor(255, 232, 105, 255),
-            5: QColor(118, 141, 252, 255),
-        }[self.edges]
-        painter.setBrush(QBrush(brushColor))
+        painter.setPen(const.FramePen)
+        painter.setBrush(const.PolygonBrushes[self.edges])
         painter.setRenderHint(QPainter.Antialiasing)
         painter.drawPath(self.shape())
 

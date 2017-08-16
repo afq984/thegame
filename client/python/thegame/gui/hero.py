@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
 from thegame.gui.healthbar import NamedHealthBar
+from thegame.gui import const
 
 
 class Hero(QGraphicsObject):
@@ -61,13 +62,11 @@ class Hero(QGraphicsObject):
         option: QStyleOptionGraphicsItem,
         widget: QWidget,
     ):
-        pen = QPen()
-        pen.setWidth(3)
-        pen.setColor(QColor(85, 85, 85, 255))
         painter.setRenderHint(QPainter.Antialiasing)
-        painter.setPen(pen)
-        painter.setBrush(QBrush(QColor(153, 153, 153, 255), Qt.SolidPattern))
+        painter.setPen(const.FramePen)
+        painter.setBrush(const.HeroBarrelBrush)
         painter.drawPolygon(self.barrel)
+        painter.setBrush(const.HeroBrush)
         painter.setBrush(QBrush(QColor(0, 178, 255, 255), Qt.SolidPattern))
         painter.drawEllipse(
             -self.width / 2, -self.width / 2, self.width, self.width)

@@ -2,6 +2,9 @@
 constant definitions for gui
 '''
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QColor, QPen, QBrush
+
 
 AbilityLabelStyle = (
     "background-color: rgb(61, 61, 61, 240); border-style: outset; "
@@ -29,3 +32,38 @@ AbilityYDelta = 24
 AbilityHeight = 21
 AbilityLabelWidth = 150
 AbilityButtonWidth = 30
+
+FrameColor = QColor(85, 85, 85)
+FrameWidth = 3
+FramePen = QPen()
+FramePen.setWidth(FrameWidth)
+FramePen.setColor(FrameColor)
+
+BulletColor = QColor(241, 78, 84)
+BulletBrush = QBrush(BulletColor, Qt.SolidPattern)
+
+HeroColor = QColor(0, 178, 255)
+HeroBrush = QBrush(HeroColor, Qt.SolidPattern)
+HeroBarrelColor = QColor(153, 153, 153)
+HeroBarrelBrush = QBrush(HeroBarrelColor, Qt.SolidPattern)
+
+PolygonColors = {
+    3: QColor(252, 118, 119),
+    4: QColor(255, 232, 105),
+    5: QColor(118, 141, 252),
+}
+PolygonBrushes = {
+    e: QBrush(color, Qt.SolidPattern)
+    for (e, color)
+    in PolygonColors.items()
+}
+
+HealthBarBackgroundColor = FrameColor
+HealthBarBackgroundBrush = QBrush(HealthBarBackgroundColor)
+HealthBarForegroundColor = QColor(134, 198, 128)
+HealthBarForegroundBrush = QBrush(HealthBarForegroundColor)
+
+HeroNameColor = QColor(24, 24, 24)
+HeroNamePen = QPen()
+HeroNamePen.setColor(HeroNameColor)
+HeroNamePen.setWidth(3)

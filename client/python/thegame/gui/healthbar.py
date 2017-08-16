@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
 
+from thegame.gui import const
+
 
 class HealthBar(QGraphicsObject):
     height = 6
@@ -33,14 +35,11 @@ class HealthBar(QGraphicsObject):
             painter: QPainter,
             option: QStyleOptionGraphicsItem,
             widget: QWidget):
-        pen = QPen()
-        pen.setWidth(3)
-        pen.setColor(QColor(85, 85, 85, 255))
+        painter.setPen(const.FramePen)
         painter.setRenderHint(QPainter.Antialiasing)
-        painter.setPen(pen)
-        painter.setBrush(QBrush(QColor(85, 85, 85, 255), Qt.SolidPattern))
+        painter.setBrush(const.HealthBarBackgroundBrush)
         painter.drawRect(-self.width / 2, self.offsetY, self.width, self.height)
-        painter.setBrush(QBrush(QColor(134, 198, 128, 255), Qt.SolidPattern))
+        painter.setBrush(const.HealthBarForegroundBrush)
         painter.drawRect(-self.width / 2, self.offsetY, self.currentHealthWidth, self.height)
 
     def shape(self):
@@ -88,12 +87,9 @@ class NamedHealthBar(HealthBar):
             option: QStyleOptionGraphicsItem,
             widget: QWidget):
         super().paint(painter, option, widget)
-        pen = QPen()
-        pen.setWidth(3)
-        pen.setColor(QColor(84, 84, 84, 255))
-        painter.setPen(pen)
+
+        painter.setPen(const.HeroNamePen)
         painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(QColor(240, 240, 240, 255), Qt.SolidPattern))
         painter.drawText(
             QRectF(
                 -self.width / 2 - 15,

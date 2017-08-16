@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import (
     QWidget, QGraphicsObject, QStyleOptionGraphicsItem
 )
 
+from thegame.gui import const
+
 
 class Bullet(QGraphicsObject):
     def __init__(self):
@@ -32,11 +34,8 @@ class Bullet(QGraphicsObject):
         option: QStyleOptionGraphicsItem,
         widget: QWidget,
     ):
-        pen = QPen()
-        pen.setWidth(4)
-        pen.setColor(QColor(85, 85, 85, 255))
-        painter.setPen(pen)
-        painter.setBrush(QBrush(QColor(241, 78, 84, 255), Qt.SolidPattern))
+        painter.setPen(const.FramePen)
+        painter.setBrush(const.BulletBrush)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.drawPath(self.shape())
 
