@@ -40,5 +40,16 @@ The API documentation is at: https://afg984.github.io/thegame/
 
 ## Server
 
-1. go to `server/go`
-2. `make run`
+1. Install go https://golang.org/
+
+2. Install the server
+
+```
+go get github.com/afg984/thegame/server/go/src/thegame
+```
+
+3. Run the server
+
+```
+$GOPATH/bin/thegame [-listen [host]:port] [-tps N]
+```
