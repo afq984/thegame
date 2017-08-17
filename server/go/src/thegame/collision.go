@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"math/cmplx"
 	"sort"
 )
@@ -43,7 +42,6 @@ func Hit(a, b Collidable) {
 	hp -= a.BodyDamage()
 	b.SetHealth(hp)
 	if hp <= 0 {
-		log.Println(a, "killed", b)
 		b.SetVisible(false)
 		a.AcquireExperience(b.RewardingExperience())
 	}
