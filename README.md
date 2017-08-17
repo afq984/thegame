@@ -44,12 +44,12 @@ The API documentation is at: https://afg984.github.io/thegame/
 
 2. Install the server
 
-```
-go get github.com/afg984/thegame/server/go/src/thegame
-```
+   ```
+   go get github.com/afg984/thegame/server/go/src/thegame
+   ```
 
 3. Run the server
 
-```
-$GOPATH/bin/thegame [-listen [host]:port] [-tps N]
-```
+   ```
+   $GOPATH/bin/thegame [-listen [host]:port] [-tps N]
+   ```
