@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 
 	"errors"
-	"thegame/pb"
+	"github.com/afg984/thegame/server/go/src/thegame/pb"
 )
 
 var listen string

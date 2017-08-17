@@ -8,7 +8,7 @@ import (
 	"sort"
 	"time"
 
-	"thegame/pb"
+	"github.com/afg984/thegame/server/go/src/thegame/pb"
 )
 
 var ticksPerSecond int
