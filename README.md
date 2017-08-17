@@ -16,6 +16,8 @@ Then install with pip:
 python3 -m pip install --upgrade git+https://github.com/afg984/thegame.git#subdirectory=client/python
 ```
 
+You may want to use the `--user` flag
+
 ### Interactive Client
 
 ```
