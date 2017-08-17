@@ -34,7 +34,7 @@ class Scoreboard(QGraphicsObject):
                 -self.width,
                 14 + i * 16,
                 QFont('monospace', 13, QFont.PreferNoHinting),
-                f'{score.score:6}  [{score.level:2}]  {score.hero_name}')
+                f'{score.score:6}[{score.level:2}]  {score.hero_name}')
             painter.drawPath(path)
 
     def loadScores(self, scores):
