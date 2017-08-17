@@ -4,6 +4,7 @@ option go_package = "pb";
 
 service TheGame {
     rpc Game(stream Controls) returns (stream GameState) {}
+    rpc View(ViewRequest) returns (stream GameState) {}
 }
 
 message Controls {
@@ -13,6 +14,10 @@ message Controls {
     double shoot_direction = 4;
     repeated Ability level_up = 5;
     string name = 6;  // only valid on first message
+}
+
+message ViewRequest {
+    string token = 1;
 }
 
 enum Ability {

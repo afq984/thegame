@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xad\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1a\x34\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xdf\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32.\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x1c\n\x0bViewRequest\x12\r\n\x05token\x18\x01 \x01(\t\"\xad\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1a\x34\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xdf\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32T\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x12$\n\x04View\x12\x0c.ViewRequest\x1a\n.GameState\"\x00\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1026,
-  serialized_end=1186,
+  serialized_start=1056,
+  serialized_end=1216,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -147,6 +147,37 @@ _CONTROLS = _descriptor.Descriptor(
 )
 
 
+_VIEWREQUEST = _descriptor.Descriptor(
+  name='ViewRequest',
+  full_name='ViewRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='token', full_name='ViewRequest.token', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=172,
+  serialized_end=200,
+)
+
+
 _GAMESTATE_META = _descriptor.Descriptor(
   name='Meta',
   full_name='GameState.Meta',
@@ -180,8 +211,8 @@ _GAMESTATE_META = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=294,
-  serialized_end=346,
+  serialized_start=324,
+  serialized_end=376,
 )
 
 _GAMESTATE = _descriptor.Descriptor(
@@ -231,8 +262,8 @@ _GAMESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=173,
-  serialized_end=346,
+  serialized_start=203,
+  serialized_end=376,
 )
 
 
@@ -269,8 +300,8 @@ _ENTITY_VECTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=542,
-  serialized_end=572,
+  serialized_start=572,
+  serialized_end=602,
 )
 
 _ENTITY = _descriptor.Descriptor(
@@ -348,8 +379,8 @@ _ENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=349,
-  serialized_end=572,
+  serialized_start=379,
+  serialized_end=602,
 )
 
 
@@ -400,8 +431,8 @@ _SCOREENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=574,
-  serialized_end=652,
+  serialized_start=604,
+  serialized_end=682,
 )
 
 
@@ -438,8 +469,8 @@ _POLYGON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=654,
-  serialized_end=703,
+  serialized_start=684,
+  serialized_end=733,
 )
 
 
@@ -476,8 +507,8 @@ _BULLET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=705,
-  serialized_end=753,
+  serialized_start=735,
+  serialized_end=783,
 )
 
 
@@ -584,8 +615,8 @@ _HERO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=756,
-  serialized_end=1023,
+  serialized_start=786,
+  serialized_end=1053,
 )
 
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
@@ -602,6 +633,7 @@ _POLYGON.fields_by_name['entity'].message_type = _ENTITY
 _BULLET.fields_by_name['entity'].message_type = _ENTITY
 _HERO.fields_by_name['entity'].message_type = _ENTITY
 DESCRIPTOR.message_types_by_name['Controls'] = _CONTROLS
+DESCRIPTOR.message_types_by_name['ViewRequest'] = _VIEWREQUEST
 DESCRIPTOR.message_types_by_name['GameState'] = _GAMESTATE
 DESCRIPTOR.message_types_by_name['Entity'] = _ENTITY
 DESCRIPTOR.message_types_by_name['ScoreEntry'] = _SCOREENTRY
@@ -617,6 +649,13 @@ Controls = _reflection.GeneratedProtocolMessageType('Controls', (_message.Messag
   # @@protoc_insertion_point(class_scope:Controls)
   ))
 _sym_db.RegisterMessage(Controls)
+
+ViewRequest = _reflection.GeneratedProtocolMessageType('ViewRequest', (_message.Message,), dict(
+  DESCRIPTOR = _VIEWREQUEST,
+  __module__ = 'thegame.thegame_pb2'
+  # @@protoc_insertion_point(class_scope:ViewRequest)
+  ))
+_sym_db.RegisterMessage(ViewRequest)
 
 GameState = _reflection.GeneratedProtocolMessageType('GameState', (_message.Message,), dict(
 
@@ -704,6 +743,11 @@ try:
           request_serializer=Controls.SerializeToString,
           response_deserializer=GameState.FromString,
           )
+      self.View = channel.unary_stream(
+          '/TheGame/View',
+          request_serializer=ViewRequest.SerializeToString,
+          response_deserializer=GameState.FromString,
+          )
 
 
   class TheGameServicer(object):
@@ -717,12 +761,24 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
+    def View(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
 
   def add_TheGameServicer_to_server(servicer, server):
     rpc_method_handlers = {
         'Game': grpc.stream_stream_rpc_method_handler(
             servicer.Game,
             request_deserializer=Controls.FromString,
+            response_serializer=GameState.SerializeToString,
+        ),
+        'View': grpc.unary_stream_rpc_method_handler(
+            servicer.View,
+            request_deserializer=ViewRequest.FromString,
             response_serializer=GameState.SerializeToString,
         ),
     }
@@ -743,6 +799,10 @@ try:
       # missing associated documentation comment in .proto file
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def View(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
   class BetaTheGameStub(object):
@@ -757,6 +817,10 @@ try:
       # missing associated documentation comment in .proto file
       pass
       raise NotImplementedError()
+    def View(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
 
 
   def beta_create_TheGame_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -767,12 +831,15 @@ try:
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
       ('TheGame', 'Game'): Controls.FromString,
+      ('TheGame', 'View'): ViewRequest.FromString,
     }
     response_serializers = {
       ('TheGame', 'Game'): GameState.SerializeToString,
+      ('TheGame', 'View'): GameState.SerializeToString,
     }
     method_implementations = {
       ('TheGame', 'Game'): face_utilities.stream_stream_inline(servicer.Game),
+      ('TheGame', 'View'): face_utilities.unary_stream_inline(servicer.View),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
@@ -786,12 +853,15 @@ try:
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
       ('TheGame', 'Game'): Controls.SerializeToString,
+      ('TheGame', 'View'): ViewRequest.SerializeToString,
     }
     response_deserializers = {
       ('TheGame', 'Game'): GameState.FromString,
+      ('TheGame', 'View'): GameState.FromString,
     }
     cardinalities = {
       'Game': cardinality.Cardinality.STREAM_STREAM,
+      'View': cardinality.Cardinality.UNARY_STREAM,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
     return beta_implementations.dynamic_stub(channel, 'TheGame', cardinalities, options=stub_options)

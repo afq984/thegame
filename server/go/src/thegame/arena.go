@@ -38,6 +38,8 @@ type Arena struct {
 	joinChan       chan joinRequest
 	quitChan       chan *list.Element
 	commandChan    chan GameCommand
+	viewRemotes    []chan *pb.GameState
+	viewChan       chan chan *pb.GameState
 }
 
 func NewArena() *Arena {
@@ -47,6 +49,7 @@ func NewArena() *Arena {
 		joinChan:    make(chan joinRequest),
 		quitChan:    make(chan *list.Element),
 		commandChan: make(chan GameCommand),
+		viewChan:    make(chan chan *pb.GameState),
 	}
 	for i := 0; i < 30; i++ {
 		a.polygons[i] = &Polygon{shape: Pentagon}
@@ -134,11 +137,27 @@ func filterBullets(a []*Bullet) []*Bullet {
 
 const fieldOfView = 800
 
+func (a *Arena) broadcastView(gs *pb.GameState) {
+	remotes := a.viewRemotes[:0]
+	for _, remote := range a.viewRemotes {
+		select {
+		case remote <- gs:
+			remotes = append(remotes, remote)
+		default:
+			close(remote)
+			log.Println("view client not responding to updates")
+		}
+	}
+	a.viewRemotes = remotes
+}
+
 func (a *Arena) broadcast() {
 	var polygons []*pb.Polygon
 	var bullets []*pb.Bullet
 	var heroes []*pb.Hero
 	var scores []*pb.ScoreEntry
+	maxScore := 0
+	var maxScoreHero *Hero
 	for _, p := range a.polygons {
 		if p.visible {
 			polygons = append(polygons, p.ToProto())
@@ -149,6 +168,10 @@ func (a *Arena) broadcast() {
 	}
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
+		if h.score > maxScore {
+			maxScore = h.score
+			maxScoreHero = h
+		}
 		heroes = append(heroes, h.ToProto())
 		scores = append(scores, h.ToScoreEntry())
 	}
@@ -196,6 +219,9 @@ func (a *Arena) broadcast() {
 		default:
 			log.Println(h, "not responding to updates")
 		}
+		if h == maxScoreHero {
+			a.broadcastView(state)
+		}
 	}
 }
 
@@ -227,6 +253,8 @@ func (a *Arena) Run() {
 		case l := <-a.quitChan:
 			log.Println(l.Value.(*Hero), "left the arena")
 			a.heroes.Remove(l)
+		case cgs := <-a.viewChan:
+			a.viewRemotes = append(a.viewRemotes, cgs)
 		case c := <-a.commandChan:
 			switch c {
 			case Pause:

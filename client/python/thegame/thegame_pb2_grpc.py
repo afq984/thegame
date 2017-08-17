@@ -19,6 +19,11 @@ class TheGameStub(object):
         request_serializer=thegame_dot_thegame__pb2.Controls.SerializeToString,
         response_deserializer=thegame_dot_thegame__pb2.GameState.FromString,
         )
+    self.View = channel.unary_stream(
+        '/TheGame/View',
+        request_serializer=thegame_dot_thegame__pb2.ViewRequest.SerializeToString,
+        response_deserializer=thegame_dot_thegame__pb2.GameState.FromString,
+        )
 
 
 class TheGameServicer(object):
@@ -32,12 +37,24 @@ class TheGameServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def View(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_TheGameServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'Game': grpc.stream_stream_rpc_method_handler(
           servicer.Game,
           request_deserializer=thegame_dot_thegame__pb2.Controls.FromString,
+          response_serializer=thegame_dot_thegame__pb2.GameState.SerializeToString,
+      ),
+      'View': grpc.unary_stream_rpc_method_handler(
+          servicer.View,
+          request_deserializer=thegame_dot_thegame__pb2.ViewRequest.FromString,
           response_serializer=thegame_dot_thegame__pb2.GameState.SerializeToString,
       ),
   }

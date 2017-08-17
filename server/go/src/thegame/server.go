@@ -9,6 +9,7 @@ import (
 	_ "golang.org/x/net/context"
 	"google.golang.org/grpc"
 
+	"errors"
 	"thegame/pb"
 )
 
@@ -20,6 +21,7 @@ func init() {
 
 type server struct {
 	arena *Arena
+	token string // XXX currently it is empty
 }
 
 func NewServer() *server {
@@ -58,6 +60,22 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 			Controls: controls,
 		}
 	}
+}
+
+func (s *server) View(view *pb.ViewRequest, stream pb.TheGame_ViewServer) error {
+	if s.token != view.Token {
+		return errors.New("Invalid token")
+	}
+	ch := make(chan *pb.GameState, 16)
+	s.arena.viewChan <- ch
+	for gs := range ch {
+		err := stream.Send(gs)
+		if err != nil {
+			log.Println(err)
+			return err
+		}
+	}
+	return nil
 }
 
 func main() {
