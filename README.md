@@ -8,7 +8,7 @@
 
 ### Installation
 
-First, make sure you have python (3.6 or later required) and Qt5
+First, make sure you have python (3.6 or later required)
 
 Then install with pip:
 
@@ -16,7 +16,9 @@ Then install with pip:
 python3 -m pip install --upgrade git+https://github.com/afg984/thegame.git#subdirectory=client/python
 ```
 
-You may want to use the `--user` flag
+You may want to use the `--user` flag.
+
+For windows, replace `python3` with `py` or whatever refers to the correct python.
 
 ### Interactive Client
 
