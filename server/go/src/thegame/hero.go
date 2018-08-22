@@ -22,8 +22,9 @@ type Hero struct {
 	id                  int
 	name                string
 
-	controls   *pb.Controls
-	UpdateChan chan *pb.GameState
+	controls     *pb.Controls
+	disconnected bool
+	UpdateChan   chan *pb.GameState
 }
 
 func (h *Hero) ToProto() *pb.Hero {

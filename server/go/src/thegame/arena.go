@@ -74,7 +74,23 @@ func (a *Arena) Quit(e *list.Element) {
 	a.quitChan <- e
 }
 
+// gc cleans up unused objects
+func (a *Arena) gc() {
+	// remove disconnected and dead heroes
+	var next *list.Element
+	for e := a.heroes.Front(); e != nil; e = next {
+		next = e.Next()
+
+		h := e.Value.(*Hero)
+		if h.health <= 0 && h.disconnected {
+			a.heroes.Remove(e)
+		}
+	}
+}
+
 func (a *Arena) tick() {
+	a.gc()
+
 	var objects []Collidable
 	for _, p := range a.polygons {
 		TickPosition(p)
@@ -179,6 +195,9 @@ func (a *Arena) broadcast() {
 	// send updates to clients
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
+		if h.disconnected {
+			continue
+		}
 		canSee := func(w *pb.Entity) bool {
 			x := real(h.position)
 			y := imag(h.position)
@@ -251,8 +270,9 @@ func (a *Arena) Run() {
 			log.Println(h, "joined the arena")
 			jr.ch <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:
-			log.Println(l.Value.(*Hero), "left the arena")
-			a.heroes.Remove(l)
+			h := l.Value.(*Hero)
+			log.Println(h, "left the arena")
+			h.disconnected = true
 		case cgs := <-a.viewChan:
 			a.viewRemotes = append(a.viewRemotes, cgs)
 		case c := <-a.commandChan:
