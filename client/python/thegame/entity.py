@@ -209,13 +209,13 @@ class Hero(Entity, metaclass=_HeroMeta):
             hero.abilities.max_health.value  # the same thing
 
             hero.abilities[MaxHealth].level  # get the ability level
-            hero.abilities.max_health.value  # the same thing again
+            hero.abilities.max_health.level  # the same thing again
         '''
         return self.__dict__['abilities']
 
     orientation = _DataAttribute(
         '''
-        The orientation of the hero; the direction the barrel is faction at,
+        The orientation of the hero; the direction the barrel is facing at,
         in radians.
         '''
     )
