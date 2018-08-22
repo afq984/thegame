@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/afg984/thegame/server/go/src/thegame/pb"
 )
 
@@ -104,6 +105,10 @@ func (p *Polygon) BodyDamage() int {
 	default:
 		panic("Unknown shape")
 	}
+}
+
+func (p *Polygon) CanAcquireExperience() bool {
+	return false
 }
 
 func (p *Polygon) AcquireExperience(int) {

@@ -113,6 +113,10 @@ func (h *Hero) BodyDamage() int {
 	return h.ability(BodyDamage)
 }
 
+func (h *Hero) CanAcquireExperience() bool {
+	return true
+}
+
 func (h *Hero) AcquireExperience(e int) {
 	h.score += e
 	h.experience += e
@@ -208,5 +212,6 @@ func (h *Hero) Spawn() {
 	h.AcquireExperience(experience)
 	h.position = RandomPosition()
 	h.velocity = 0
+	h.lastHit = nil
 	log.Println(h, "spawned at", h.position)
 }

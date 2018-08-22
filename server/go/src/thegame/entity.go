@@ -5,6 +5,7 @@ type Entity struct {
 	velocity complex128
 	health   int
 	visible  bool
+	lastHit  Collidable
 }
 
 func (e *Entity) Position() complex128 {
@@ -37,4 +38,12 @@ func (e *Entity) Visible() bool {
 
 func (e *Entity) SetVisible(v bool) {
 	e.visible = v
+}
+
+func (e *Entity) LastHit() Collidable {
+	return e.lastHit
+}
+
+func (e *Entity) SetLastHit(c Collidable) {
+	e.lastHit = c
 }

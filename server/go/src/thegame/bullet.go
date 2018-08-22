@@ -57,6 +57,10 @@ func (b *Bullet) BodyDamage() int {
 	return b.owner.ability(BulletDamage)
 }
 
+func (b *Bullet) CanAcquireExperience() bool {
+	return true
+}
+
 func (b *Bullet) AcquireExperience(e int) {
 	b.owner.AcquireExperience(e)
 }

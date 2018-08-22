@@ -14,11 +14,14 @@ type Collidable interface {
 	SetVisible(bool)
 	Health() int
 	SetHealth(int)
+	LastHit() Collidable
+	SetLastHit(Collidable)
 
 	// implement these methods on the concrete types
 	Radius() float64
 	Team() int // Objects in the same Team() will not do damage with each other
 	BodyDamage() int
+	CanAcquireExperience() bool // whether the entity can get experience by killing others
 	AcquireExperience(int)
 	RewardingExperience() int
 }
@@ -41,9 +44,14 @@ func Hit(a, b Collidable) {
 	hp := b.Health()
 	hp -= a.BodyDamage()
 	b.SetHealth(hp)
+	if a.CanAcquireExperience() {
+		b.SetLastHit(a)
+	}
 	if hp <= 0 {
 		b.SetVisible(false)
-		a.AcquireExperience(b.RewardingExperience())
+		if b.LastHit() != nil {
+			b.LastHit().AcquireExperience(b.RewardingExperience())
+		}
 	}
 }
 
