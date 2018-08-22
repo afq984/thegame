@@ -124,7 +124,7 @@ func (a *Arena) tick() {
 
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
-		if h.visible {
+		if h.visible && !h.disconnected {
 			h.Action(a)
 		}
 	}
