@@ -35,7 +35,7 @@ class HeadlessClient:
 
         :param hero: your hero
         :param list heroes: list of heroes within the field of view, does not
-        include yourself
+                            include yourself
         :param list polygons: list of polygons within the field of view
         :param list bullets: list of bullets within the field of view, including those shot from your hero
         '''
