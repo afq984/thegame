@@ -204,8 +204,19 @@ func (a *Arena) broadcast() {
 		if h.disconnected {
 			continue
 		}
-		x := real(h.position)
-		y := imag(h.position)
+		focusHero := h
+		if !h.visible {
+			switch lastHit := focusHero.lastHit.(type) {
+			case *Hero:
+				focusHero = lastHit
+			case *Bullet:
+				focusHero = lastHit.owner
+			default:
+				focusHero = h
+			}
+		}
+		x := real(focusHero.position)
+		y := imag(focusHero.position)
 		canSee := func(w *pb.Entity) bool {
 			return (w.Position.X+w.Radius > x-fieldOfView &&
 				w.Position.X-w.Radius < x+fieldOfView &&

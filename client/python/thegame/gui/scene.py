@@ -72,6 +72,8 @@ class Scene(QGraphicsScene):
             if created:
                 self.addItem(gh)
                 self.addItem(gh.healthBar)
+                if h is hero:
+                    gh.isSelf = True
             gh.loadEntity(h)
 
         for id, decay in itertools.chain(

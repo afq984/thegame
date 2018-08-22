@@ -52,6 +52,7 @@ class HealthBar(QGraphicsObject):
         return path
 
     def setHealth(self, currentHealth, maxHealth, alwaysVisible=False):
+        currentHealth = max(currentHealth, 0)
         self.currentHealth = currentHealth
         self.maxHealth = maxHealth
         self.currentHealthWidth = self.width * currentHealth / maxHealth

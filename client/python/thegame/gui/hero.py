@@ -39,6 +39,8 @@ class Hero(QGraphicsObject):
         self.healthBar = NamedHealthBar(10000, 60, 40)
         self.setZValue(0)
 
+        self.isSelf = False
+
     def loadEntity(self, entity):
         self.healthBar.setName(entity.name)
         self.setPos(*entity.position)
@@ -67,7 +69,10 @@ class Hero(QGraphicsObject):
         painter.setBrush(const.HeroBarrelBrush)
         painter.drawPolygon(self.barrel)
         painter.setBrush(const.HeroBrush)
-        painter.setBrush(QBrush(QColor(0, 178, 255, 255), Qt.SolidPattern))
+        if not self.isSelf:
+            painter.setBrush(QBrush(QColor(0, 178, 255, 255), Qt.SolidPattern))
+        else:
+            painter.setBrush(QBrush(QColor(54, 212, 131, 255), Qt.SolidPattern))
         painter.drawEllipse(
             -self.width / 2, -self.width / 2, self.width, self.width)
 
