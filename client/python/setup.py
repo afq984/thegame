@@ -8,5 +8,6 @@ setup(
     install_requires=[
         'grpcio',
         'PyQt5',
+        'protobuf',
     ],
 )
