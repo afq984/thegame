@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -9,7 +10,6 @@ import (
 	_ "golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"errors"
 	"github.com/afg984/thegame/server/go/src/thegame/pb"
 )
 
@@ -34,7 +34,7 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 	log.Println("New client connected")
 	join, err := stream.Recv()
 	if err != nil {
-		log.Println(err)
+		log.Printf("join initialization failed: %v", err)
 		return err
 	}
 	element := s.arena.Join(join.Name)
@@ -44,7 +44,7 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 		for gameState := range updates {
 			err := stream.Send(gameState)
 			if err != nil {
-				log.Println(err)
+				log.Printf("cannot send gameState to %v: %v", hero, err)
 			}
 		}
 	}()
@@ -52,7 +52,7 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 	for {
 		controls, err := stream.Recv()
 		if err != nil {
-			log.Println(err)
+			log.Printf("cannot receive controls from %v: %v", hero, err)
 			return err
 		}
 		s.arena.controlChan <- HeroControls{
@@ -71,7 +71,7 @@ func (s *server) View(view *pb.ViewRequest, stream pb.TheGame_ViewServer) error 
 	for gs := range ch {
 		err := stream.Send(gs)
 		if err != nil {
-			log.Println(err)
+			log.Printf("cannot send gameState to audience: %v", err)
 			return err
 		}
 	}
