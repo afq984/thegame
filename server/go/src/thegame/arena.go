@@ -101,10 +101,12 @@ func (a *Arena) tick() {
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
 		if !h.visible {
-			h.Spawn()
+			h.TryRespawn()
 		}
-		TickPosition(h)
-		objects = append(objects, h)
+		if h.visible {
+			TickPosition(h)
+			objects = append(objects, h)
+		}
 	}
 	for _, b := range a.bullets {
 		TickPosition(b)
@@ -122,7 +124,9 @@ func (a *Arena) tick() {
 
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
-		h.Action(a)
+		if h.visible {
+			h.Action(a)
+		}
 	}
 
 	// random respawn polygon
@@ -188,7 +192,9 @@ func (a *Arena) broadcast() {
 			maxScore = h.score
 			maxScoreHero = h
 		}
-		heroes = append(heroes, h.ToProto())
+		if h.visible {
+			heroes = append(heroes, h.ToProto())
+		}
 		scores = append(scores, h.ToScoreEntry())
 	}
 	sort.Sort(ByScore(scores))
@@ -208,7 +214,7 @@ func (a *Arena) broadcast() {
 		}
 		var spolygons []*pb.Polygon
 		var sbullets []*pb.Bullet
-		var sheroes []*pb.Hero
+		sheroes := []*pb.Hero{h.ToProto()}
 		for _, p := range polygons {
 			if canSee(p.Entity) {
 				spolygons = append(spolygons, p)
@@ -220,6 +226,9 @@ func (a *Arena) broadcast() {
 			}
 		}
 		for _, oh := range heroes {
+			if oh.Entity.Id == int32(h.id) {
+				continue
+			}
 			if canSee(oh.Entity) {
 				sheroes = append(sheroes, oh)
 			}

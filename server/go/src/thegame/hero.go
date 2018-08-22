@@ -21,6 +21,7 @@ type Hero struct {
 	healthRegenCooldown int
 	id                  int
 	name                string
+	respawnCooldown     int
 
 	controls     *pb.Controls
 	disconnected bool
@@ -213,5 +214,16 @@ func (h *Hero) Spawn() {
 	h.position = RandomPosition()
 	h.velocity = 0
 	h.lastHit = nil
+	h.respawnCooldown = 240
 	log.Println(h, "spawned at", h.position)
+}
+
+// TryRespawn checks for the respawn cooldown, and if it is 0,
+// respawn the hero
+func (h *Hero) TryRespawn() {
+	if h.respawnCooldown == 0 {
+		h.Spawn()
+	} else {
+		h.respawnCooldown--
+	}
 }
