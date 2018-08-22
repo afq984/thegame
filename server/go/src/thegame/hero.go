@@ -214,7 +214,7 @@ func (h *Hero) Spawn() {
 	h.position = RandomPosition()
 	h.velocity = 0
 	h.lastHit = nil
-	h.respawnCooldown = 240
+	h.respawnCooldown = 180
 	log.Println(h, "spawned at", h.position)
 }
 
