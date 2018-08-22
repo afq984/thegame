@@ -204,9 +204,9 @@ func (a *Arena) broadcast() {
 		if h.disconnected {
 			continue
 		}
+		x := real(h.position)
+		y := imag(h.position)
 		canSee := func(w *pb.Entity) bool {
-			x := real(h.position)
-			y := imag(h.position)
 			return (w.Position.X+w.Radius > x-fieldOfView &&
 				w.Position.X-w.Radius < x+fieldOfView &&
 				w.Position.Y-w.Radius > y-fieldOfView &&
@@ -235,8 +235,9 @@ func (a *Arena) broadcast() {
 		}
 		state := &pb.GameState{
 			Meta: &pb.GameState_Meta{
-				HeroId: int32(h.id),
-				Scores: scores,
+				HeroId:         int32(h.id),
+				Scores:         scores,
+				CenterPosition: &pb.Vector{X: x, Y: y},
 			},
 			Polygons: spolygons,
 			Bullets:  sbullets,

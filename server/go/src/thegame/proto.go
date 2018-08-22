@@ -18,12 +18,12 @@ type ProtoEntity interface {
 func EntityToProto(e ProtoEntity) *pb.Entity {
 	return &pb.Entity{
 		Id: int32(e.ID()),
-		Position: &pb.Entity_Vector{
+		Position: &pb.Vector{
 			X: real(e.Position()),
 			Y: imag(e.Position()),
 		},
 		Radius: e.Radius(),
-		Velocity: &pb.Entity_Vector{
+		Velocity: &pb.Vector{
 			X: real(e.Velocity()),
 			Y: imag(e.Velocity()),
 		},

@@ -35,6 +35,7 @@ message GameState {
     Meta meta = 1;
     message Meta {
         int32 hero_id = 2;
+        Vector center_position = 5;
         repeated ScoreEntry scores = 4;
     }
     repeated Polygon polygons = 2;
@@ -51,10 +52,11 @@ message Entity {
     int32 body_damage = 6;
     int32 rewarding_experience = 7;
     int32 max_health = 8;
-    message Vector {
-        double x = 1;
-        double y = 2;
-    }
+}
+
+message Vector {
+    double x = 1;
+    double y = 2;
 }
 
 message ScoreEntry {

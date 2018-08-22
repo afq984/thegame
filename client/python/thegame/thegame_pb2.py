@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='thegame/thegame.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x1c\n\x0bViewRequest\x12\r\n\x05token\x18\x01 \x01(\t\"\xad\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1a\x34\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xdf\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12 \n\x08position\x18\x02 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12 \n\x08velocity\x18\x04 \x01(\x0b\x32\x0e.Entity.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\x1a\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32T\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x12$\n\x04View\x12\x0c.ViewRequest\x1a\n.GameState\"\x00\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x1c\n\x0bViewRequest\x12\r\n\x05token\x18\x01 \x01(\t\"\xcf\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1aV\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12 \n\x0f\x63\x65nter_position\x18\x05 \x01(\x0b\x32\x07.Vector\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xb1\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x19\n\x08position\x18\x02 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x19\n\x08velocity\x18\x04 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\"\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32T\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x12$\n\x04View\x12\x0c.ViewRequest\x1a\n.GameState\"\x00\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1056,
-  serialized_end=1216,
+  serialized_start=1076,
+  serialized_end=1236,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -94,42 +94,42 @@ _CONTROLS = _descriptor.Descriptor(
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='acceleration_direction', full_name='Controls.acceleration_direction', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='shoot', full_name='Controls.shoot', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='shoot_direction', full_name='Controls.shoot_direction', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='level_up', full_name='Controls.level_up', index=4,
       number=5, type=14, cpp_type=8, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='name', full_name='Controls.name', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -160,7 +160,7 @@ _VIEWREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -191,14 +191,21 @@ _GAMESTATE_META = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='scores', full_name='GameState.Meta.scores', index=1,
+      name='center_position', full_name='GameState.Meta.center_position', index=1,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='scores', full_name='GameState.Meta.scores', index=2,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -212,7 +219,7 @@ _GAMESTATE_META = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=324,
-  serialized_end=376,
+  serialized_end=410,
 )
 
 _GAMESTATE = _descriptor.Descriptor(
@@ -228,28 +235,28 @@ _GAMESTATE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='polygons', full_name='GameState.polygons', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='bullets', full_name='GameState.bullets', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='heroes', full_name='GameState.heroes', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -263,46 +270,9 @@ _GAMESTATE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=203,
-  serialized_end=376,
+  serialized_end=410,
 )
 
-
-_ENTITY_VECTOR = _descriptor.Descriptor(
-  name='Vector',
-  full_name='Entity.Vector',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='x', full_name='Entity.Vector.x', index=0,
-      number=1, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='y', full_name='Entity.Vector.y', index=1,
-      number=2, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=572,
-  serialized_end=602,
-)
 
 _ENTITY = _descriptor.Descriptor(
   name='Entity',
@@ -317,60 +287,60 @@ _ENTITY = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='position', full_name='Entity.position', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='radius', full_name='Entity.radius', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='velocity', full_name='Entity.velocity', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='health', full_name='Entity.health', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='body_damage', full_name='Entity.body_damage', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='rewarding_experience', full_name='Entity.rewarding_experience', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='max_health', full_name='Entity.max_health', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[_ENTITY_VECTOR, ],
+  nested_types=[],
   enum_types=[
   ],
   options=None,
@@ -379,8 +349,46 @@ _ENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=379,
-  serialized_end=602,
+  serialized_start=413,
+  serialized_end=590,
+)
+
+
+_VECTOR = _descriptor.Descriptor(
+  name='Vector',
+  full_name='Vector',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='Vector.x', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='Vector.y', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=592,
+  serialized_end=622,
 )
 
 
@@ -397,28 +405,28 @@ _SCOREENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='hero_name', full_name='ScoreEntry.hero_name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='score', full_name='ScoreEntry.score', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='level', full_name='ScoreEntry.level', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -431,8 +439,8 @@ _SCOREENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=604,
-  serialized_end=682,
+  serialized_start=624,
+  serialized_end=702,
 )
 
 
@@ -449,14 +457,14 @@ _POLYGON = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='edges', full_name='Polygon.edges', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -469,8 +477,8 @@ _POLYGON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=684,
-  serialized_end=733,
+  serialized_start=704,
+  serialized_end=753,
 )
 
 
@@ -487,14 +495,14 @@ _BULLET = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='owner', full_name='Bullet.owner', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -507,8 +515,8 @@ _BULLET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=735,
-  serialized_end=783,
+  serialized_start=755,
+  serialized_end=803,
 )
 
 
@@ -525,84 +533,84 @@ _HERO = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='ability_levels', full_name='Hero.ability_levels', index=1,
       number=2, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='ability_values', full_name='Hero.ability_values', index=2,
       number=3, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='skill_points', full_name='Hero.skill_points', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='orientation', full_name='Hero.orientation', index=4,
       number=5, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='level', full_name='Hero.level', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='score', full_name='Hero.score', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='experience', full_name='Hero.experience', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='experience_to_level_up', full_name='Hero.experience_to_level_up', index=8,
       number=9, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='cooldown', full_name='Hero.cooldown', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='health_regen_cooldown', full_name='Hero.health_regen_cooldown', index=10,
       number=11, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='name', full_name='Hero.name', index=11,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -615,20 +623,20 @@ _HERO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=786,
-  serialized_end=1053,
+  serialized_start=806,
+  serialized_end=1073,
 )
 
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
+_GAMESTATE_META.fields_by_name['center_position'].message_type = _VECTOR
 _GAMESTATE_META.fields_by_name['scores'].message_type = _SCOREENTRY
 _GAMESTATE_META.containing_type = _GAMESTATE
 _GAMESTATE.fields_by_name['meta'].message_type = _GAMESTATE_META
 _GAMESTATE.fields_by_name['polygons'].message_type = _POLYGON
 _GAMESTATE.fields_by_name['bullets'].message_type = _BULLET
 _GAMESTATE.fields_by_name['heroes'].message_type = _HERO
-_ENTITY_VECTOR.containing_type = _ENTITY
-_ENTITY.fields_by_name['position'].message_type = _ENTITY_VECTOR
-_ENTITY.fields_by_name['velocity'].message_type = _ENTITY_VECTOR
+_ENTITY.fields_by_name['position'].message_type = _VECTOR
+_ENTITY.fields_by_name['velocity'].message_type = _VECTOR
 _POLYGON.fields_by_name['entity'].message_type = _ENTITY
 _BULLET.fields_by_name['entity'].message_type = _ENTITY
 _HERO.fields_by_name['entity'].message_type = _ENTITY
@@ -636,6 +644,7 @@ DESCRIPTOR.message_types_by_name['Controls'] = _CONTROLS
 DESCRIPTOR.message_types_by_name['ViewRequest'] = _VIEWREQUEST
 DESCRIPTOR.message_types_by_name['GameState'] = _GAMESTATE
 DESCRIPTOR.message_types_by_name['Entity'] = _ENTITY
+DESCRIPTOR.message_types_by_name['Vector'] = _VECTOR
 DESCRIPTOR.message_types_by_name['ScoreEntry'] = _SCOREENTRY
 DESCRIPTOR.message_types_by_name['Polygon'] = _POLYGON
 DESCRIPTOR.message_types_by_name['Bullet'] = _BULLET
@@ -673,19 +682,18 @@ _sym_db.RegisterMessage(GameState)
 _sym_db.RegisterMessage(GameState.Meta)
 
 Entity = _reflection.GeneratedProtocolMessageType('Entity', (_message.Message,), dict(
-
-  Vector = _reflection.GeneratedProtocolMessageType('Vector', (_message.Message,), dict(
-    DESCRIPTOR = _ENTITY_VECTOR,
-    __module__ = 'thegame.thegame_pb2'
-    # @@protoc_insertion_point(class_scope:Entity.Vector)
-    ))
-  ,
   DESCRIPTOR = _ENTITY,
   __module__ = 'thegame.thegame_pb2'
   # @@protoc_insertion_point(class_scope:Entity)
   ))
 _sym_db.RegisterMessage(Entity)
-_sym_db.RegisterMessage(Entity.Vector)
+
+Vector = _reflection.GeneratedProtocolMessageType('Vector', (_message.Message,), dict(
+  DESCRIPTOR = _VECTOR,
+  __module__ = 'thegame.thegame_pb2'
+  # @@protoc_insertion_point(class_scope:Vector)
+  ))
+_sym_db.RegisterMessage(Vector)
 
 ScoreEntry = _reflection.GeneratedProtocolMessageType('ScoreEntry', (_message.Message,), dict(
   DESCRIPTOR = _SCOREENTRY,
@@ -718,153 +726,37 @@ _sym_db.RegisterMessage(Hero)
 
 DESCRIPTOR.has_options = True
 DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('Z\002pb'))
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_THEGAME = _descriptor.ServiceDescriptor(
+  name='TheGame',
+  full_name='TheGame',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=1238,
+  serialized_end=1322,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Game',
+    full_name='TheGame.Game',
+    index=0,
+    containing_service=None,
+    input_type=_CONTROLS,
+    output_type=_GAMESTATE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='View',
+    full_name='TheGame.View',
+    index=1,
+    containing_service=None,
+    input_type=_VIEWREQUEST,
+    output_type=_GAMESTATE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_THEGAME)
 
-  class TheGameStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['TheGame'] = _THEGAME
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.Game = channel.stream_stream(
-          '/TheGame/Game',
-          request_serializer=Controls.SerializeToString,
-          response_deserializer=GameState.FromString,
-          )
-      self.View = channel.unary_stream(
-          '/TheGame/View',
-          request_serializer=ViewRequest.SerializeToString,
-          response_deserializer=GameState.FromString,
-          )
-
-
-  class TheGameServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def Game(self, request_iterator, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def View(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_TheGameServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'Game': grpc.stream_stream_rpc_method_handler(
-            servicer.Game,
-            request_deserializer=Controls.FromString,
-            response_serializer=GameState.SerializeToString,
-        ),
-        'View': grpc.unary_stream_rpc_method_handler(
-            servicer.View,
-            request_deserializer=ViewRequest.FromString,
-            response_serializer=GameState.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'TheGame', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaTheGameServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Game(self, request_iterator, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def View(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaTheGameStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Game(self, request_iterator, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    def View(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-
-
-  def beta_create_TheGame_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('TheGame', 'Game'): Controls.FromString,
-      ('TheGame', 'View'): ViewRequest.FromString,
-    }
-    response_serializers = {
-      ('TheGame', 'Game'): GameState.SerializeToString,
-      ('TheGame', 'View'): GameState.SerializeToString,
-    }
-    method_implementations = {
-      ('TheGame', 'Game'): face_utilities.stream_stream_inline(servicer.Game),
-      ('TheGame', 'View'): face_utilities.unary_stream_inline(servicer.View),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_TheGame_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('TheGame', 'Game'): Controls.SerializeToString,
-      ('TheGame', 'View'): ViewRequest.SerializeToString,
-    }
-    response_deserializers = {
-      ('TheGame', 'Game'): GameState.FromString,
-      ('TheGame', 'View'): GameState.FromString,
-    }
-    cardinalities = {
-      'Game': cardinality.Cardinality.STREAM_STREAM,
-      'View': cardinality.Cardinality.UNARY_STREAM,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'TheGame', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

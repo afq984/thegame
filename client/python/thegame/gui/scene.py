@@ -88,7 +88,8 @@ class Scene(QGraphicsScene):
         ]
 
         view, = self.views()
-        view.centerOn(*hero.position)
+        center_position = self.rpc._game_state.meta.center_position
+        view.centerOn(center_position.x, center_position.y)
         self.setUiPos(view)
 
         # XXX this is ugly
