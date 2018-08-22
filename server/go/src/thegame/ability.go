@@ -24,7 +24,7 @@ var AbilityValues = [NAbilities][9]int{
 	linearScale(0, 8),              // HealthRegen
 	linearScale(1000, 5000),        // MaxHealth
 	linearScale(20, 60),            // BodyDamage
-	linearScale(8, 16),             // BulletSpeed
+	linearScale(8, 20),             // BulletSpeed
 	linearScale(40, 120),           // BulletPenetration
 	linearScale(12, 36),            // BulletDamage
 	{15, 13, 11, 9, 7, 6, 5, 4, 3}, // Reload
