@@ -188,11 +188,11 @@ func (a *Arena) broadcast() {
 	}
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
-		if h.score > maxScore {
-			maxScore = h.score
-			maxScoreHero = h
-		}
 		if h.visible {
+			if h.score > maxScore && !h.disconnected {
+				maxScore = h.score
+				maxScoreHero = h
+			}
 			heroes = append(heroes, h.ToProto())
 		}
 		scores = append(scores, h.ToScoreEntry())
