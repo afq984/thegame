@@ -47,7 +47,7 @@ The API documentation is at: https://afg984.github.io/thegame/
 2. Install the server
 
    ```
-   go get github.com/afg984/thegame/server/go/src/thegame
+   go get github.com/afg984/thegame/server/go/thegame
    ```
 
 3. Run the server

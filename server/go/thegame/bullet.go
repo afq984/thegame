@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/afg984/thegame/server/go/src/thegame/pb"
+	"github.com/afg984/thegame/server/go/thegame/pb"
 )
 
 type Bullet struct {

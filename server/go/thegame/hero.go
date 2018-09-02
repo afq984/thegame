@@ -5,7 +5,7 @@ import (
 	"log"
 	"math/cmplx"
 
-	"github.com/afg984/thegame/server/go/src/thegame/pb"
+	"github.com/afg984/thegame/server/go/thegame/pb"
 )
 
 type Hero struct {
