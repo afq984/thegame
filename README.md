@@ -1,7 +1,6 @@
 ###### 2017/2018 清大資工新生營 - Python 程式設計
 # thegame
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)]()
-[![Python](https://img.shields.io/badge/Python-3.6-brightgreen.svg)](https://www.python.org/downloads/)
+[![CircleCI](https://circleci.com/gh/afg984/thegame.svg?style=svg)](https://circleci.com/gh/afg984/thegame)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Client
