@@ -4,13 +4,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build_server_go
-      - build_server_go_get
-      - build_server_py
-      - build_server_py_3.6
+      - s/go-mod
+      - s/go-get
+      - c/py
+      - c/py36
 
 jobs:
-  build_server_go:
+  s/go-mod:
     docker:
       - image: circleci/golang:1.11
     steps:
@@ -19,18 +19,18 @@ jobs:
           command: |
             cd server/go/thegame
             go build
-  build_server_go_get:
+  s/go-get:
     docker:
       - image: circleci/golang:1.11
     steps:
       - run: go get github.com/afg984/thegame/server/go/thegame
-  build_server_py: &build_server_py_template
+  c/py: &build_server_py_template
     working_directory: ~/thegame
     docker:
       - image: circleci/python:3.7
     steps:
       - run: python -m pip install --user git+https://github.com/afg984/thegame.git#subdirectory=client/python
-  build_server_py_3.6:
+  c/py36:
     <<: *build_server_py_template
     docker:
       - image: circleci/python:3.6
