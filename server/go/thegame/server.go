@@ -7,7 +7,6 @@ import (
 	"log"
 	"net"
 
-	_ "golang.org/x/net/context"
 	"google.golang.org/grpc"
 
 	"github.com/afg984/thegame/server/go/thegame/pb"
