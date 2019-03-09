@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 
 	"google.golang.org/grpc"
 
@@ -19,14 +20,22 @@ func init() {
 }
 
 type server struct {
-	arena *Arena
-	token string // XXX currently it is empty
+	arena          *Arena
+	spectatorToken string
+	adminToken     string
 }
 
 func NewServer() *server {
-	return &server{
-		arena: NewArena(),
+	s := &server{
+		arena:          NewArena(),
+		spectatorToken: os.Getenv("THEGAME_SPECTATOR_TOKEN"),
+		adminToken:     os.Getenv("THEGAME_ADMIN_TOKEN"),
 	}
+	if s.adminToken == "" {
+		log.Println("Environment variable THEGAME_ADMIN_TOKEN is not set or empty," +
+			" admin command is disabled")
+	}
+	return s
 }
 
 func (s *server) Game(stream pb.TheGame_GameServer) error {
@@ -62,7 +71,7 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 }
 
 func (s *server) View(view *pb.ViewRequest, stream pb.TheGame_ViewServer) error {
-	if s.token != view.Token {
+	if s.spectatorToken != view.Token {
 		return errors.New("Invalid token")
 	}
 	ch := make(chan *pb.GameState, 16)
@@ -75,6 +84,37 @@ func (s *server) View(view *pb.ViewRequest, stream pb.TheGame_ViewServer) error 
 		}
 	}
 	return nil
+}
+
+func (s *server) Admin(stream pb.TheGame_AdminServer) error {
+	auth, err := stream.Recv()
+	if err != nil {
+		log.Printf("Cannot receive command: %v", err)
+		return err
+	}
+	if s.adminToken == "" {
+		return errors.New("Admin disabled")
+	}
+	if auth.Token != s.adminToken {
+		return errors.New("Invalid token")
+	}
+	for {
+		command, err := stream.Recv()
+		if err != nil {
+			log.Println("Failed to recv admin command: %v", command)
+			return err
+		}
+		if command.Resume {
+			s.arena.commandChan <- CommandResume
+		}
+		if command.Pause {
+			s.arena.commandChan <- CommandPause
+		}
+		if command.Tick {
+			s.arena.commandChan <- CommandTick
+		}
+		err = stream.Send(&pb.CommandResponse{})
+	}
 }
 
 func main() {
@@ -93,9 +133,11 @@ func main() {
 			fmt.Scanln(&line)
 			switch line {
 			case "p":
-				gs.arena.commandChan <- Pause
+				gs.arena.commandChan <- CommandPause
 			case "r":
-				gs.arena.commandChan <- Resume
+				gs.arena.commandChan <- CommandResume
+			case "t":
+				gs.arena.commandChan <- CommandTick
 			default:
 				fmt.Printf("Unknown command: %q\n", line)
 			}

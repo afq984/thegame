@@ -3,6 +3,7 @@ package main
 type GameCommand int
 
 const (
-	Pause GameCommand = iota
-	Resume
+	CommandPause GameCommand = iota
+	CommandResume
+	CommandTick
 )

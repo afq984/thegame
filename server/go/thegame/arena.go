@@ -300,12 +300,16 @@ func (a *Arena) Run() {
 			a.viewRemotes = append(a.viewRemotes, cgs)
 		case c := <-a.commandChan:
 			switch c {
-			case Pause:
+			case CommandPause:
 				log.Println("Game Paused")
 				paused = true
-			case Resume:
+			case CommandResume:
 				log.Println("Game Resumed")
 				paused = false
+			case CommandTick:
+				tickCount++
+				a.tick()
+				a.broadcast()
 			case c:
 				log.Printf("No known action to %q", c)
 			}

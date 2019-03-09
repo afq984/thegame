@@ -3,8 +3,9 @@ syntax = "proto3";
 option go_package = "pb";
 
 service TheGame {
-    rpc Game(stream Controls) returns (stream GameState) {}
-    rpc View(ViewRequest) returns (stream GameState) {}
+    rpc Game(stream Controls) returns (stream GameState);
+    rpc View(ViewRequest) returns (stream GameState);
+    rpc Admin(stream Command) returns (stream CommandResponse);
 }
 
 message Controls {
@@ -89,4 +90,15 @@ message Hero {
     int32 cooldown = 10;
     int32 health_regen_cooldown = 11;
     string name = 12;
+}
+
+message Command {
+    string token = 1;
+    bool resume = 2;
+    bool pause = 3;
+    bool tick = 4;
+}
+
+message CommandResponse {
+    bool game_paused = 1;
 }

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=_b('Z\002pb'),
-  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x1c\n\x0bViewRequest\x12\r\n\x05token\x18\x01 \x01(\t\"\xcf\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1aV\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12 \n\x0f\x63\x65nter_position\x18\x05 \x01(\x0b\x32\x07.Vector\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xb1\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x19\n\x08position\x18\x02 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x19\n\x08velocity\x18\x04 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\"\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32T\n\x07TheGame\x12#\n\x04Game\x12\t.Controls\x1a\n.GameState\"\x00(\x01\x30\x01\x12$\n\x04View\x12\x0c.ViewRequest\x1a\n.GameState\"\x00\x30\x01\x42\x04Z\x02pbb\x06proto3')
+  serialized_pb=_b('\n\x15thegame/thegame.proto\"\x90\x01\n\x08\x43ontrols\x12\x12\n\naccelerate\x18\x01 \x01(\x08\x12\x1e\n\x16\x61\x63\x63\x65leration_direction\x18\x02 \x01(\x01\x12\r\n\x05shoot\x18\x03 \x01(\x08\x12\x17\n\x0fshoot_direction\x18\x04 \x01(\x01\x12\x1a\n\x08level_up\x18\x05 \x03(\x0e\x32\x08.Ability\x12\x0c\n\x04name\x18\x06 \x01(\t\"\x1c\n\x0bViewRequest\x12\r\n\x05token\x18\x01 \x01(\t\"\xcf\x01\n\tGameState\x12\x1d\n\x04meta\x18\x01 \x01(\x0b\x32\x0f.GameState.Meta\x12\x1a\n\x08polygons\x18\x02 \x03(\x0b\x32\x08.Polygon\x12\x18\n\x07\x62ullets\x18\x03 \x03(\x0b\x32\x07.Bullet\x12\x15\n\x06heroes\x18\x04 \x03(\x0b\x32\x05.Hero\x1aV\n\x04Meta\x12\x0f\n\x07hero_id\x18\x02 \x01(\x05\x12 \n\x0f\x63\x65nter_position\x18\x05 \x01(\x0b\x32\x07.Vector\x12\x1b\n\x06scores\x18\x04 \x03(\x0b\x32\x0b.ScoreEntry\"\xb1\x01\n\x06\x45ntity\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x19\n\x08position\x18\x02 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06radius\x18\x03 \x01(\x01\x12\x19\n\x08velocity\x18\x04 \x01(\x0b\x32\x07.Vector\x12\x0e\n\x06health\x18\x05 \x01(\x05\x12\x13\n\x0b\x62ody_damage\x18\x06 \x01(\x05\x12\x1c\n\x14rewarding_experience\x18\x07 \x01(\x05\x12\x12\n\nmax_health\x18\x08 \x01(\x05\"\x1e\n\x06Vector\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\"N\n\nScoreEntry\x12\x0f\n\x07hero_id\x18\x01 \x01(\x05\x12\x11\n\thero_name\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x05\x12\r\n\x05level\x18\x04 \x01(\x05\"1\n\x07Polygon\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05\x65\x64ges\x18\x02 \x01(\x05\"0\n\x06\x42ullet\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\r\n\x05owner\x18\x02 \x01(\x05\"\x8b\x02\n\x04Hero\x12\x17\n\x06\x65ntity\x18\x01 \x01(\x0b\x32\x07.Entity\x12\x16\n\x0e\x61\x62ility_levels\x18\x02 \x03(\x05\x12\x16\n\x0e\x61\x62ility_values\x18\x03 \x03(\x05\x12\x14\n\x0cskill_points\x18\x04 \x01(\x05\x12\x13\n\x0borientation\x18\x05 \x01(\x01\x12\r\n\x05level\x18\x06 \x01(\x05\x12\r\n\x05score\x18\x07 \x01(\x05\x12\x12\n\nexperience\x18\x08 \x01(\x05\x12\x1e\n\x16\x65xperience_to_level_up\x18\t \x01(\x05\x12\x10\n\x08\x63ooldown\x18\n \x01(\x05\x12\x1d\n\x15health_regen_cooldown\x18\x0b \x01(\x05\x12\x0c\n\x04name\x18\x0c \x01(\t\"E\n\x07\x43ommand\x12\r\n\x05token\x18\x01 \x01(\t\x12\x0e\n\x06resume\x18\x02 \x01(\x08\x12\r\n\x05pause\x18\x03 \x01(\x08\x12\x0c\n\x04tick\x18\x04 \x01(\x08\"&\n\x0f\x43ommandResponse\x12\x13\n\x0bgame_paused\x18\x01 \x01(\x08*\xa0\x01\n\x07\x41\x62ility\x12\x10\n\x0chealth_regen\x10\x00\x12\x0e\n\nmax_health\x10\x01\x12\x0f\n\x0b\x62ody_damage\x10\x02\x12\x10\n\x0c\x62ullet_speed\x10\x03\x12\x16\n\x12\x62ullet_penetration\x10\x04\x12\x11\n\rbullet_damage\x10\x05\x12\x11\n\rbullet_reload\x10\x06\x12\x12\n\x0emovement_speed\x10\x07\x32y\n\x07TheGame\x12!\n\x04Game\x12\t.Controls\x1a\n.GameState(\x01\x30\x01\x12\"\n\x04View\x12\x0c.ViewRequest\x1a\n.GameState0\x01\x12\'\n\x05\x41\x64min\x12\x08.Command\x1a\x10.CommandResponse(\x01\x30\x01\x42\x04Z\x02pbb\x06proto3')
 )
 
 _ABILITY = _descriptor.EnumDescriptor(
@@ -64,8 +64,8 @@ _ABILITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1076,
-  serialized_end=1236,
+  serialized_start=1187,
+  serialized_end=1347,
 )
 _sym_db.RegisterEnumDescriptor(_ABILITY)
 
@@ -627,6 +627,89 @@ _HERO = _descriptor.Descriptor(
   serialized_end=1073,
 )
 
+
+_COMMAND = _descriptor.Descriptor(
+  name='Command',
+  full_name='Command',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='token', full_name='Command.token', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='resume', full_name='Command.resume', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pause', full_name='Command.pause', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tick', full_name='Command.tick', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1075,
+  serialized_end=1144,
+)
+
+
+_COMMANDRESPONSE = _descriptor.Descriptor(
+  name='CommandResponse',
+  full_name='CommandResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='game_paused', full_name='CommandResponse.game_paused', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1146,
+  serialized_end=1184,
+)
+
 _CONTROLS.fields_by_name['level_up'].enum_type = _ABILITY
 _GAMESTATE_META.fields_by_name['center_position'].message_type = _VECTOR
 _GAMESTATE_META.fields_by_name['scores'].message_type = _SCOREENTRY
@@ -649,6 +732,8 @@ DESCRIPTOR.message_types_by_name['ScoreEntry'] = _SCOREENTRY
 DESCRIPTOR.message_types_by_name['Polygon'] = _POLYGON
 DESCRIPTOR.message_types_by_name['Bullet'] = _BULLET
 DESCRIPTOR.message_types_by_name['Hero'] = _HERO
+DESCRIPTOR.message_types_by_name['Command'] = _COMMAND
+DESCRIPTOR.message_types_by_name['CommandResponse'] = _COMMANDRESPONSE
 DESCRIPTOR.enum_types_by_name['Ability'] = _ABILITY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -723,6 +808,20 @@ Hero = _reflection.GeneratedProtocolMessageType('Hero', (_message.Message,), dic
   ))
 _sym_db.RegisterMessage(Hero)
 
+Command = _reflection.GeneratedProtocolMessageType('Command', (_message.Message,), dict(
+  DESCRIPTOR = _COMMAND,
+  __module__ = 'thegame.thegame_pb2'
+  # @@protoc_insertion_point(class_scope:Command)
+  ))
+_sym_db.RegisterMessage(Command)
+
+CommandResponse = _reflection.GeneratedProtocolMessageType('CommandResponse', (_message.Message,), dict(
+  DESCRIPTOR = _COMMANDRESPONSE,
+  __module__ = 'thegame.thegame_pb2'
+  # @@protoc_insertion_point(class_scope:CommandResponse)
+  ))
+_sym_db.RegisterMessage(CommandResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -732,8 +831,8 @@ _THEGAME = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1238,
-  serialized_end=1322,
+  serialized_start=1349,
+  serialized_end=1470,
   methods=[
   _descriptor.MethodDescriptor(
     name='Game',
@@ -751,6 +850,15 @@ _THEGAME = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_VIEWREQUEST,
     output_type=_GAMESTATE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Admin',
+    full_name='TheGame.Admin',
+    index=2,
+    containing_service=None,
+    input_type=_COMMAND,
+    output_type=_COMMANDRESPONSE,
     serialized_options=None,
   ),
 ])
