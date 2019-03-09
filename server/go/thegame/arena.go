@@ -12,9 +12,11 @@ import (
 )
 
 var ticksPerSecond int
+var startGameAsPaused bool
 
 func init() {
 	flag.IntVar(&ticksPerSecond, "tps", 30, "ticks per second")
+	flag.BoolVar(&startGameAsPaused, "pause", false, "start game as paused")
 }
 
 type HeroControls struct {
@@ -270,7 +272,7 @@ func (a *Arena) Run() {
 	perfTick := time.Tick(time.Second)
 	var tickCount int64
 	var lastTick int64
-	paused := false
+	paused := startGameAsPaused
 	for {
 		select {
 		case <-tick:
