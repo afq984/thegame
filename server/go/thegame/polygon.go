@@ -112,7 +112,6 @@ func (p *Polygon) CanAcquireExperience() bool {
 }
 
 func (p *Polygon) AcquireExperience(int) {
-	return
 }
 
 func (p *Polygon) RewardingExperience() int {

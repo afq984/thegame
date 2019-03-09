@@ -25,7 +25,7 @@ type server struct {
 	adminToken     string
 }
 
-func NewServer() *server {
+func newServer() *server {
 	s := &server{
 		arena:          NewArena(),
 		spectatorToken: os.Getenv("THEGAME_SPECTATOR_TOKEN"),
@@ -101,7 +101,7 @@ func (s *server) Admin(stream pb.TheGame_AdminServer) error {
 	for {
 		command, err := stream.Recv()
 		if err != nil {
-			log.Println("Failed to recv admin command: %v", command)
+			log.Printf("Failed to recv admin command: %v", err)
 			return err
 		}
 		if command.Resume {
@@ -114,6 +114,10 @@ func (s *server) Admin(stream pb.TheGame_AdminServer) error {
 			s.arena.commandChan <- CommandTick
 		}
 		err = stream.Send(&pb.CommandResponse{})
+		if err != nil {
+			log.Printf("Failed to send admin command response: %v", err)
+			return err
+		}
 	}
 }
 
@@ -124,7 +128,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	gs := NewServer()
+	gs := newServer()
 	pb.RegisterTheGameServer(s, gs)
 	log.Println("listening on", listen)
 	go func() {
