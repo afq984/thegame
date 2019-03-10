@@ -98,6 +98,7 @@ message Command {
     bool pause = 3;
     bool tick = 4;
     bool game_reset = 5;
+    bool wait_for_controls = 6;
 }
 
 message CommandResponse {

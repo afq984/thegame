@@ -96,15 +96,20 @@ func (s *server) Admin(ctx context.Context, command *pb.Command) (*pb.CommandRes
 	}
 	if command.Resume {
 		<-s.arena.Command(CommandResume)
-	}
-	if command.Pause {
+	} else if command.Pause {
 		<-s.arena.Command(CommandPause)
-	}
-	if command.Tick {
+	} else if command.Tick {
 		<-s.arena.Command(CommandTick)
-	}
-	if command.GameReset {
+	} else if command.GameReset {
 		<-s.arena.Command(CommandReset)
+	} else if command.WaitForControls {
+		select {
+		case <-ctx.Done():
+			if err := ctx.Err(); err != nil {
+				return nil, err
+			}
+		case <-s.arena.AllControlsReceived():
+		}
 	}
 	return &pb.CommandResponse{}, nil
 }

@@ -6,6 +6,7 @@ import (
 	"log"
 	"math/rand"
 	"sort"
+	"sync"
 	"time"
 
 	"github.com/afg984/thegame/server/go/thegame/pb"
@@ -35,28 +36,32 @@ type commandAndResponse struct {
 }
 
 type Arena struct {
-	polygons       [360]*Polygon
-	heroCounter    int
-	bulletCounter  int
-	polygonCounter int
-	heroes         *list.List
-	bullets        []*Bullet
-	controlChan    chan HeroControls
-	joinChan       chan joinRequest
-	quitChan       chan *list.Element
-	commandChan    chan commandAndResponse
-	viewRemotes    []chan *pb.GameState
-	viewChan       chan chan *pb.GameState
+	polygons            [360]*Polygon
+	heroCounter         int
+	bulletCounter       int
+	polygonCounter      int
+	heroes              *list.List
+	bullets             []*Bullet
+	controlChan         chan HeroControls
+	joinChan            chan joinRequest
+	quitChan            chan *list.Element
+	commandChan         chan commandAndResponse
+	viewRemotes         []chan *pb.GameState
+	viewChan            chan chan *pb.GameState
+	waitForControlsChan chan struct{}
+	waitForControlsLock sync.Mutex
+	nControlsReceived   int
 }
 
 func NewArena() *Arena {
 	a := &Arena{
-		heroes:      list.New(),
-		controlChan: make(chan HeroControls),
-		joinChan:    make(chan joinRequest),
-		quitChan:    make(chan *list.Element),
-		commandChan: make(chan commandAndResponse),
-		viewChan:    make(chan chan *pb.GameState),
+		heroes:              list.New(),
+		controlChan:         make(chan HeroControls),
+		joinChan:            make(chan joinRequest),
+		quitChan:            make(chan *list.Element),
+		commandChan:         make(chan commandAndResponse),
+		viewChan:            make(chan chan *pb.GameState),
+		waitForControlsChan: make(chan struct{}),
 	}
 	a.reset()
 	go a.Run()
@@ -143,6 +148,7 @@ func (a *Arena) tick() {
 		if h.visible && !h.disconnected {
 			h.Action(a)
 		}
+		h.controls = nil
 	}
 
 	// random respawn polygon
@@ -157,6 +163,16 @@ func (a *Arena) tick() {
 			}
 		}
 	}
+
+	a.waitForControlsLock.Lock()
+	select {
+	case <-a.waitForControlsChan:
+	default:
+		close(a.waitForControlsChan)
+	}
+	a.waitForControlsChan = make(chan struct{})
+	a.waitForControlsLock.Unlock()
+	a.nControlsReceived = 0
 }
 
 // remove dead and timed out bullets
@@ -299,6 +315,19 @@ func (a *Arena) Run() {
 			log.Println("ticks per second:", tickCount-lastTick)
 			lastTick = tickCount
 		case hc := <-a.controlChan:
+			if hc.Hero.controls == nil {
+				a.nControlsReceived++
+				// XXX
+				// Since the number of heroes can change between ticks,
+				// this sometimes causes problems as closing an already
+				// closed channel panics.
+				// A check would work, but maybe a more robust method to
+				// check controls should be implemented, or, only allow
+				// joins and leaves in ticks.
+				if a.nControlsReceived >= a.heroes.Len() {
+					close(a.waitForControlsChan)
+				}
+			}
 			hc.Hero.controls = hc.Controls
 		case jr := <-a.joinChan:
 			a.heroCounter++
@@ -342,4 +371,14 @@ func (a *Arena) Command(cmd GameCommand) chan bool {
 	}
 	a.commandChan <- c
 	return c.done
+}
+
+// AllControlsReceived returns a channel that will be closed
+// after all the heroes have sent their controls.
+// This is EXPERIMENTAL.
+func (a *Arena) AllControlsReceived() chan struct{} {
+	a.waitForControlsLock.Lock()
+	ch := a.waitForControlsChan
+	a.waitForControlsLock.Unlock()
+	return ch
 }

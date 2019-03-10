@@ -195,8 +195,6 @@ func (h *Hero) Action(a *Arena) {
 	if h.controls.Accelerate {
 		h.velocity += cmplx.Rect(h.MaxSpeed()/10, h.controls.AccelerationDirection)
 	}
-
-	h.controls = nil
 }
 
 func (h *Hero) Spawn() {
