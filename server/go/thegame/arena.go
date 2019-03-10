@@ -29,6 +29,11 @@ type joinRequest struct {
 	ch   chan *list.Element
 }
 
+type commandAndResponse struct {
+	command GameCommand
+	done    chan bool
+}
+
 type Arena struct {
 	polygons       [360]*Polygon
 	heroCounter    int
@@ -39,7 +44,7 @@ type Arena struct {
 	controlChan    chan HeroControls
 	joinChan       chan joinRequest
 	quitChan       chan *list.Element
-	commandChan    chan GameCommand
+	commandChan    chan commandAndResponse
 	viewRemotes    []chan *pb.GameState
 	viewChan       chan chan *pb.GameState
 }
@@ -50,8 +55,19 @@ func NewArena() *Arena {
 		controlChan: make(chan HeroControls),
 		joinChan:    make(chan joinRequest),
 		quitChan:    make(chan *list.Element),
-		commandChan: make(chan GameCommand),
+		commandChan: make(chan commandAndResponse),
 		viewChan:    make(chan chan *pb.GameState),
+	}
+	a.reset()
+	go a.Run()
+	return a
+}
+
+func (a *Arena) reset() {
+	for e := a.heroes.Front(); e != nil; e = e.Next() {
+		h := e.Value.(*Hero)
+		h.score = 0
+		h.Spawn()
 	}
 	for i := 0; i < 30; i++ {
 		a.polygons[i] = &Polygon{shape: Pentagon}
@@ -62,8 +78,6 @@ func NewArena() *Arena {
 	for i := 90; i < 360; i++ {
 		a.polygons[i] = &Polygon{shape: Square}
 	}
-	go a.Run()
-	return a
 }
 
 func (a *Arena) Join(name string) *list.Element {
@@ -299,20 +313,33 @@ func (a *Arena) Run() {
 		case cgs := <-a.viewChan:
 			a.viewRemotes = append(a.viewRemotes, cgs)
 		case c := <-a.commandChan:
-			switch c {
+			switch c.command {
 			case CommandPause:
-				log.Println("Game Paused")
 				paused = true
+				log.Println("Game Paused")
 			case CommandResume:
-				log.Println("Game Resumed")
 				paused = false
+				log.Println("Game Resumed")
 			case CommandTick:
 				tickCount++
 				a.tick()
 				a.broadcast()
-			case c:
-				log.Printf("No known action to %q", c)
+			case CommandReset:
+				log.Println("Game Reset")
+				a.reset()
+			default:
+				log.Printf("No known action to %q", c.command)
 			}
+			c.done <- true
 		}
 	}
+}
+
+func (a *Arena) Command(cmd GameCommand) chan bool {
+	c := commandAndResponse{
+		cmd,
+		make(chan bool, 1),
+	}
+	a.commandChan <- c
+	return c.done
 }

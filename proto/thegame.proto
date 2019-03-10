@@ -5,7 +5,7 @@ option go_package = "pb";
 service TheGame {
     rpc Game(stream Controls) returns (stream GameState);
     rpc View(ViewRequest) returns (stream GameState);
-    rpc Admin(stream Command) returns (stream CommandResponse);
+    rpc Admin(Command) returns (CommandResponse);
 }
 
 message Controls {
@@ -97,8 +97,8 @@ message Command {
     bool resume = 2;
     bool pause = 3;
     bool tick = 4;
+    bool game_reset = 5;
 }
 
 message CommandResponse {
-    bool game_paused = 1;
 }

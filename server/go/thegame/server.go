@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -86,39 +87,26 @@ func (s *server) View(view *pb.ViewRequest, stream pb.TheGame_ViewServer) error 
 	return nil
 }
 
-func (s *server) Admin(stream pb.TheGame_AdminServer) error {
-	auth, err := stream.Recv()
-	if err != nil {
-		log.Printf("Cannot receive command: %v", err)
-		return err
-	}
+func (s *server) Admin(ctx context.Context, command *pb.Command) (*pb.CommandResponse, error) {
 	if s.adminToken == "" {
-		return errors.New("Admin disabled")
+		return nil, errors.New("Admin disabled")
 	}
-	if auth.Token != s.adminToken {
-		return errors.New("Invalid token")
+	if command.Token != s.adminToken {
+		return nil, errors.New("Invalid token")
 	}
-	for {
-		command, err := stream.Recv()
-		if err != nil {
-			log.Printf("Failed to recv admin command: %v", err)
-			return err
-		}
-		if command.Resume {
-			s.arena.commandChan <- CommandResume
-		}
-		if command.Pause {
-			s.arena.commandChan <- CommandPause
-		}
-		if command.Tick {
-			s.arena.commandChan <- CommandTick
-		}
-		err = stream.Send(&pb.CommandResponse{})
-		if err != nil {
-			log.Printf("Failed to send admin command response: %v", err)
-			return err
-		}
+	if command.Resume {
+		<-s.arena.Command(CommandResume)
 	}
+	if command.Pause {
+		<-s.arena.Command(CommandPause)
+	}
+	if command.Tick {
+		<-s.arena.Command(CommandTick)
+	}
+	if command.GameReset {
+		<-s.arena.Command(CommandReset)
+	}
+	return &pb.CommandResponse{}, nil
 }
 
 func main() {
@@ -137,11 +125,13 @@ func main() {
 			fmt.Scanln(&line)
 			switch line {
 			case "p":
-				gs.arena.commandChan <- CommandPause
+				gs.arena.Command(CommandPause)
 			case "r":
-				gs.arena.commandChan <- CommandResume
+				gs.arena.Command(CommandResume)
 			case "t":
-				gs.arena.commandChan <- CommandTick
+				gs.arena.Command(CommandTick)
+			case "reset":
+				gs.arena.Command(CommandReset)
 			default:
 				fmt.Printf("Unknown command: %q\n", line)
 			}

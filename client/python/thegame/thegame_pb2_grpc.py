@@ -24,7 +24,7 @@ class TheGameStub(object):
         request_serializer=thegame_dot_thegame__pb2.ViewRequest.SerializeToString,
         response_deserializer=thegame_dot_thegame__pb2.GameState.FromString,
         )
-    self.Admin = channel.stream_stream(
+    self.Admin = channel.unary_unary(
         '/TheGame/Admin',
         request_serializer=thegame_dot_thegame__pb2.Command.SerializeToString,
         response_deserializer=thegame_dot_thegame__pb2.CommandResponse.FromString,
@@ -49,7 +49,7 @@ class TheGameServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def Admin(self, request_iterator, context):
+  def Admin(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -69,7 +69,7 @@ def add_TheGameServicer_to_server(servicer, server):
           request_deserializer=thegame_dot_thegame__pb2.ViewRequest.FromString,
           response_serializer=thegame_dot_thegame__pb2.GameState.SerializeToString,
       ),
-      'Admin': grpc.stream_stream_rpc_method_handler(
+      'Admin': grpc.unary_unary_rpc_method_handler(
           servicer.Admin,
           request_deserializer=thegame_dot_thegame__pb2.Command.FromString,
           response_serializer=thegame_dot_thegame__pb2.CommandResponse.SerializeToString,

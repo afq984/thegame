@@ -6,4 +6,5 @@ const (
 	CommandPause GameCommand = iota
 	CommandResume
 	CommandTick
+	CommandReset
 )
