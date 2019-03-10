@@ -8,13 +8,41 @@ from thegame import thegame_pb2, thegame_pb2_grpc
 from thegame.abilities import Ability
 
 
-class Stop:
-    '''Asks the generator to stop'''
+class RequestIterator:
+    """
+    Helper class to emit streaming grpc requests
+
+    Only supports 1 consumer, may deadlock if more than 1
+    """
+
+    _STOP = object()  # ask the queue to stop iterating
+
+    def __init__(self, name):
+        self.queue = queue.Queue()
+        self.queue.put(thegame_pb2.Controls(name=name))
+        self.stopped = False
+
+    def __next__(self):
+        if self.stopped:
+            raise StopIteration
+        obj = self.queue.get()
+        if obj is self._STOP:
+            self.stopped = True
+            raise StopIteration
+        return obj
+
+    def emit(self, obj):
+        self.queue.put(obj)
+
+    def stop(self):
+        self.queue.put(self._STOP)
 
 
 class HeadlessClient:
     def __init__(self):
         super().__init__()
+        self.remote = None
+        self._controls = None
         self.init()
 
     def init(self):
@@ -122,7 +150,7 @@ class HeadlessClient:
         # warpper to action() to inject stuff
         return self.action(**kwds)
 
-    def _response_to_controls(self, response):
+    def _response_to_objects(self, response):
         polygons = list(map(Polygon, response.polygons))
         bullets = list(map(Bullet, response.bullets))
         heroes = []
@@ -135,28 +163,31 @@ class HeadlessClient:
                 heroes.append(thero)
         if self._hero is None:
             raise Exception('player hero not found in hero list')
-        self._controls = thegame_pb2.Controls()
-        self._action(
+        return dict(
             hero=self._hero,
             heroes=heroes,
             polygons=polygons,
             bullets=bullets,
         )
+
+    def _response_to_controls(self, response):
+        objects = self._response_to_objects(response)
+        self._controls = thegame_pb2.Controls()
+        self._action(**objects)
         return self._controls
 
     def run(self):
         remote = self.remote
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
-        self._queue = queue.Queue()
         try:
-            request_iterator = self._gen()
+            request_iterator = RequestIterator(name=getattr(self, 'name', ''))
             response_iterator = stub.Game(request_iterator)
             for response in response_iterator:
                 self._game_state = response
-                self._queue.put(self._response_to_controls(response))
+                request_iterator.emit(self._response_to_controls(response))
         finally:
-            self._queue.put(Stop)
+            request_iterator.stop()
 
     def _parse(self):
         import argparse
