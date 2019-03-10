@@ -67,7 +67,7 @@ func (a *Arena) reset() {
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
 		h.score = 0
-		h.Spawn()
+		h.ReadyToSpawn()
 	}
 	for i := 0; i < 30; i++ {
 		a.polygons[i] = &Polygon{shape: Pentagon}
@@ -303,7 +303,7 @@ func (a *Arena) Run() {
 		case jr := <-a.joinChan:
 			a.heroCounter++
 			h := NewHero(a.heroCounter, jr.name)
-			h.Spawn()
+			h.ReadyToSpawn()
 			log.Println(h, "joined the arena")
 			jr.ch <- a.heroes.PushBack(h)
 		case l := <-a.quitChan:

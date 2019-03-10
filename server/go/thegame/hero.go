@@ -195,6 +195,8 @@ func (h *Hero) Action(a *Arena) {
 	if h.controls.Accelerate {
 		h.velocity += cmplx.Rect(h.MaxSpeed()/10, h.controls.AccelerationDirection)
 	}
+
+	h.controls = nil
 }
 
 func (h *Hero) Spawn() {
@@ -216,6 +218,13 @@ func (h *Hero) Spawn() {
 	h.lastHit = nil
 	h.respawnCooldown = 180
 	log.Println(h, "spawned at", h.position)
+}
+
+// ReadyToSpawn marks the hero ready to spawn on the next tick
+func (h *Hero) ReadyToSpawn() {
+	h.health = 0
+	h.visible = false
+	h.respawnCooldown = 0
 }
 
 // TryRespawn checks for the respawn cooldown, and if it is 0,
