@@ -122,7 +122,11 @@ func main() {
 	go func() {
 		for {
 			var line string
-			fmt.Scanln(&line)
+			_, err := fmt.Scanln(&line)
+			if err != nil {
+				fmt.Printf("Failed to read line: %v", err)
+				break
+			}
 			switch line {
 			case "p":
 				gs.arena.Command(CommandPause)
