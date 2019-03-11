@@ -1,7 +1,7 @@
 import itertools
 
-from PyQt5.QtCore import Qt, QRectF, QPoint
-from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtCore import Qt, QRect, QRectF, QPoint
+from PyQt5.QtGui import QPainter, QColor, QBrush
 from PyQt5.QtWidgets import QGraphicsScene
 
 from thegame.gui.objecttracker import ObjectTracker
@@ -15,8 +15,8 @@ from thegame.gui.scoreboard import Scoreboard
 class Scene(QGraphicsScene):
     def __init__(self):
         super().__init__()
-        self.width = 5000
-        self.height = 4000
+        self.width = 5000 + 1600
+        self.height = 4000 + 1600
         self.margin = 10
 
         self.keys = {
@@ -49,6 +49,10 @@ class Scene(QGraphicsScene):
             painter.drawLine(i, 5, i, self.height + 5)
         for i in range(-5, self.height + 20 + 1, 20):
             painter.drawLine(5, i, self.width + 5, i)
+        painter.fillRect(QRect(0, 0, 6600, 800), QBrush(QColor(0, 0, 0, 64)))
+        painter.fillRect(QRect(0, 4800, 6600, 800), QBrush(QColor(0, 0, 0, 64)))
+        painter.fillRect(QRect(0, 800, 800, 4000), QBrush(QColor(0, 0, 0, 64)))
+        painter.fillRect(QRect(5800, 800, 800, 4000), QBrush(QColor(0, 0, 0, 64)))
 
     def updateDataSlot(self):
         self.updateData(**self.rpc.data)
@@ -91,7 +95,7 @@ class Scene(QGraphicsScene):
 
         view, = self.views()
         center_position = self.rpc._game_state.meta.center_position
-        view.centerOn(center_position.x, center_position.y)
+        view.centerOn(center_position.x + 800, center_position.y + 800)
         self.setUiPos(view)
 
         # XXX this is ugly

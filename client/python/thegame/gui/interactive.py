@@ -39,7 +39,7 @@ class InteractiveClient(GuiClient):
             self.accelerate(math.atan2(y, x))
         mpos = self.scene.views()[0].mapToScene(self.scene.mousePos)
         self.shoot_at(
-            mpos.x(), mpos.y(),
+            mpos.x() - 800, mpos.y() - 800,
             rotate_only=not self.scene.mouseDown)
         try:
             while True:
