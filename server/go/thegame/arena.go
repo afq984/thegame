@@ -14,10 +14,12 @@ import (
 
 var ticksPerSecond int
 var startGameAsPaused bool
+var mustSendUpdates bool
 
 func init() {
 	flag.IntVar(&ticksPerSecond, "tps", 30, "ticks per second")
 	flag.BoolVar(&startGameAsPaused, "pause", false, "start game as paused")
+	flag.BoolVar(&mustSendUpdates, "must-send-updates", false, "don't allow dropping game updates")
 }
 
 type HeroControls struct {
@@ -286,10 +288,14 @@ func (a *Arena) broadcast() {
 			Bullets:  sbullets,
 			Heroes:   sheroes,
 		}
-		select {
-		case h.UpdateChan <- state:
-		default:
-			log.Println(h, "not responding to updates")
+		if mustSendUpdates {
+			h.UpdateChan <- state
+		} else {
+			select {
+			case h.UpdateChan <- state:
+			default:
+				log.Println(h, "not responding to updates")
+			}
 		}
 		if h == maxScoreHero {
 			a.broadcastView(state)
