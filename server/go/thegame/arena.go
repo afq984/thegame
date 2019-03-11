@@ -316,7 +316,9 @@ func (a *Arena) Run() {
 				tickCount++
 				a.tick()
 			}
-			a.broadcast()
+			if !mustSendUpdates || !paused {
+				a.broadcast()
+			}
 		case <-perfTick:
 			log.Println("ticks per second:", tickCount-lastTick)
 			lastTick = tickCount
