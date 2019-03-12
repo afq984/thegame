@@ -23,10 +23,6 @@ class GuiClient(HeadlessClient, QThread):
         scene.attachClient(self)
         view.attachClient(self)
 
-    def run(self):
-        self._parse()
-        super().run()
-
     @classmethod
     def main(cls):
         from thegame.gui import main

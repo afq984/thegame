@@ -1,5 +1,6 @@
 import math
 import queue
+import argparse
 
 import grpc
 
@@ -41,7 +42,6 @@ class RequestIterator:
 class HeadlessClient:
     def __init__(self):
         super().__init__()
-        self.remote = None
         self._controls = None
         self.init()
 
@@ -177,7 +177,8 @@ class HeadlessClient:
         return self._controls
 
     def run(self):
-        remote = self.remote
+        remote = self.options.remote
+
         channel = grpc.insecure_channel(remote)
         stub = thegame_pb2_grpc.TheGameStub(channel)
         try:
@@ -189,20 +190,19 @@ class HeadlessClient:
         finally:
             request_iterator.stop()
 
-    def _parse(self):
-        import argparse
-        parser = argparse.ArgumentParser(
-            allow_abbrev=False,
-
-        )
+    @classmethod
+    def _configure_parser(cls, parser):
         parser.add_argument(
             'remote',
             nargs='?',
             default='localhost:50051',
             help='the location of the server'
         )
-        args = parser.parse_args()
-        self.remote = args.remote
+
+    def _parse_args(self):
+        parser = argparse.ArgumentParser(allow_abbrev=False)
+        self._configure_parser(parser)
+        self.options = parser.parse_args()
 
     @classmethod
     def main(cls):
@@ -210,5 +210,5 @@ class HeadlessClient:
         parse command line arguments and run the client
         '''
         self = cls()
-        self._parse()
+        self._parse_args()
         self.run()
