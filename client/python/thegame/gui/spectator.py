@@ -51,7 +51,7 @@ class SpectatorClient(GuiClient):
     @classmethod
     def _configure_parser(cls, parser):
         super()._configure_parser(parser)
-        parser.add_argument('token')
+        parser.add_argument('--token', default='')
         parser.add_argument('--smooth', action='store_true')
 
     def run(self):
