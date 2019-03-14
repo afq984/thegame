@@ -320,7 +320,9 @@ func (a *Arena) Run() {
 				a.broadcast()
 			}
 		case <-perfTick:
-			log.Println("ticks per second:", tickCount-lastTick)
+			if !paused {
+				log.Println("ticks per second:", tickCount-lastTick)
+			}
 			lastTick = tickCount
 		case hc := <-a.controlChan:
 			if hc.Hero.controls == nil {
