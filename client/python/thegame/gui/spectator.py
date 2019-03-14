@@ -7,6 +7,7 @@ import time
 import threading
 from thegame.gui import GuiClient
 from thegame import thegame_pb2, thegame_pb2_grpc
+from thegame.api import GameState
 
 
 class SpectatorClient(GuiClient):
@@ -67,7 +68,7 @@ class SpectatorClient(GuiClient):
         stub = thegame_pb2_grpc.TheGameStub(channel)
         for response in stub.View(thegame_pb2.ViewRequest(token=token)):
             self._game_state = response
-            self._response_to_controls(response)
+            self._game_state_to_controls(GameState(response))
 
 
 if __name__ == '__main__':

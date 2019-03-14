@@ -1,15 +1,18 @@
+import os
 import math
 import queue
+import secrets
+import subprocess
 import argparse
 
 import grpc
 
 from thegame.entity import Polygon, Bullet, Hero
-from thegame import thegame_pb2, thegame_pb2_grpc
+from thegame import thegame_pb2 as pb2, thegame_pb2_grpc as pb2_grpc
 from thegame.abilities import Ability
 
 
-class RequestIterator:
+class _RequestIterator:
     """
     Helper class to emit streaming grpc requests
 
@@ -20,7 +23,7 @@ class RequestIterator:
 
     def __init__(self, name):
         self.queue = queue.Queue()
-        self.queue.put(thegame_pb2.Controls(name=name))
+        self.queue.put(pb2.Controls(name=name))
         self.stopped = False
 
     def __next__(self):
@@ -37,6 +40,101 @@ class RequestIterator:
 
     def stop(self):
         self.queue.put(self._STOP)
+
+
+class LockStepServer:
+    def __init__(self, listen=':50051', bin='thegame'):
+        """
+        listen: address to listen to
+        bin: game server command
+        """
+        self.cmd = [bin, '--pause', '--must-send-updates', '--listen', listen]
+        self.admin_token = secrets.token_hex()
+        self.proc = subprocess.Popen(
+            self.cmd,
+            stdin=subprocess.DEVNULL,
+            env={'THEGAME_ADMIN_TOKEN': self.admin_token, **os.environ},
+        )
+        host, _, port = listen.partition(':')
+        if not host:
+            host = 'localhost'
+        channel = grpc.insecure_channel(f'{host}:{port}')
+        self.stub = pb2_grpc.TheGameStub(channel)
+
+    def terminate(self):
+        """
+        terminate the server
+        """
+        self.proc.terminate()
+
+    def _command(self, **kwargs):
+        self.stub.Admin(pb2.Command(token=self.admin_token, **kwargs))
+
+    def tick(self):
+        """run a tick on the server"""
+        self._command(tick=True)
+
+    def wait_for_controls(self):
+        """wait for all palyers to send their controls for the current tick"""
+        self._command(wait_for_controls=True)
+
+    def reset(self):
+        """reset the game"""
+        self._command(game_reset=True)
+
+
+class RawClient:
+    def __init__(self, server_address, name):
+        channel = grpc.insecure_channel(server_address)
+        self.stub = pb2_grpc.TheGameStub(channel)
+        self.request_iterator = _RequestIterator(name=name)
+        self.response_iterator = self.stub.Game(self.request_iterator)
+
+    def fetch_state(self):
+        """
+        get the next GameState
+
+        this method blocks until a GameState is available
+        """
+        return GameState(next(self.response_iterator))
+
+    def send_controls(self, controls: pb2.Controls):
+        """
+        schedules to send a Controls object to the server
+
+        this method does not block
+        """
+        self.request_iterator.emit(controls)
+
+    def close(self):
+        self.request_iterator.stop()
+
+
+class GameState:
+
+    __slots__ = ('hero', 'heroes', 'polygons', 'bullets', 'meta')
+
+    def __init__(self, pb2_gs: pb2.GameState):
+        self.polygons = list(map(Polygon, pb2_gs.polygons))
+        self.bullets = list(map(Bullet, pb2_gs.bullets))
+        heroes = []
+        self.hero = None
+        for rhero in pb2_gs.heroes:
+            thero = Hero(rhero)
+            if thero.id == pb2_gs.meta.hero_id:
+                self.hero = thero
+            else:
+                heroes.append(thero)
+        self.heroes = heroes
+        self.meta = pb2_gs.meta
+        if self.hero is None:
+            raise Exception('player hero not found in hero list')
+
+    def as_dict(self, *, exclude=set()):
+        return {
+            attr: getattr(self, attr) for attr in self.__slots__
+            if attr not in exclude
+        }
 
 
 class HeadlessClient:
@@ -90,7 +188,7 @@ class HeadlessClient:
         :param float x: the absolute x axis
         :param float y: the absolute y axis
         '''
-        if (x, y) != self._hero.position:
+        if (x, y) != self._game_state.hero.position:
             self.accelerate(self._pos_to_dir(x, y))
 
     def shoot(self, direction, *, rotate_only=False):
@@ -132,63 +230,29 @@ class HeadlessClient:
         self._controls.level_up.append(Ability(ability))
 
     def _pos_to_dir(self, x, y):
-        sx, sy = self._hero.position
+        sx, sy = self._game_state.hero.position
         return math.atan2(y - sy, x - sx)
-
-    def _gen(self):
-        '''
-        Generate requests to grpc
-        '''
-        yield thegame_pb2.Controls(name=getattr(self, 'name', ''))
-        while True:
-            controls = self._queue.get()
-            if controls is Stop:
-                break
-            yield controls
 
     def _action(self, **kwds):
         # warpper to action() to inject stuff
         return self.action(**kwds)
 
-    def _response_to_objects(self, response):
-        polygons = list(map(Polygon, response.polygons))
-        bullets = list(map(Bullet, response.bullets))
-        heroes = []
-        self._hero = None
-        for rhero in response.heroes:
-            thero = Hero(rhero)
-            if thero.id == response.meta.hero_id:
-                self._hero = thero
-            else:
-                heroes.append(thero)
-        if self._hero is None:
-            raise Exception('player hero not found in hero list')
-        return dict(
-            hero=self._hero,
-            heroes=heroes,
-            polygons=polygons,
-            bullets=bullets,
-        )
-
-    def _response_to_controls(self, response):
-        objects = self._response_to_objects(response)
-        self._controls = thegame_pb2.Controls()
-        self._action(**objects)
+    def _game_state_to_controls(self, gs):
+        self._controls = pb2.Controls()
+        self._action(**gs.as_dict(exclude=('meta',)))
         return self._controls
 
     def run(self):
         remote = self.options.remote
 
-        channel = grpc.insecure_channel(remote)
-        stub = thegame_pb2_grpc.TheGameStub(channel)
+        raw_client = RawClient(remote, getattr(self, 'name', ''))
         try:
-            request_iterator = RequestIterator(name=getattr(self, 'name', ''))
-            response_iterator = stub.Game(request_iterator)
-            for response in response_iterator:
-                self._game_state = response
-                request_iterator.emit(self._response_to_controls(response))
+            while True:
+                self._game_state = raw_client.fetch_state()
+                controls = self._game_state_to_controls(self._game_state)
+                raw_client.send_controls(controls)
         finally:
-            request_iterator.stop()
+            raw_client.close()
 
     @classmethod
     def _configure_parser(cls, parser):
