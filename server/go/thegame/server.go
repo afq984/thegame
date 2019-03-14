@@ -120,6 +120,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	port := lis.Addr().(*net.TCPAddr).Port
+	hostname, err := os.Hostname()
+	if err != nil {
+		panic(err)
+	}
+	log.SetPrefix(fmt.Sprintf("[%s:%d] ", hostname, port))
+
 	s := grpc.NewServer()
 	gs := newServer()
 	pb.RegisterTheGameServer(s, gs)
