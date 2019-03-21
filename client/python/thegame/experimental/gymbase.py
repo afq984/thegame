@@ -30,7 +30,12 @@ class SinglePlayerEnv(gym.Env):
         self.client = RawClient(f'{hostname}:{port}', 'gym')
 
     def __del__(self):
-        self.server.terminate()
+        try:
+            s = self.server
+        except AttributeError:
+            pass
+        else:
+            s.terminate()
 
     def seed(self, seed):
         pass
