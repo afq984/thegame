@@ -1,25 +1,33 @@
+import urllib.parse
+
 import gym
 
 from thegame.api import GameState, LockStepServer, RawClient
 from thegame import thegame_pb2 as pb2
 
 
+def _splitaddrport(addrport):
+    assert '/' not in addrport
+    r = urllib.parse.urlsplit(f'//{addrport}')
+    return r.hostname, r.port
+
+
 class SinglePlayerEnv(gym.Env):
     metadata = {'render.modes': ['human']}
     total_steps = 16384
 
-    def __init__(self, bin='thegame', port=None):
+    def __init__(self, bin='thegame', listen='localhost:50051'):
         """
         bin: relative or absolute path to thegame server.
              defaults to finding `thegame` on $PATH
-        port: the port the server should be running on.
-              defaults to a random port between 50000~60000
+        listen: the [address]:port the server should be listening on
+                omit the address to listen on all addresses
         """
-        if port is None:
-            import random
-            port = random.randrange(50000, 60000)
-        self.server = LockStepServer(f':{port}', bin=bin)
-        self.client = RawClient(f'localhost:{port}', 'gym')
+        hostname, port = _splitaddrport(listen)
+        if hostname is None:
+            hostname = 'localhost'
+        self.server = LockStepServer(listen, bin=bin)
+        self.client = RawClient(f'{hostname}:{port}', 'gym')
 
     def __del__(self):
         self.server.terminate()
