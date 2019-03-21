@@ -1,12 +1,25 @@
 import gym
 
-from thegame.api import GameState
+from thegame.api import GameState, LockStepServer, RawClient
 from thegame import thegame_pb2 as pb2
 
 
-class BaseEnv(gym.Env):
+class SinglePlayerEnv(gym.Env):
     metadata = {'render.modes': ['human']}
     total_steps = 16384
+
+    def __init__(self, bin='thegame', port=None):
+        """
+        bin: relative or absolute path to thegame server.
+             defaults to finding `thegame` on $PATH
+        port: the port the server should be running on.
+              defaults to a random port between 50000~60000
+        """
+        if port is None:
+            import random
+            port = random.randrange(50000, 60000)
+        self.server = LockStepServer(f':{port}', bin=bin)
+        self.client = RawClient(f'localhost:{port}', 'gym')
 
     def __del__(self):
         self.server.terminate()
