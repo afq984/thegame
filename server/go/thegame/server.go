@@ -137,7 +137,7 @@ func main() {
 			var line string
 			_, err := fmt.Scanln(&line)
 			if err != nil {
-				fmt.Printf("Failed to read line: %v", err)
+				log.Printf("Failed to read line: %v", err)
 				break
 			}
 			switch line {
@@ -150,7 +150,7 @@ func main() {
 			case "reset":
 				gs.arena.Command(CommandReset)
 			default:
-				fmt.Printf("Unknown command: %q\n", line)
+				log.Printf("Unknown command: %q\n", line)
 			}
 		}
 	}()
