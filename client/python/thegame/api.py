@@ -12,6 +12,9 @@ from thegame import thegame_pb2 as pb2, thegame_pb2_grpc as pb2_grpc
 from thegame.abilities import Ability
 
 
+Controls = pb2.Controls
+
+
 class _RequestIterator:
     """
     Helper class to emit streaming grpc requests
