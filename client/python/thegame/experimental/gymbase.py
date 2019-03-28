@@ -50,7 +50,7 @@ class SinglePlayerEnv(gym.Env):
     def step(self, action):
         controls = self.action_to_controls(action)
         self.client.send_controls(controls)
-
+        self.server.wait_for_controls()
         self.server.tick()
         self.step_num += 1
 
