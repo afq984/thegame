@@ -251,6 +251,7 @@ class HeadlessClient:
         return self.action(**kwds)
 
     def _game_state_to_controls(self, gs):
+        self._game_state = gs
         self._controls = pb2.Controls()
         self._action(**gs.as_dict(exclude=('meta',)))
         return self._controls
@@ -261,8 +262,8 @@ class HeadlessClient:
         raw_client = RawClient(remote, getattr(self, 'name', ''))
         try:
             while True:
-                self._game_state = raw_client.fetch_state()
-                controls = self._game_state_to_controls(self._game_state)
+                game_state = raw_client.fetch_state()
+                controls = self._game_state_to_controls(game_state)
                 raw_client.send_controls(controls)
         finally:
             raw_client.close()
