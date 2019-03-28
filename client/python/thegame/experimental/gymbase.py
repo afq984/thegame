@@ -3,7 +3,7 @@ import urllib.parse
 import gym
 
 from thegame.api import GameState, LockStepServer, RawClient
-from thegame import thegame_pb2 as pb2
+from thegame.thegame_pb2 import Controls
 
 
 def _splitaddrport(addrport):
@@ -14,20 +14,27 @@ def _splitaddrport(addrport):
 
 class SinglePlayerEnv(gym.Env):
     metadata = {'render.modes': ['human']}
-    total_steps = 16384
 
-    def __init__(self, bin='thegame', listen='localhost:50051'):
+    def __init__(
+            self,
+            *,
+            server_bin='thegame',
+            listen='localhost:50051',
+            total_steps=16384,
+            client_name='gym'
+    ):
         """
-        bin: relative or absolute path to thegame server.
-             defaults to finding `thegame` on $PATH
+        server_bin: relative or absolute path to thegame server.
+                    defaults to finding `thegame` on $PATH
         listen: the [address]:port the server should be listening on
                 omit the address to listen on all addresses
         """
+        self.total_steps = total_steps
         hostname, port = _splitaddrport(listen)
         if hostname is None:
             hostname = 'localhost'
-        self.server = LockStepServer(listen, bin=bin)
-        self.client = RawClient(f'{hostname}:{port}', 'gym')
+        self.server = LockStepServer(listen, bin=server_bin)
+        self.client = RawClient(f'{hostname}:{port}', name=client_name)
 
     def __del__(self):
         try:
@@ -60,7 +67,7 @@ class SinglePlayerEnv(gym.Env):
         self.game_state = self.client.fetch_state()
         return self.game_state_to_observation(self.game_state)
 
-    def action_to_controls(self, action) -> pb2.Controls:
+    def action_to_controls(self, action) -> Controls:
         raise NotImplementedError
 
     def game_state_to_observation(self, game_state: GameState):
