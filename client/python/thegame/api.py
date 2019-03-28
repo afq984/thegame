@@ -45,6 +45,16 @@ class _RequestIterator:
         self.queue.put(self._STOP)
 
 
+def _ready_insecure_channel(address):
+    channel = grpc.insecure_channel(address)
+    future = grpc.channel_ready_future(channel)
+    try:
+        future.result(timeout=10)
+    except grpc.FutureTimeoutError as e:
+        raise Exception(f'Timed out connecting to {address}') from e
+    return channel
+
+
 class LockStepServer:
     def __init__(self, listen=':50051', bin='thegame'):
         """
@@ -61,7 +71,7 @@ class LockStepServer:
         host, _, port = listen.partition(':')
         if not host:
             host = 'localhost'
-        channel = grpc.insecure_channel(f'{host}:{port}')
+        channel = _ready_insecure_channel(f'{host}:{port}')
         self.stub = pb2_grpc.TheGameStub(channel)
 
     def terminate(self):
@@ -88,7 +98,7 @@ class LockStepServer:
 
 class RawClient:
     def __init__(self, server_address, name):
-        channel = grpc.insecure_channel(server_address)
+        channel = _ready_insecure_channel(server_address)
         self.stub = pb2_grpc.TheGameStub(channel)
         self.request_iterator = _RequestIterator(name=name)
         self.response_iterator = self.stub.Game(self.request_iterator)
