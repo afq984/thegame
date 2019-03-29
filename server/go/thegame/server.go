@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"time"
 
 	"google.golang.org/grpc"
 
@@ -15,9 +16,11 @@ import (
 )
 
 var listen string
+var terminateIfParentIsNot int
 
 func init() {
 	flag.StringVar(&listen, "listen", ":50051", "[host]:port to listen to")
+	flag.IntVar(&terminateIfParentIsNot, "terminate-if-parent-is-not", -1, "auto terminate the server if the parent's pid is not the given value")
 }
 
 type server struct {
@@ -154,6 +157,19 @@ func main() {
 			}
 		}
 	}()
+	if terminateIfParentIsNot >= 0 {
+		go func() {
+			for range time.Tick(time.Second / 2) {
+				ppid := os.Getppid()
+				if terminateIfParentIsNot != ppid {
+					log.Printf(
+						"Terminating due to --terminate-if-parent-is-not=%v (current ppid: %v)",
+						terminateIfParentIsNot, ppid)
+					s.Stop()
+				}
+			}
+		}()
+	}
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

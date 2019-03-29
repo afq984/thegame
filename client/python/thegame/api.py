@@ -61,7 +61,12 @@ class LockStepServer:
         listen: address to listen to
         bin: game server command
         """
-        self.cmd = [bin, '--pause', '--must-send-updates', '--listen', listen]
+        self.cmd = [
+            bin,
+            '--pause', '--must-send-updates',
+            f'--listen={listen}',
+            f'--terminate-if-parent-is-not={os.getpid()}',
+        ]
         self.admin_token = secrets.token_hex()
         self.proc = subprocess.Popen(
             self.cmd,
