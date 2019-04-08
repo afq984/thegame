@@ -65,11 +65,11 @@ func TickPosition(m Movable) {
 	ApplyFriction(m)
 }
 
-func randWithin(a, b float64) float64 {
-	return rand.Float64()*(b-a) + a
+func randWithin(r *rand.Rand, a, b float64) float64 {
+	return r.Float64()*(b-a) + a
 }
 
 // RandomPosition returns a random point that is within the arena's bounds
-func RandomPosition() complex128 {
-	return complex(randWithin(XMin, XMax), randWithin(YMin, YMax))
+func (a *Arena) RandomPosition() complex128 {
+	return complex(randWithin(a.rand, XMin, XMax), randWithin(a.rand, YMin, YMax))
 }

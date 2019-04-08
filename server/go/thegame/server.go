@@ -49,28 +49,24 @@ func (s *server) Game(stream pb.TheGame_GameServer) error {
 		log.Printf("join initialization failed: %v", err)
 		return err
 	}
-	element := s.arena.Join(join.Name)
-	hero := element.Value.(*Hero)
+	heroHandle := s.arena.Join(join.Name)
 	go func() {
-		updates := hero.UpdateChan
+		updates := heroHandle.UpdateChan()
 		for gameState := range updates {
 			err := stream.Send(gameState)
 			if err != nil {
-				log.Printf("cannot send gameState to %v: %v", hero, err)
+				log.Printf("cannot send gameState to %v: %v", heroHandle, err)
 			}
 		}
 	}()
-	defer s.arena.Quit(element)
+	defer s.arena.Quit(heroHandle)
 	for {
 		controls, err := stream.Recv()
 		if err != nil {
-			log.Printf("cannot receive controls from %v: %v", hero, err)
+			log.Printf("cannot receive controls from %v: %v", heroHandle, err)
 			return err
 		}
-		s.arena.controlChan <- HeroControls{
-			Hero:     hero,
-			Controls: controls,
-		}
+		s.arena.controlChan <- heroHandle.HeroControls(controls)
 	}
 }
 

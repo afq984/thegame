@@ -197,7 +197,7 @@ func (h *Hero) Action(a *Arena) {
 	}
 }
 
-func (h *Hero) Spawn() {
+func (h *Hero) Spawn(a *Arena) {
 	experience := h.score / 3
 	h.score = 0
 	h.experience = 0
@@ -211,7 +211,7 @@ func (h *Hero) Spawn() {
 	h.health = h.MaxHealth()
 	h.visible = true
 	h.AcquireExperience(experience)
-	h.position = RandomPosition()
+	h.position = a.RandomPosition()
 	h.velocity = 0
 	h.lastHit = nil
 	h.respawnCooldown = 180
@@ -227,9 +227,9 @@ func (h *Hero) ReadyToSpawn() {
 
 // TryRespawn checks for the respawn cooldown, and if it is 0,
 // respawn the hero
-func (h *Hero) TryRespawn() {
+func (h *Hero) TryRespawn(a *Arena) {
 	if h.respawnCooldown == 0 {
-		h.Spawn()
+		h.Spawn(a)
 	} else {
 		h.respawnCooldown--
 	}

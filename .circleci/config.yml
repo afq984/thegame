@@ -19,11 +19,13 @@ jobs:
           command: |
             cd server/go/thegame
             go build
+            go test
   s/go-get:
     docker:
       - image: circleci/golang:1.11
     steps:
       - run: go get github.com/afg984/thegame/server/go/thegame
+      - run: go test github.com/afg984/thegame/server/go/thegame
   c/py: &build_server_py_template
     working_directory: ~/thegame
     docker:

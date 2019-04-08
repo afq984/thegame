@@ -3,6 +3,7 @@ package main
 import (
 	"container/list"
 	"flag"
+	"fmt"
 	"log"
 	"math/rand"
 	"sort"
@@ -38,6 +39,7 @@ type commandAndResponse struct {
 }
 
 type Arena struct {
+	rand                *rand.Rand
 	polygons            [360]*Polygon
 	heroCounter         int
 	bulletCounter       int
@@ -57,6 +59,7 @@ type Arena struct {
 
 func NewArena() *Arena {
 	a := &Arena{
+		rand:                rand.New(rand.NewSource(1)),
 		heroes:              list.New(),
 		controlChan:         make(chan HeroControls),
 		joinChan:            make(chan joinRequest),
@@ -68,6 +71,33 @@ func NewArena() *Arena {
 	a.reset()
 	go a.Run()
 	return a
+}
+
+type HeroHandle struct {
+	element *list.Element
+	hero    *Hero
+}
+
+func newHeroHandle(element *list.Element) *HeroHandle {
+	return &HeroHandle{
+		element: element,
+		hero:    element.Value.(*Hero),
+	}
+}
+
+func (hh *HeroHandle) UpdateChan() chan *pb.GameState {
+	return hh.hero.UpdateChan
+}
+
+func (hh *HeroHandle) HeroControls(controls *pb.Controls) HeroControls {
+	return HeroControls{
+		hh.hero,
+		controls,
+	}
+}
+
+func (hh *HeroHandle) String() string {
+	return fmt.Sprintf("HeroHandle#%d", hh.hero.id)
 }
 
 func (a *Arena) reset() {
@@ -87,14 +117,14 @@ func (a *Arena) reset() {
 	}
 }
 
-func (a *Arena) Join(name string) *list.Element {
+func (a *Arena) Join(name string) *HeroHandle {
 	c := make(chan *list.Element)
 	a.joinChan <- joinRequest{name, c}
-	return <-c
+	return newHeroHandle(<-c)
 }
 
-func (a *Arena) Quit(e *list.Element) {
-	a.quitChan <- e
+func (a *Arena) Quit(hh *HeroHandle) {
+	a.quitChan <- hh.element
 }
 
 // gc cleans up unused objects
@@ -124,7 +154,7 @@ func (a *Arena) tick() {
 	for e := a.heroes.Front(); e != nil; e = e.Next() {
 		h := e.Value.(*Hero)
 		if !h.visible {
-			h.TryRespawn()
+			h.TryRespawn(a)
 		}
 		if h.visible {
 			TickPosition(h)
@@ -156,12 +186,12 @@ func (a *Arena) tick() {
 	// random respawn polygon
 	for _, p := range a.polygons {
 		if !p.visible {
-			if rand.Float64() < 0.008 {
+			if a.rand.Float64() < 0.008 {
 				a.polygonCounter++
 				p.id = a.polygonCounter
 				p.visible = true
 				p.health = p.MaxHealth()
-				p.position = RandomPosition()
+				p.position = a.RandomPosition()
 			}
 		}
 	}
@@ -391,4 +421,9 @@ func (a *Arena) AllControlsReceived() chan struct{} {
 	ch := a.waitForControlsChan
 	a.waitForControlsLock.Unlock()
 	return ch
+}
+
+// Seeds the arena's RNG
+func (a *Arena) Seed(seed int64) {
+	a.rand.Seed(seed)
 }
