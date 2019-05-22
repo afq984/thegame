@@ -65,12 +65,12 @@ class SinglePlayerEnv(gym.Env):
         self.server.reset()
         self.server.tick()
         self.game_state = self.client.fetch_state()
-        return self.game_state_to_observation(self.game_state)
+        return self.game_state_to_observation(self.game_state, reset=True)
 
     def action_to_controls(self, action) -> Controls:
         raise NotImplementedError
 
-    def game_state_to_observation(self, game_state: GameState):
+    def game_state_to_observation(self, game_state: GameState, reset=False):
         raise NotImplementedError
 
     def get_reward(self, prev_state, current_state):
