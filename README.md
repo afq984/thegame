@@ -37,7 +37,7 @@ To start the client:
 python3 example.py [SERVER_ADDRESS]
 ```
 
-The API documentation is at: https://afg984.github.io/thegame/
+The API documentation is at: https://afq984.github.io/thegame/
 
 ## Server
 
